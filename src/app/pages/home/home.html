@@ -1,0 +1,74 @@
+<div class="container mx-auto p-6">
+  <div class="mb-8">
+    <h1 class="text-4xl font-bold text-gray-900 mb-2">Welcome to Auctions</h1>
+    <p class="text-xl text-gray-600">Discover amazing items and place your bids</p>
+  </div>
+
+  @if (isLoading()) {
+    <div class="flex justify-center items-center py-12">
+      <p-progressSpinner />
+    </div>
+  }
+
+  @if (error()) {
+    <p-message severity="error" [text]="error()!" styleClass="mb-4" />
+  }
+
+  @if (!isLoading() && homeData()) {
+    <!-- Statistics Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+      <p-card>
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-sm font-medium">Total Auctions</p>
+            <p class="text-3xl font-bold text-blue-600">{{ homeData()!.totalAuctions }}</p>
+          </div>
+          <i class="pi pi-shopping-cart text-4xl text-blue-600"></i>
+        </div>
+      </p-card>
+
+      <p-card>
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-sm font-medium">Active Users</p>
+            <p class="text-3xl font-bold text-green-600">{{ homeData()!.activeUsers }}</p>
+          </div>
+          <i class="pi pi-users text-4xl text-green-600"></i>
+        </div>
+      </p-card>
+    </div>
+
+    <!-- Featured Auctions -->
+    <div class="mb-4">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">Featured Auctions</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      @for (auction of homeData()!.featuredAuctions; track auction.id) {
+        <p-card>
+          <ng-template pTemplate="header">
+            <img [src]="auction.imageUrl" [alt]="auction.title" class="w-full h-48 object-cover" />
+          </ng-template>
+
+          <div class="space-y-2">
+            <h3 class="text-xl font-bold text-gray-900">{{ auction.title }}</h3>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">Current Bid:</span>
+              <span class="text-lg font-bold text-green-600">\${{ auction.currentBid }}</span>
+            </div>
+            <div class="text-xs text-gray-500">
+              Ends: {{ auction.endDate | date:'short' }}
+            </div>
+          </div>
+
+          <ng-template pTemplate="footer">
+            <div class="flex justify-end">
+              <p-button label="View Details" icon="pi pi-eye" severity="secondary" size="small" />
+            </div>
+          </ng-template>
+        </p-card>
+      }
+    </div>
+  }
+</div>
+
