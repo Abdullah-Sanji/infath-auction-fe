@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "start": "nx serve",
+    "build": "nx build",
+    "watch": "nx build --watch --configuration development",
+    "test": "nx test",
     "serve:ssr:auctions-fe": "node dist/auctions-fe/server/server.mjs"
   },
   "prettier": {
@@ -44,9 +44,18 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@angular-devkit/core": "^20.3.7",
+    "@angular-devkit/schematics": "^20.3.7",
     "@angular/build": "^20.3.7",
     "@angular/cli": "^20.3.7",
     "@angular/compiler-cli": "^20.3.0",
+    "@nx/angular": "22.0.1",
+    "@nx/js": "22.0.1",
+    "@nx/workspace": "22.0.1",
+    "@schematics/angular": "^20.3.7",
+    "@swc-node/register": "~1.9.1",
+    "@swc/core": "~1.5.7",
+    "@swc/helpers": "~0.5.11",
     "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.17.19",
@@ -56,7 +65,9 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "nx": "22.0.1",
     "postcss": "^8.5.6",
+    "prettier": "^2.6.2",
     "typescript": "~5.9.2"
   }
 }

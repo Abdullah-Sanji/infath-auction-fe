@@ -1,0 +1,94 @@
+{
+  "name": "auctions-fe",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "sourceRoot": "apps/auctions-fe/src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "options": {
+        "browser": "apps/auctions-fe/src/main.ts",
+        "tsConfig": "apps/auctions-fe/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/auctions-fe/public"
+          }
+        ],
+        "styles": ["apps/auctions-fe/src/styles.css"],
+        "server": "apps/auctions-fe/src/main.server.ts",
+        "outputMode": "server",
+        "ssr": {
+          "entry": "apps/auctions-fe/src/server.ts"
+        },
+        "outputPath": "dist/auctions-fe"
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kB",
+              "maximumError": "1MB"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kB",
+              "maximumError": "8kB"
+            }
+          ],
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/auctions-fe/src/environments/environment.ts",
+              "with": "apps/auctions-fe/src/environments/environment.prod.ts"
+            }
+          ]
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production",
+      "outputs": ["{options.outputPath}"]
+    },
+    "serve": {
+      "executor": "@angular/build:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "auctions-fe:build:production"
+        },
+        "development": {
+          "buildTarget": "auctions-fe:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular/build:extract-i18n"
+    },
+    "test": {
+      "executor": "@angular/build:karma",
+      "options": {
+        "tsConfig": "apps/auctions-fe/tsconfig.spec.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/auctions-fe/public"
+          }
+        ],
+        "styles": ["apps/auctions-fe/src/styles.css"]
+      }
+    }
+  }
+}
