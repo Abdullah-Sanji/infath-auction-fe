@@ -28,7 +28,7 @@
         "ssr": {
           "entry": "apps/auctions-fe/src/server.ts"
         },
-        "outputPath": "dist/auctions-fe"
+        "outputPath": "dist/apps/auctions-fe"
       },
       "configurations": {
         "production": {
