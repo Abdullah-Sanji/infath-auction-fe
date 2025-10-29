@@ -1,0 +1,85 @@
+<p-multiSelect
+  [(ngModel)]="value"
+  [options]="options()"
+  [optionLabel]="optionLabel()"
+  [optionValue]="optionValue()"
+  [optionDisabled]="optionDisabled()"
+  [optionGroupLabel]="optionGroupLabel()"
+  [optionGroupChildren]="optionGroupChildren()"
+  [placeholder]="placeholder()"
+  [disabled]="disabled()"
+  [readonly]="readonly()"
+  [filter]="filter()"
+  [filterBy]="filterBy()"
+  [filterLocale]="filterLocale()"
+  [showToggleAll]="showToggleAll()"
+  [selectAll]="selectAll()"
+  [showClear]="showClear()"
+  [appendTo]="appendTo()"
+  [scrollHeight]="scrollHeight()"
+  [emptyMessage]="emptyMessage()"
+  [emptyFilterMessage]="emptyFilterMessage()"
+  [virtualScroll]="virtualScroll()"
+  [virtualScrollItemSize]="virtualScrollItemSize() || null"
+  [group]="group()"
+  [maxSelectedLabels]="maxSelectedLabels()"
+  [selectedItemsLabel]="selectedItemsLabel()"
+  [showHeader]="showHeader()"
+  [ariaLabel]="ariaLabel()"
+  [ariaLabelledBy]="ariaLabelledBy()"
+  [loading]="loading()"
+  [loadingIcon]="loadingIcon()"
+  [display]="display()"
+  [invalid]="invalid()"
+  [variant]="variant()"
+  [fluid]="fluid()"
+  (onChange)="handleChange($event)"
+  (onFocus)="handleFocus($event)"
+  (onBlur)="handleBlur($event)"
+  (onShow)="handleShow()"
+  (onHide)="handleHide()"
+  (onFilter)="handleFilter($event)"
+  (onClear)="handleClear()"
+  (onSelectAllChange)="handleSelectAllChange($event)"
+>
+  @if (itemTemplate()) {
+    <ng-template pTemplate="item" let-item>
+      <ng-container *ngTemplateOutlet="itemTemplate()!; context: { $implicit: item }"></ng-container>
+    </ng-template>
+  }
+  @if (selectedItemsTemplate()) {
+    <ng-template pTemplate="selectedItems" let-items>
+      <ng-container *ngTemplateOutlet="selectedItemsTemplate()!; context: { $implicit: items }"></ng-container>
+    </ng-template>
+  }
+  @if (groupTemplate()) {
+    <ng-template pTemplate="group" let-group>
+      <ng-container *ngTemplateOutlet="groupTemplate()!; context: { $implicit: group }"></ng-container>
+    </ng-template>
+  }
+  @if (headerTemplate()) {
+    <ng-template pTemplate="header">
+      <ng-container *ngTemplateOutlet="headerTemplate()!"></ng-container>
+    </ng-template>
+  }
+  @if (filterTemplate()) {
+    <ng-template pTemplate="filter" let-options>
+      <ng-container *ngTemplateOutlet="filterTemplate()!; context: { $implicit: options }"></ng-container>
+    </ng-template>
+  }
+  @if (footerTemplate()) {
+    <ng-template pTemplate="footer">
+      <ng-container *ngTemplateOutlet="footerTemplate()!"></ng-container>
+    </ng-template>
+  }
+  @if (emptyTemplate()) {
+    <ng-template pTemplate="empty">
+      <ng-container *ngTemplateOutlet="emptyTemplate()!"></ng-container>
+    </ng-template>
+  }
+  @if (emptyFilterTemplate()) {
+    <ng-template pTemplate="emptyfilter">
+      <ng-container *ngTemplateOutlet="emptyFilterTemplate()!"></ng-container>
+    </ng-template>
+  }
+</p-multiSelect>

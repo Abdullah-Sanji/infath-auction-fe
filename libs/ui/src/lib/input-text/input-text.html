@@ -1,0 +1,24 @@
+<input
+  pInputText
+  [type]="type()"
+  [(ngModel)]="value"
+  [placeholder]="placeholder()"
+  [disabled]="disabled()"
+  [readonly]="readonly()"
+  [maxlength]="maxlength() || null"
+  [variant]="variant()"
+  [size]="size()"
+  [invalid]="invalid()"
+  [autocomplete]="autocomplete()"
+  [attr.aria-label]="ariaLabel()"
+  [attr.aria-labelledby]="ariaLabelledBy()"
+  [attr.aria-describedby]="ariaDescribedBy()"
+  [fluid]="fluid()"
+  (input)="handleInput($event)"
+  (blur)="handleBlur($event)"
+  (focus)="handleFocus($event)"
+  (keydown)="handleKeyDown($event)"
+  (keyup)="handleKeyUp($event)"
+  (paste)="handlePaste($event)"
+/>
+

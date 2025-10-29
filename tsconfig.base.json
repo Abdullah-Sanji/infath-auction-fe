@@ -12,7 +12,9 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
-    "paths": {},
+    "paths": {
+      "@auctions-fe/ui": ["libs/ui/src/lib/index.ts"]
+    },
     "baseUrl": ".",
     "rootDir": "."
   },

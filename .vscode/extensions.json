@@ -7,6 +7,7 @@
     "bradlc.vscode-tailwindcss",
     "github.copilot",
     "github.copilot-chat",
-    "nrwl.angular-console"
+    "nrwl.angular-console",
+    "firsttris.vscode-jest-runner"
   ]
 }

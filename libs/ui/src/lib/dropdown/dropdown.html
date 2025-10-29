@@ -1,0 +1,63 @@
+<p-select
+  [(ngModel)]="value"
+  [options]="options()"
+  [optionLabel]="optionLabel()"
+  [optionValue]="optionValue()"
+  [optionDisabled]="optionDisabled()"
+  [placeholder]="placeholder()"
+  [disabled]="disabled()"
+  [filter]="filter()"
+  [filterBy]="filterBy()"
+  [showClear]="showClear()"
+  [scrollHeight]="scrollHeight()"
+  [virtualScroll]="virtualScroll()"
+  [virtualScrollItemSize]="virtualScrollItemSize() || null"
+  [editable]="editable()"
+  [maxlength]="maxlength() || null"
+  [ariaLabel]="ariaLabel()"
+  [ariaLabelledBy]="ariaLabelledBy()"
+  [loading]="loading()"
+  [loadingIcon]="loadingIcon()"
+  [checkmark]="checkmark()"
+  [invalid]="invalid()"
+  [variant]="variant()"
+  [fluid]="fluid()"
+  (onChange)="handleChange($event)"
+  (onFocus)="handleFocus($event)"
+  (onBlur)="handleBlur($event)"
+  (onShow)="handleShow()"
+  (onHide)="handleHide()"
+  (onFilter)="handleFilter($event)"
+  (onClear)="handleClear()"
+>
+  @if (itemTemplate()) {
+    <ng-template pTemplate="item" let-item>
+      <ng-container *ngTemplateOutlet="itemTemplate()!; context: { $implicit: item }"></ng-container>
+    </ng-template>
+  }
+  @if (selectedItemTemplate()) {
+    <ng-template pTemplate="selectedItem" let-item>
+      <ng-container *ngTemplateOutlet="selectedItemTemplate()!; context: { $implicit: item }"></ng-container>
+    </ng-template>
+  }
+  @if (headerTemplate()) {
+    <ng-template pTemplate="header">
+      <ng-container *ngTemplateOutlet="headerTemplate()!"></ng-container>
+    </ng-template>
+  }
+  @if (footerTemplate()) {
+    <ng-template pTemplate="footer">
+      <ng-container *ngTemplateOutlet="footerTemplate()!"></ng-container>
+    </ng-template>
+  }
+  @if (emptyTemplate()) {
+    <ng-template pTemplate="empty">
+      <ng-container *ngTemplateOutlet="emptyTemplate()!"></ng-container>
+    </ng-template>
+  }
+  @if (emptyFilterTemplate()) {
+    <ng-template pTemplate="emptyfilter">
+      <ng-container *ngTemplateOutlet="emptyFilterTemplate()!"></ng-container>
+    </ng-template>
+  }
+</p-select>

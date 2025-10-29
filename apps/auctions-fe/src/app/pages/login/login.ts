@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
-import { ButtonModule } from 'primeng/button';
+import { Button } from '../../../../../../libs/ui/src/lib/button/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, PasswordModule],
+  imports: [CommonModule, FormsModule, Button, InputTextModule, PasswordModule],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
