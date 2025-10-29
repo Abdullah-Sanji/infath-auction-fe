@@ -1,9 +1,8 @@
 import { Component, signal, inject, OnInit } from '@angular/core';
-import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 import { Toast } from 'primeng/toast';
 import { Header } from './shared/components/header/header';
 import { GtmService } from './core/services/gtm.service';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',

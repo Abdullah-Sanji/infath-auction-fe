@@ -16,7 +16,6 @@ export class Button {
     'left' | 'right' | 'top' | 'bottom'
   >('left');
   badge: InputSignal<string | undefined> = input<string | undefined>(undefined);
-  badgeClass: InputSignal<string | undefined> = input<string | undefined>(undefined);
   badgeSeverity: InputSignal<
     | 'success'
     | 'info'

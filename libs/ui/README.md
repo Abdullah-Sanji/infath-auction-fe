@@ -418,6 +418,55 @@ npx nx test ui
 
 ---
 
+## Storybook
+
+This library includes **Storybook** for interactive component development and documentation!
+
+### Quick Start
+
+```bash
+# Start Storybook
+npm run storybook
+
+# Or using nx
+nx run ui:storybook
+```
+
+Visit: **http://localhost:4400**
+
+### What's Included
+
+- **64 Component Stories** across 4 components
+- **Interactive Controls** to test all properties
+- **Automatic Documentation** generated from TypeScript types
+- **Responsive Testing** with viewport selector
+- **Visual Development** playground
+
+### Available Stories
+
+- **Button**: 18 stories (all variants, sizes, states, icons, badges)
+- **InputText**: 15 stories (types, variants, sizes, states)
+- **Dropdown**: 15 stories (filters, virtual scroll, states)
+- **MultiSelect**: 16 stories (display modes, grouping, virtual scroll)
+
+### Build Storybook
+
+To create a static build for deployment:
+
+```bash
+npm run build-storybook
+```
+
+Output: `dist/storybook/ui/`
+
+### Documentation
+
+- **Quick Start**: See `STORYBOOK_QUICKSTART.md` (project root)
+- **Detailed Guide**: See `libs/ui/STORYBOOK.md`
+- **Setup Info**: See `STORYBOOK_SETUP.md` (project root)
+
+---
+
 ## Development Guidelines
 
 When working with these components:
