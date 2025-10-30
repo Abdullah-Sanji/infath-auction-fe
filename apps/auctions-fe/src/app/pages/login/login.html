@@ -12,20 +12,15 @@
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
       <div class="form-group">
         <label for="username">Username or Email</label>
-        <input
-          pInputText
-          type="text"
-          id="username"
-          name="username"
+        <lib-input-text
           [(ngModel)]="username"
-          required
+          [name]="'username'"
+          [id]="'username'"
           placeholder="Enter your username or email"
-          #usernameInput="ngModel"
           [disabled]="isLoading()"
+          [invalid]="username() !== '' && !username().includes('@')"
         />
-        @if (usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)) {
         <span class="field-error">Username or email is required</span>
-        }
       </div>
 
       <div class="form-group">

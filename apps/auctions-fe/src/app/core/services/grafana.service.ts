@@ -1,4 +1,4 @@
-import { Injectable, inject, PLATFORM_ID, signal } from '@angular/core';
+/* import { Injectable, inject, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import {
   initializeFaro,
@@ -17,7 +17,7 @@ import {
   GrafanaCustomEvent,
   GrafanaPerformanceMeasurement,
   GrafanaErrorContext,
-} from './grafana.interface';
+} from './grafana.interface'; */
 
 /**
  * Grafana Frontend Observability Service
@@ -50,10 +50,10 @@ import {
  * });
  * ```
  */
-@Injectable({
+/* @Injectable({
   providedIn: 'root',
-})
-export class GrafanaService {
+}) */
+/* export class GrafanaService {
   private platformId = inject(PLATFORM_ID);
   private isBrowser = isPlatformBrowser(this.platformId);
   private faro: Faro | null = null;
@@ -65,16 +65,16 @@ export class GrafanaService {
   /**
    * Check if Grafana Faro is initialized and ready
    */
-  isInitialized(): boolean {
+  /* isInitialized(): boolean {
     return this.initialized();
-  }
+  } */
 
   /**
    * Get current configuration
    */
-  getConfig(): GrafanaConfig | null {
+  /* getConfig(): GrafanaConfig | null {
     return this.config();
-  }
+  } */
 
   /**
    * Initialize Grafana Faro with configuration
@@ -82,7 +82,7 @@ export class GrafanaService {
    *
    * @param config - Grafana configuration from environment
    */
-  initialize(config: GrafanaConfig): void {
+  /* initialize(config: GrafanaConfig): void {
     // Only initialize in browser environment
     if (!this.isBrowser) {
       console.warn('Grafana Faro: Cannot initialize in non-browser environment (SSR)');
@@ -134,12 +134,12 @@ export class GrafanaService {
     } catch (error) {
       console.error('Grafana Faro: Failed to initialize', error);
     }
-  }
+  } */
 
   /**
    * Build instrumentations array based on configuration
    */
-  private buildInstrumentations(config: GrafanaConfig): Array<any> {
+  /* private buildInstrumentations(config: GrafanaConfig): Array<any> {
     const instrumentations: Array<any> = [];
     const inst = config.instrumentations;
 
@@ -176,7 +176,7 @@ export class GrafanaService {
     instrumentations.push(new TracingInstrumentation());
 
     return instrumentations;
-  }
+  } */
 
   /**
    * Set user context for tracking
@@ -184,7 +184,7 @@ export class GrafanaService {
    *
    * @param user - User context information
    */
-  setUser(user: GrafanaUserContext): void {
+  /* setUser(user: GrafanaUserContext): void {
     if (!this.isReady()) return;
 
     try {
@@ -199,12 +199,12 @@ export class GrafanaService {
     } catch (error) {
       console.error('Grafana Faro: Failed to set user context', error);
     }
-  }
+  } */
 
   /**
    * Clear user context (e.g., on logout)
    */
-  clearUser(): void {
+  /* clearUser(): void {
     if (!this.isReady()) return;
 
     try {
@@ -213,7 +213,7 @@ export class GrafanaService {
     } catch (error) {
       console.error('Grafana Faro: Failed to clear user context', error);
     }
-  }
+  } */
 
   /**
    * Track a custom event
@@ -221,7 +221,7 @@ export class GrafanaService {
    *
    * @param event - Custom event with name and attributes
    */
-  trackEvent(event: GrafanaCustomEvent): void {
+  /* trackEvent(event: GrafanaCustomEvent): void {
     if (!this.isReady()) return;
 
     try {
@@ -239,7 +239,7 @@ export class GrafanaService {
     } catch (error) {
       console.error('Grafana Faro: Failed to track event', error);
     }
-  }
+  } */
 
   /**
    * Track an error with optional context
@@ -248,7 +248,7 @@ export class GrafanaService {
    * @param error - The error object or message
    * @param context - Additional context information
    */
-  trackError(error: Error | string, context?: GrafanaErrorContext): void {
+  /* trackError(error: Error | string, context?: GrafanaErrorContext): void {
     if (!this.isReady()) return;
 
     try {
@@ -274,7 +274,7 @@ export class GrafanaService {
     } catch (err) {
       console.error('Grafana Faro: Failed to track error', err);
     }
-  }
+  } */
 
   /**
    * Track a custom performance measurement
@@ -282,7 +282,7 @@ export class GrafanaService {
    *
    * @param measurement - Performance measurement with name and value
    */
-  trackPerformance(measurement: GrafanaPerformanceMeasurement): void {
+  /* trackPerformance(measurement: GrafanaPerformanceMeasurement): void {
     if (!this.isReady()) return;
 
     try {
@@ -309,7 +309,7 @@ export class GrafanaService {
     } catch (error) {
       console.error('Grafana Faro: Failed to track performance', error);
     }
-  }
+  } */
 
   /**
    * Track page view manually
@@ -318,7 +318,7 @@ export class GrafanaService {
    * @param pageName - Name of the page/route
    * @param attributes - Additional attributes
    */
-  trackPageView(pageName: string, attributes?: Record<string, string>): void {
+  /* trackPageView(pageName: string, attributes?: Record<string, string>): void {
     if (!this.isReady()) return;
 
     try {
@@ -335,14 +335,14 @@ export class GrafanaService {
     } catch (error) {
       console.error('Grafana Faro: Failed to track page view', error);
     }
-  }
+  } */
 
   /**
    * Add global attributes that will be attached to all events
    *
    * @param attributes - Key-value pairs to attach to all events
    */
-  setGlobalAttributes(attributes: Record<string, string>): void {
+  /* setGlobalAttributes(attributes: Record<string, string>): void {
     if (!this.isReady()) return;
 
     try {
@@ -358,13 +358,13 @@ export class GrafanaService {
     } catch (error) {
       console.error('Grafana Faro: Failed to set global attributes', error);
     }
-  }
+  } */
 
   /**
    * Pause data collection
    * Useful for privacy-sensitive operations
    */
-  pause(): void {
+  /* pause(): void {
     if (!this.isReady()) return;
 
     try {
@@ -373,12 +373,12 @@ export class GrafanaService {
     } catch (error) {
       console.error('Grafana Faro: Failed to pause', error);
     }
-  }
+  } */
 
   /**
    * Resume data collection after pausing
    */
-  unpause(): void {
+  /* unpause(): void {
     if (!this.isReady()) return;
 
     try {
@@ -387,12 +387,12 @@ export class GrafanaService {
     } catch (error) {
       console.error('Grafana Faro: Failed to resume', error);
     }
-  }
+  } */
 
   /**
    * Check if Faro is ready to use
    */
-  private isReady(): boolean {
+  /* private isReady(): boolean {
     if (!this.isBrowser) {
       console.warn('Grafana Faro: Not available in non-browser environment');
       return false;
@@ -404,13 +404,13 @@ export class GrafanaService {
     }
 
     return true;
-  }
+  } */
 
   /**
    * Get the underlying Faro instance
    * Use with caution - prefer using the service methods
    */
-  getFaroInstance(): Faro | null {
+  /* getFaroInstance(): Faro | null {
     return this.faro;
   }
-}
+} */

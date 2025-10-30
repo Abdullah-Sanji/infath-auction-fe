@@ -1,8 +1,8 @@
-import { HttpInterceptorFn, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+/* import { HttpInterceptorFn, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { tap, catchError, finalize } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { GrafanaService } from '../services/grafana.service';
+import { GrafanaService } from '../services/grafana.service'; */
 
 /**
  * HTTP Interceptor for Grafana Frontend Observability
@@ -16,7 +16,7 @@ import { GrafanaService } from '../services/grafana.service';
  * This provides centralized observability for all API calls without
  * needing to add tracking code to each service.
  */
-export const grafanaInterceptor: HttpInterceptorFn = (req, next) => {
+/* export const grafanaInterceptor: HttpInterceptorFn = (req, next) => {
   const grafanaService = inject(GrafanaService);
 
   // Record start time for performance tracking
@@ -104,4 +104,4 @@ export const grafanaInterceptor: HttpInterceptorFn = (req, next) => {
       return throwError(() => error);
     })
   );
-};
+}; */

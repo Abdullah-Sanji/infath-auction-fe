@@ -1,5 +1,8 @@
 :host {
   display: inline-block;
   width: 100%;
-}
 
+  .p-inputtext {
+    @apply w-full;
+  }
+}

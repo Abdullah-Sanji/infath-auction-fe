@@ -1,5 +1,7 @@
 <input
   pInputText
+  [id]="id()"
+  [name]="name()"
   [type]="type()"
   [(ngModel)]="value"
   [placeholder]="placeholder()"
@@ -7,9 +9,9 @@
   [readonly]="readonly()"
   [maxlength]="maxlength() || null"
   [variant]="variant()"
-  [size]="size()"
-  [invalid]="invalid()"
   [autocomplete]="autocomplete()"
+  [pSize]="size()"
+  [invalid]="invalid()"
   [attr.aria-label]="ariaLabel()"
   [attr.aria-labelledby]="ariaLabelledBy()"
   [attr.aria-describedby]="ariaDescribedBy()"
@@ -21,4 +23,3 @@
   (keyup)="handleKeyUp($event)"
   (paste)="handlePaste($event)"
 />
-

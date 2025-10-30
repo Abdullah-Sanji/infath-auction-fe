@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { Button } from '../../../../../../libs/ui/src/lib/button/button';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputText } from '../../../../../../libs/ui/src/lib/input-text/input-text';
 import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule, Button, InputTextModule, PasswordModule],
+  imports: [CommonModule, FormsModule, Button, InputText, PasswordModule],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })

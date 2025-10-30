@@ -31,20 +31,20 @@ export class InputText implements ControlValueAccessor {
   value: ModelSignal<string | null> = model<string | null>(null);
 
   // Input properties
+  id: InputSignal<string> = input<string>('');
+  name: InputSignal<string> = input<string>('');
   variant: InputSignal<'filled' | 'outlined'> = input<'filled' | 'outlined'>('outlined');
   placeholder: InputSignal<string> = input<string>('');
   disabled: InputSignal<boolean> = input<boolean>(false);
   readonly: InputSignal<boolean> = input<boolean>(false);
   maxlength: InputSignal<number | undefined> = input<number | undefined>(undefined);
-  size: InputSignal<'small' | 'large' | undefined> = input<'small' | 'large' | undefined>(
-    undefined
-  );
+  size: InputSignal<any> = input<any>();
   invalid: InputSignal<boolean> = input<boolean>(false);
   type: InputSignal<string> = input<string>('text');
-  autocomplete: InputSignal<string | undefined> = input<string | undefined>(undefined);
-  ariaLabel: InputSignal<string | undefined> = input<string | undefined>(undefined);
-  ariaLabelledBy: InputSignal<string | undefined> = input<string | undefined>(undefined);
-  ariaDescribedBy: InputSignal<string | undefined> = input<string | undefined>(undefined);
+  autocomplete: InputSignal<string> = input<string>('off');
+  ariaLabel: InputSignal<string> = input<string>('');
+  ariaLabelledBy: InputSignal<string> = input<string>('');
+  ariaDescribedBy: InputSignal<string> = input<string>('');
   fluid: InputSignal<boolean> = input<boolean>(false);
 
   // Output events
@@ -56,8 +56,12 @@ export class InputText implements ControlValueAccessor {
   onPaste: OutputEmitterRef<ClipboardEvent> = output<ClipboardEvent>();
 
   // ControlValueAccessor implementation
-  private onChange: (value: string | null) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: string | null) => void = () => {
+    console.log('onChange');
+  };
+  private onTouched: () => void = () => {
+    console.log('onTouched');
+  }
 
   constructor() {
     // Watch for value changes and notify parent
