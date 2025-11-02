@@ -70,7 +70,7 @@ type Story = StoryObj<Button>;
 export const Primary: Story = {
   args: {
     label: 'Primary Button',
-    severity: "danger",
+    severity: "primary",
     size: "small",
     loading: false,
     raised: false,

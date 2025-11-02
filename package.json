@@ -106,7 +106,8 @@
     "typescript-eslint": "^8.40.0",
     "verdaccio": "^6.0.5",
     "vite": "^7.0.0",
-    "vitest": "^3.0.0"
+    "vitest": "^3.0.0",
+    "zone.js": "^0.15.1"
   },
   "nx": {
     "includedScripts": []

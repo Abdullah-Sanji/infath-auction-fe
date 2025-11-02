@@ -1,0 +1,26 @@
+<div class="flex items-center gap-2">
+  <p-radioButton
+    [(ngModel)]="value"
+    [value]="computedOptionValue()"
+    [name]="name()"
+    [inputId]="computedInputId()"
+    [disabled]="disabled()"
+    [required]="required()"
+    [tabindex]="tabindex()"
+    [style]="style()"
+    [variant]="variant()"
+    [invalid]="invalid()"
+    [ariaLabel]="ariaLabel() || label() || undefined"
+    [ariaLabelledBy]="ariaLabelledBy()"
+    (onClick)="handleClick($event)"
+    (onFocus)="handleFocus($event)"
+    (onBlur)="handleBlur($event)"
+  ></p-radioButton>
+  @if (label()) {
+    <label [for]="computedInputId()" class="cursor-pointer">
+      {{ label() }}
+    </label>
+  }
+  <ng-content></ng-content>
+</div>
+
