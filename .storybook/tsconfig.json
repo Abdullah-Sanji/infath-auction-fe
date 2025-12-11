@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "../src/**/*.ts",
+    "./**/*.ts"
+  ],
+  "exclude": [
+    "../src/**/*.spec.ts"
+  ]
+}

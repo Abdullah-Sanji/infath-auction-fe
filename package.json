@@ -8,8 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:auctions-fe": "node dist/auctions-fe/server/server.mjs",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "storybook": "ng run auctions-fe:storybook",
+    "build-storybook": "ng run auctions-fe:build-storybook"
   },
   "prettier": {
     "printWidth": 100,
@@ -41,12 +41,15 @@
     "primeng": "^20.2.0",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.1.16",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "zone.js": "^0.15.1"
   },
   "devDependencies": {
     "@angular/build": "^20.3.7",
     "@angular/cli": "^20.3.7",
     "@angular/compiler-cli": "^20.3.0",
+    "@storybook/addon-links": "9.1.16",
+    "@storybook/angular": "9.1.16",
     "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.17.19",
@@ -57,9 +60,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.5.6",
-    "typescript": "~5.9.2",
     "storybook": "9.1.16",
-    "@storybook/angular": "9.1.16"
-
+    "typescript": "~5.9.2"
   }
 }
