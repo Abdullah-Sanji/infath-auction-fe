@@ -28,7 +28,10 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     providePrimeNG({
       theme: {
-        preset: Aura
+        preset: Aura,
+        options: {
+          darkModeSelector: false,
+        }
       }
     }),
     provideRouter(routes),
