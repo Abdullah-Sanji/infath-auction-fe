@@ -1,0 +1,26 @@
+<p-button
+  [label]="label()"
+  [icon]="icon()"
+  [iconPos]="iconPos()"
+  [badge]="badge()"
+  [badgeSeverity]="badgeSeverity()"
+  [loading]="loading()"
+  [loadingIcon]="loadingIcon()"
+  [disabled]="disabled()"
+  [severity]="severity()"
+  [raised]="raised()"
+  [rounded]="rounded()"
+  [text]="text()"
+  [plain]="plain()"
+  [outlined]="outlined()"
+  [link]="link()"
+  [size]="size()"
+  [type]="type()"
+  [ariaLabel]="ariaLabel()"
+  [fluid]="fluid()"
+  (onClick)="handleClick($event)"
+  (onFocus)="handleFocus($event)"
+  (onBlur)="handleBlur($event)"
+>
+  <ng-content></ng-content>
+</p-button>

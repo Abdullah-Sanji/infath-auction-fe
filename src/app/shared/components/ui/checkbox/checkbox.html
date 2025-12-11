@@ -1,0 +1,32 @@
+<div class="flex items-center gap-2">
+  <p-checkbox
+    [(ngModel)]="checkboxValue"
+    [name]="name()"
+    [disabled]="disabled()"
+    [readonly]="readonly()"
+    [required]="required()"
+    [binary]="true"
+    [trueValue]="trueValue()"
+    [falseValue]="falseValue()"
+    [inputId]="computedInputId()"
+    [ariaLabel]="ariaLabel() || label() || undefined"
+    [ariaLabelledBy]="ariaLabelledBy()"
+    [tabindex]="tabindex()"
+    [inputStyle]="inputStyle()"
+    [inputClass]="inputStyleClass() || undefined"
+    [style]="style()"
+    [styleClass]="styleClass()"
+    [variant]="variant()"
+    [size]="size()"
+    [invalid]="invalid()"
+    (onChange)="handleChange($event)"
+    (onFocus)="handleFocus($event)"
+    (onBlur)="handleBlur($event)"
+  ></p-checkbox>
+  @if (label()) {
+    <label [for]="computedInputId()" class="cursor-pointer">
+      {{ label() }}
+    </label>
+  }
+  <ng-content></ng-content>
+</div>
