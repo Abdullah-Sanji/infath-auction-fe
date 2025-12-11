@@ -1,6 +1,7 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection, APP_INITIALIZER } from '@angular/core';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
 import { MessageService } from 'primeng/api';
 import Aura from '@primeuix/themes/aura';
@@ -8,24 +9,15 @@ import Aura from '@primeuix/themes/aura';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
-import { grafanaInterceptor } from './core/interceptors/grafana.interceptor';
-import { GrafanaService } from './core/services/grafana.service';
-import { environment } from '../environments/environment';
-
-/**
- * Initialize Grafana Frontend Observability
- * This runs before the application starts to ensure all errors and events are tracked
- */
-function initializeGrafana(grafanaService: GrafanaService): () => void {
-  return () => {
-    grafanaService.initialize(environment.grafana);
-  };
-}
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
+    // Note: provideAnimations() is deprecated in Angular 20 (will be removed in v23)
+    // but still required for PrimeNG components (Toast, Dialog, etc.) which use the old Animation API
+    // TODO: Remove when PrimeNG migrates to animate.enter/animate.leave directives
+    provideAnimations(),
     providePrimeNG({
       theme: {
         preset: Aura,
@@ -36,15 +28,7 @@ export const appConfig: ApplicationConfig = {
     }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    // HTTP Interceptors: Grafana runs first to track all requests, then Auth
-    provideHttpClient(withInterceptors([grafanaInterceptor, authInterceptor])),
-    MessageService,
-    // Initialize Grafana Faro on application startup
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeGrafana,
-      deps: [GrafanaService],
-      multi: true
-    }
+    provideHttpClient(withInterceptors([authInterceptor])),
+    MessageService
   ]
 };
