@@ -6,3 +6,6 @@
 /* PrimeIcons */
 @import "primeicons/primeicons.css";
 
+@theme {
+  --color-gray-600: red;
+}
