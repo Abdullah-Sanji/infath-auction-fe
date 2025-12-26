@@ -12,17 +12,27 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/home/home').then(m => m.Home)
   },
   {
-    path: 'login',
-    loadComponent: () => import('./pages/login/login').then(m => m.Login)
-  },
-  {
     path: 'auctions',
     loadComponent: () => import('./pages/auctions/auctions').then(m => m.Auctions),
     canActivate: [authGuard]
   },
   {
-    path: 'about',
-    loadComponent: () => import('./pages/about/about').then(m => m.About)
+    path: 'wallet',
+    loadComponent: () => import('./pages/wallet/wallet').then(m => m.Wallet),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'privacy-policy',
+    loadComponent: () => import('./pages/privacy/privacy').then(m => m.PrivacyPolicy)
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./pages/profile/profile').then(m => m.ProfileComponent),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'terms-and-conditions',
+    loadComponent: () => import('./pages/terms/terms').then(m => m.TermsAndConditionsComponent)
   },
   {
     path: '**',

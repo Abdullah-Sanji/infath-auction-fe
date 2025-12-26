@@ -1,249 +1,386 @@
-import { Injectable, signal, computed, inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, signal, computed, inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, firstValueFrom, catchError, of, tap } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { setCookie, getCookie, deleteCookie } from '../utils/cookie.util';
-import { environment } from '../../../environments/environment';
-import {
-  User,
-  LoginRequest,
-  TokenResponse,
-  RefreshTokenRequest,
-  KeycloakUserInfo
-} from './auth.interface';
+import { isPlatformBrowser } from '@angular/common';
+import { ApiService } from './api.service';
+import { OidcSsoProvider } from './oidc/oidc-sso.provider';
+import { UserProfile, AuthState, LogoutOptions } from '@shared/models/auth.models';
+import { Result, LoginResponse } from '@shared/models/result';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private router = inject(Router);
-  private http = inject(HttpClient);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly api = inject(ApiService);
+  private readonly router: Router = inject(Router);
+  private readonly provider = inject(OidcSsoProvider);
+  private readonly redirectUrl = signal<string>('/');
 
-  private currentUser = signal<User | null>(null);
-  private redirectUrl = signal<string>('/');
 
-  private readonly COOKIE_NAME = 'currentUser';
-  private readonly ACCESS_TOKEN_COOKIE = 'access_token';
-  private readonly REFRESH_TOKEN_COOKIE = 'refresh_token';
-  private readonly COOKIE_MAX_AGE = 7 * 24 * 60 * 60; // 7 days in seconds
-  private readonly TOKEN_REFRESH_THRESHOLD = 60; // Refresh token 60 seconds before expiry
+  // Internal state signals
+  private readonly _isInitialized = signal(false);
+  private readonly _isSSOAuthenticated = signal(false);
+  private readonly _isAuthenticated = signal(false);
+  private readonly _userProfile = signal<UserProfile | null>(null);
+  private readonly _isLoading = signal(false);
 
-  // Computed signals for reactive state
-  public readonly user = computed(() => this.currentUser());
-  public readonly isLoggedIn = computed(() => this.currentUser() !== null);
+  // Public readonly signals
+  readonly isInitialized = this._isInitialized.asReadonly();
+  readonly isAuthenticated = this._isAuthenticated.asReadonly();
+  readonly userProfile = this._userProfile.asReadonly();
+  /** Access token derived from Cookie */
+  readonly accessToken = computed(() => {
+    if (!this.isBrowser) return null;
+    if (!getCookie('access_token')) return null;
+    return getCookie('access_token')?.replace(/^Bearer\s+/, '');
+  });
+  readonly isLoading = this._isLoading.asReadonly();
 
-  constructor() {
-    // Check if user is already logged in (from cookies)
-    this.checkStoredAuth();
+  readonly userRoles = computed(() => this._userProfile()?.roles ?? []);
+
+  readonly authState = computed<AuthState>(() => ({
+    isInitialized: this._isInitialized(),
+    isAuthenticated: this._isSSOAuthenticated(),
+    user: this._userProfile(),
+  }));
+
+  // Observable versions for RxJS compatibility
+  readonly isAuthenticated$: Observable<boolean> = toObservable(this.isAuthenticated);
+  readonly userProfile$: Observable<UserProfile | null> = toObservable(this.userProfile);
+  readonly authState$: Observable<AuthState> = toObservable(this.authState);
+
+  private get isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
+
+  /* ----- API helper methods (merged from AuthApiService) ----- */
+  registerApi(payload: unknown) {
+    const path = `/users/api/v1/auth/register`;
+    return this.api.post(path, payload);
+  }
+
+  loginApi(payload: { Email: string; Password: string }) {
+    const path = `/users/api/v1/auth/login`;
+    return this.api.post<LoginResponse>(path, payload);
+  }
+
+  getProfileApi(): Observable<Result<UserProfile>> {
+    const path = `/users/api/v1/users/profile`;
+    return this.api.get<UserProfile>(path);
+  }
+
+  exchangeTokenApi(token: string) {
+    const path = `/users/api/v1/auth/token`;
+    return this.api.post<LoginResponse>(path, { token });
   }
 
   /**
-   * Check if user is authenticated
+   * Initialize the authentication service.
+   * Call this in APP_INITIALIZER or component ngOnInit.
    */
-  isAuthenticated(): boolean {
-    return this.currentUser() !== null;
+  async init(): Promise<void> {
+    if (!this.isBrowser || this._isInitialized()) {
+      return;
+    }
+
+    this._isLoading.set(true);
+
+    // Check if we already have an access token (e.g., from credential login)
+    if (getCookie('access_token')) {
+      this._isAuthenticated.set(true);
+      this._isInitialized.set(true);
+      this._isLoading.set(false);
+      await this.loadUserProfile();
+      return;
+    }
   }
 
   /**
-   * Login with username/email and password via Keycloak
+   * Subscribe to SSO provider auth change events.
+   * Called from init() after provider is safely available.
    */
-  async login(username: string, password: string): Promise<boolean> {
+  private subscribeToProviderAuthChanges(): void {
+    if (!this.isBrowser) return;
     try {
-      const loginRequest: LoginRequest = {
-        username,
-        password
-      };
+      const prov = this.provider;
+      if ('onAuthChange' in prov) {
+        (prov as any).onAuthChange(async (authenticated: boolean) => {
+          this._isSSOAuthenticated.set(authenticated);
+          if (authenticated) {
+            await this.loadSSOUserProfile();
+            await this.exchangeToken();
+          } else {
+            this.resetAuthState();
+          }
+        });
+      }
+    } catch {
+      // provider not available; will be handled elsewhere
+    }
+  }
 
-      // Call backend login endpoint (which communicates with Keycloak)
-      const tokenResponse = await firstValueFrom(
-        this.http.post<TokenResponse>(
-          `${environment.apiUrl}/auth/login`,
-          loginRequest
-        )
-      );
+  /**
+   * Trigger the login flow.
+   * Redirects to the SSO provider's login page.
+   */
+  async login(): Promise<void> {
+    if (!this.isBrowser) {
+      console.warn('AuthService: Cannot login - not in browser');
+      return;
+    }
 
-      // Store tokens
-      this.storeTokens(tokenResponse);
+    this._isLoading.set(true);
+    await this.provider.login();
+    this._isLoading.set(false);
+  }
 
-      // Fetch user information
-      await this.fetchUserInfo();
+  /**
+   * Login using username/password (non-SSO) and bootstrap session.
+   * On success: save access token then load user profile from API.
+   */
+  loginWithCredentials(payload: { Email: string; Password: string }): Promise<boolean> {
+    return new Promise((resolve) => {
+      if (!this.isBrowser) {
+        resolve(false);
+        return;
+      }
 
-      return true;
-    } catch (error) {
-      console.error('Login failed:', error);
+      this._isLoading.set(true);
+
+      this.loginApi(payload).subscribe({
+        next: async (resp) => {
+          try {
+            const ok = !!(resp?.isSuccess ?? true);
+            const token = resp.data.accessToken ?? null;
+
+            if (!ok || !token) {
+              resolve(false);
+              return;
+            }
+            this.setAccessToken(token);
+            await this.loadUserProfile();
+            resolve(true);
+          } catch (error) {
+            console.error('AuthService: Credential login failed:', error);
+            resolve(false);
+          } finally {
+            this._isLoading.set(false);
+          }
+        },
+        error: (error) => {
+          console.error('AuthService: Credential login failed:', error);
+          this._isLoading.set(false);
+          resolve(false);
+        },
+      });
+    });
+  }
+
+  /**
+   * Trigger the logout flow.
+   * Redirects to the SSO provider's logout page.
+   */
+  async logout(options?: LogoutOptions): Promise<void> {
+    if (!this.isBrowser) {
+      return;
+    }
+
+    const prov = this.provider;
+    if (prov) {
+      await prov.logout(options);
+    }
+    this.resetAuthState();
+  }
+
+  /**
+   * Set access token programmatically (e.g., after credential login)
+   */
+  setAccessToken(token: string): void {
+    if (!this.isBrowser) return;
+    setCookie('access_token', token, 3600);
+    this._isAuthenticated.set(true);
+  }
+
+  resetAuthState(): void {
+    if (!this.isBrowser) return;
+    deleteCookie('access_token');
+    this._isAuthenticated.set(false);
+    this._isSSOAuthenticated.set(false);
+    this._userProfile.set(null);
+  }
+
+  /**
+   * Check if the user has a specific role.
+   */
+  async hasRole(role: string): Promise<boolean> {
+    if (!this.isBrowser) {
       return false;
     }
+    const prov = this.provider;
+    if (!prov) return false;
+    return prov.hasRole(role);
   }
 
   /**
-   * Logout the current user from Keycloak
+   * Check if the user has any of the specified roles.
    */
-  async logout(): Promise<void> {
-    try {
-      const refreshToken = getCookie(this.REFRESH_TOKEN_COOKIE);
-
-      if (refreshToken) {
-        // Call backend logout endpoint
-        await firstValueFrom(
-          this.http.post(
-            `${environment.apiUrl}/auth/logout`,
-            { refresh_token: refreshToken }
-          ).pipe(
-            catchError((error) => {
-              console.error('Logout error:', error);
-              return of(null);
-            })
-          )
-        );
-      }
-    } finally {
-      // Clear local state regardless of API call success
-      this.clearAuthState();
-      this.router.navigate(['/login']);
-    }
-  }
-
-  /**
-   * Refresh access token using refresh token
-   */
-  async refreshToken(): Promise<boolean> {
-    try {
-      const refreshToken = getCookie(this.REFRESH_TOKEN_COOKIE);
-
-      if (!refreshToken) {
-        return false;
-      }
-
-      const refreshRequest: RefreshTokenRequest = {
-        refresh_token: refreshToken
-      };
-
-      const tokenResponse = await firstValueFrom(
-        this.http.post<TokenResponse>(
-          `${environment.apiUrl}/auth/refresh`,
-          refreshRequest
-        )
-      );
-
-      this.storeTokens(tokenResponse);
-      return true;
-    } catch (error) {
-      console.error('Token refresh failed:', error);
-      this.clearAuthState();
+  async hasAnyRole(roles: string[]): Promise<boolean> {
+    if (!this.isBrowser) {
       return false;
     }
+    const prov = this.provider;
+    if (!prov) return false;
+    return prov.hasAnyRole(roles);
   }
 
   /**
-   * Fetch user information from Keycloak
+   * Synchronous check for any of the specified roles using cached user data.
    */
-  private async fetchUserInfo(): Promise<void> {
+  hasAnyRoleSync(roles: string[]): boolean {
+    const userRoles = this._userProfile()?.roles ?? [];
+    return roles.some((role) => userRoles.includes(role));
+  }
+
+  async tryGetSSOToken(): Promise<string | null> {
+    if (!this.isBrowser) return null;
     try {
-      const userInfo = await firstValueFrom(
-        this.http.get<KeycloakUserInfo>(`${environment.apiUrl}/auth/userinfo`)
-      );
-
-      const user: User = {
-        id: userInfo.sub,
-        email: userInfo.email,
-        name: userInfo.name,
-        firstName: userInfo.given_name,
-        lastName: userInfo.family_name,
-        username: userInfo.preferred_username,
-        emailVerified: userInfo.email_verified
-      };
-
-      this.currentUser.set(user);
-
-      // Store user in cookie for persistence
-      setCookie(this.COOKIE_NAME, JSON.stringify(user), this.COOKIE_MAX_AGE);
-    } catch (error) {
-      console.error('Failed to fetch user info:', error);
-      throw error;
+      const prov = this.provider;
+      if (!prov) {
+        return null;
+      }
+      const token = await prov.getToken();
+      return token;
+    } catch {
+      return null;
     }
   }
 
   /**
-   * Store tokens in cookies
+   * Exchange SSO token for access token.
+   * Called after successful SSO authentication.
    */
-  private storeTokens(tokenResponse: TokenResponse): void {
-    // Store access token
-    setCookie(
-      this.ACCESS_TOKEN_COOKIE,
-      tokenResponse.access_token,
-      tokenResponse.expires_in
-    );
+  async exchangeToken(): Promise<void> {
+    if (!this.isBrowser) return;
 
-    // Store refresh token
-    setCookie(
-      this.REFRESH_TOKEN_COOKIE,
-      tokenResponse.refresh_token,
-      tokenResponse.refresh_expires_in
-    );
+    return new Promise(async (resolve, reject) => {
+      const ssoToken = await this.tryGetSSOToken();
+      if (!ssoToken) {
+        console.warn('AuthService: Cannot exchange token - no SSO token available');
+        resolve();
+        return;
+      }
+
+      this.exchangeTokenApi(ssoToken).subscribe({
+        next: async (response) => {
+          try {
+            const ok = response.isSuccess;
+            const accessToken = response.data?.accessToken;
+            if (ok && accessToken) {
+              this.setAccessToken(accessToken);
+              await this.loadUserProfile();
+            } else {
+              console.error(
+                'AuthService: Access token exchange failed - invalid response',
+                response
+              );
+            }
+          } catch (err) {
+            return reject(err);
+          }
+        },
+        error: (error) => {
+          this._isAuthenticated.set(false);
+          if (error && error.statusCode === 404) {
+            return reject('not-registered');
+          }
+          return reject(error);
+        },
+      });
+    });
   }
 
   /**
-   * Clear all authentication state
+   * Fetch user profile from API and cache locally.
    */
-  private clearAuthState(): void {
-    this.currentUser.set(null);
-    deleteCookie(this.COOKIE_NAME);
-    deleteCookie(this.ACCESS_TOKEN_COOKIE);
-    deleteCookie(this.REFRESH_TOKEN_COOKIE);
+  private async loadUserProfile(): Promise<void> {
+    try {
+      const resp = await firstValueFrom(this.getProfileApi());
+      //todo: map missing properties
+      const data: UserProfile = resp.data;
+      const profile: UserProfile = {
+        id: data?.id,
+        username: data?.username,
+        email: data?.email,
+        firstName: data?.firstName,
+        lastName: data?.lastName,
+        fullName: data?.fullName,
+        roles: data?.roles ?? [],
+        attributes: data?.attributes ?? {},
+        phoneNumber: data?.phoneNumber,
+      };
+      this._userProfile.set(profile);
+    } catch (error) {
+      console.error('AuthService: Failed to load user profile:', error);
+    }
   }
 
   /**
+   * Load and cache the user profile.
+   */
+  async loadSSOUserProfile(): Promise<UserProfile | null> {
+    if (!this.isBrowser) {
+      return null;
+    }
+
+    try {
+      const prov = this.provider;
+      if (!prov) return null;
+      const profile = await prov.getUserProfile();
+      this._userProfile.set(profile);
+      return profile;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Ensure an access token and profile are available.
+   * This will try to use an existing access token, or exchange the SSO
+   * token for a access token and then load the profile. Safe to call from
+   * components that may run before full auth initialization.
+   */
+  async ensureProfileLoaded(): Promise<UserProfile | null> {
+    if (!this.isBrowser) return null;
+
+    // If we already have an access token, just load the profile
+    if (getCookie('access_token')) {
+      await this.loadUserProfile();
+      return this._userProfile();
+    }
+
+    // Try to exchange SSO token for access token (if provider available)
+    try {
+      const prov = this.provider;
+      if (!prov) return null;
+      await this.exchangeToken();
+      // loadUserProfile is called by exchangeToken on success,
+      // but call again to be safe if the flow changed
+      if (getCookie('access_token')) {
+        await this.loadUserProfile();
+      }
+      return this._userProfile();
+    } catch (err) {
+      return this._userProfile();
+    }
+  }
+
+    /**
    * Set the redirect URL after successful login
    */
-  setRedirectUrl(url: string): void {
-    this.redirectUrl.set(url);
-  }
-
-  /**
-   * Get and clear the redirect URL
-   */
-  getRedirectUrl(): string {
-    const url = this.redirectUrl();
-    this.redirectUrl.set('/');
-    return url;
-  }
-
-  /**
-   * Check if there's a stored authentication
-   */
-  private checkStoredAuth(): void {
-    const storedUser = getCookie(this.COOKIE_NAME);
-    const accessToken = getCookie(this.ACCESS_TOKEN_COOKIE);
-
-    if (storedUser && accessToken) {
-      try {
-        const user = JSON.parse(storedUser);
-        this.currentUser.set(user);
-      } catch (e) {
-        console.error('Failed to parse stored user:', e);
-        this.clearAuthState();
-      }
+    setRedirectUrl(url: string): void {
+      this.redirectUrl.set(url);
     }
-  }
-
-  /**
-   * Get current user
-   */
-  getCurrentUser(): User | null {
-    return this.currentUser();
-  }
-
-  /**
-   * Get access token
-   */
-  getAccessToken(): string | null {
-    return getCookie(this.ACCESS_TOKEN_COOKIE);
-  }
-
-  /**
-   * Get refresh token
-   */
-  getRefreshToken(): string | null {
-    return getCookie(this.REFRESH_TOKEN_COOKIE);
-  }
 }

@@ -7,20 +7,20 @@ import { definePreset } from '@primeuix/themes';
 
 import 'zone.js';
 
-const CustomAura = definePreset(Aura, {
+export const CustomAura = definePreset(Aura, {
   semantic: {
     primary: {
-      50: '{emerald.50}',
-      100: '{emerald.100}',
-      200: '{emerald.200}',
-      300: '{emerald.300}',
-      400: '{emerald.400}',
-      500: '{emerald.500}', // Emerald/green primary
-      600: '{emerald.600}',
-      700: '{emerald.700}',
-      800: '{emerald.800}',
-      900: '{emerald.900}',
-      950: '{emerald.950}',
+      50:  '#f3fcf6',
+      100: '#dff6e7',
+      200: '#b8eacb',
+      300: '#88d8ad',
+      400: '#54c08a',
+      500: '#25935f', // Brand primary
+      600: '#1b8354',
+      700: '#166a45',
+      800: '#14573a',
+      900: '#104631',
+      950: '#092a1e',
     },
   },
 });

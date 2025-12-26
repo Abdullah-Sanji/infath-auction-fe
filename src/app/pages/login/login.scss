@@ -1,115 +1,63 @@
-.login-container {
-  min-height: calc(100vh - 72px);
+.login-root {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   padding: 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
 
-.login-card {
-  background: white;
-  padding: 3rem;
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  max-width: 450px;
-}
+  .login-card {
+    width: 420px;
+    background: var(--card-bg, #fff);
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    padding: 24px;
 
-h1 {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 0.5rem;
-  text-align: center;
-}
+    header {
+      text-align: center;
+      margin-bottom: 12px;
+      h1 {
+        margin: 0 0 6px 0;
+      }
+      .subtitle {
+        margin: 0;
+        color: #666;
+        font-size: 0.95rem;
+      }
+    }
 
-.subtitle {
-  text-align: center;
-  color: #666;
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
-}
+    .login-form {
+      margin-top: 8px;
+    }
 
-.error-message {
-  background: #fee;
-  border: 1px solid #fcc;
-  color: #c33;
-  padding: 1rem;
-  border-radius: 6px;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  font-size: 0.95rem;
-}
+    .actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 12px;
+    }
 
-.form-group {
-  margin-bottom: 1.5rem;
-}
+    .divider {
+      text-align: center;
+      margin: 16px 0;
+      color: #888;
+    }
 
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #333;
-  font-weight: 500;
-  font-size: 0.95rem;
-}
+    .sso-actions {
+      display: flex;
+      justify-content: center;
+    }
+    .sso {
+      background: #0052cc;
+      color: #fff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 6px;
+    }
 
-input {
-  width: 100%;
-  padding: 0.875rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 6px;
-  font-size: 1rem;
-  transition: border-color 0.2s;
-  box-sizing: border-box;
-}
-
-input:focus {
-  outline: none;
-  border-color: #667eea;
-}
-
-input.ng-invalid.ng-touched {
-  border-color: #f44336;
-}
-
-.field-error {
-  display: block;
-  color: #f44336;
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
-}
-
-.additional-info {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #e0e0e0;
-}
-
-:host ::ng-deep {
-  .p-password {
-    width: 100%;
-
-    input {
-      width: 100%;
+    .login-footer {
+      text-align: center;
+      margin-top: 16px;
+      a {
+        margin-left: 6px;
+      }
     }
   }
-
-  .p-button {
-    width: 100%;
-    padding: 0.875rem;
-    font-size: 1.05rem;
-    font-weight: 600;
-    justify-content: center;
-  }
 }
-
-@media screen and (max-width: 500px) {
-  .login-card {
-    padding: 2rem;
-  }
-
-  h1 {
-    font-size: 1.75rem;
-  }
-}
-

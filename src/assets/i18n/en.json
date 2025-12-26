@@ -1,0 +1,337 @@
+{
+  "auctionCard": {
+    "detailsAria": "Auction details",
+    "favoriteAria": "Toggle favorite",
+    "viewsAria": "Number of views",
+    "currentPrice": "Current Price",
+    "openingPrice": "Opening Price",
+    "depositAmount": "Deposit Amount",
+    "highestPrice": "Highest Price",
+    "placeBid": "Place Bid",
+    "liveListing": "Live Listing",
+    "timeRemaining": "Time Remaining",
+    "days": "days",
+    "hours": "hours",
+    "minutes": "minutes"
+  },
+  "auctionCategory": {
+    "generalMerchandise": "General Merchandise",
+    "movables": "Movables",
+    "vehicles": "Vehicles",
+    "realEstate": "Real Estate"
+  },
+  "nav": {
+    "login": "Log In",
+    "logout": "Log Out",
+    "auctions": "Auctions",
+    "biddingCompanies": "Bidding Companies",
+    "ariaMenu": "Main menu",
+    "wallet": "Wallet",
+    "watchlist": "Watchlist",
+    "myPurchases": "My Purchases",
+    "myBids": "My Bids",
+    "browseAuctions": "Browse Auctions"
+  },
+  "wallet": {
+    "subtitle": "Manage your balance and payment methods here.",
+    "totalBalance": "Total Balance",
+    "reservedBalance": "Reserved Balance",
+    "availableBalance": "Available Balance",
+    "addFunds": "Add Funds",
+    "recentTransactions": "Recent Transactions",
+    "noTransactions": "No recent transactions"
+  },
+  "transactions": {
+    "title": "Transactions Log"
+  },
+  "search": "Search",
+  "filters": {
+    "date": "Date",
+    "status": "Status"
+  },
+  "auth": {
+    "processingLogin": "Processing login, please wait..."
+  },
+  "hero": {
+    "map": "Map",
+    "search": "Search",
+    "heading": "Infath Auctions Platform",
+    "description": "Add a short description about the portal purpose followed by a CTA button and an illustrative image on the left side.",
+    "filters": {
+      "price": "Price",
+      "date": "Date",
+      "auctionType": "Auction Type"
+    },
+    "count": "Total auctions: {{value}}"
+  },
+  "register": {
+    "title": "Register",
+    "description": "Create an account to participate in auctions.",
+    "back": "Back to Home",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter your full name",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "invalidEmail": "Please enter a valid email",
+    "password": "Password",
+    "passwordMin": "Password must be at least 8 characters",
+    "passwordWeak": "Password must be at least 8 characters, include uppercase, lowercase and a special character",
+    "confirmPassword": "Confirm Password",
+    "passwordMismatch": "Passwords do not match",
+    "create": "Create Account",
+    "creating": "Creating...",
+    "validationIncomplete": "Please complete the form correctly",
+    "success": "Account created successfully",
+    "phone": "Phone Number",
+    "phonePlaceholder": "Enter your phone number",
+    "phoneInvalid": "Please enter a valid phone number (digits, optional leading +)",
+    "prefilledFromSso": "Some fields were prefilled from your SSO profile",
+    "identityNumber": "Identity Number",
+    "firstName": "First Name",
+    "firstNamePlaceholder": "Enter your first name",
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Enter your last name"
+  },
+  "login": {
+    "title": "Sign In",
+    "description": "Sign in to your account to participate in auctions.",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "invalidEmail": "Please enter a valid email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Sign In",
+    "signingIn": "Signing in...",
+    "sso": "Sign in with National Access",
+    "noAccount": "Don't have an account?",
+    "register": "Register",
+    "validationIncomplete": "Please enter valid credentials",
+    "success": "Signed in successfully",
+    "error": "Invalid email or password",
+    "or": "Or"
+  },
+  "footer": {
+    "links": [
+      "Footer link",
+      "Footer link",
+      "Footer link",
+      "Footer link",
+      "Footer link",
+      "Footer link",
+      "Footer link",
+      "Footer link",
+      "Footer link"
+    ],
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "caption": "All rights reserved to the Digital Government Authority © {{value}}"
+  },
+  "terms": {
+    "title": "Terms & Conditions",
+    "lastUpdated": "Last updated: Nov 29, 2025",
+    "intro": {
+      "title": "Introduction",
+      "body": "These Terms govern your use of the Infath Auctions platform."
+    },
+    "use": {
+      "title": "Acceptable Use",
+      "body": "You agree not to misuse the platform, interfere with other users, or violate applicable laws."
+    },
+    "account": {
+      "title": "Accounts",
+      "body": "You are responsible for maintaining the confidentiality of your account credentials and activities."
+    },
+    "liability": {
+      "title": "Liability",
+      "body": "The platform is provided \"as is\" without warranties; to the extent permitted by law, we limit liability."
+    },
+    "contact": {
+      "title": "Contact",
+      "body": "For questions regarding these Terms, please contact support."
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: Nov 29, 2025",
+    "intro": {
+      "title": "Overview",
+      "body": "This Policy explains how we collect, use, and protect your personal data."
+    },
+    "data": {
+      "title": "Data We Collect",
+      "body": "We may collect identifiers, contact details, usage data, and device information."
+    },
+    "cookies": {
+      "title": "Cookies",
+      "body": "We use cookies to improve functionality and analytics; you can manage preferences in your browser."
+    },
+    "rights": {
+      "title": "Your Rights",
+      "body": "Subject to law, you may request access, correction, deletion, or restriction of your data."
+    },
+    "contact": {
+      "title": "Contact",
+      "body": "To exercise rights or ask questions, please reach out to our support team."
+    }
+  },
+  "registerAgent": {
+    "title": "Create New Agent Account",
+    "subtitle": "You can log in using username and password or via national access",
+    "labels": {
+      "nationalId": "National ID",
+      "country": "Country",
+      "role": "Role",
+      "terms": "Terms and Conditions",
+      "phone": "Phone Number",
+      "email": "Email",
+      "password": "Password"
+    },
+    "placeholders": {
+      "nationalId": "Enter your national ID",
+      "phone": "Enter your phone number",
+      "email": "Enter your email",
+      "password": "Enter your password",
+      "terms": "I agree to the terms and conditions"
+    },
+    "roles": {
+      "agent": "Sales Agent",
+      "bidder": "Bidder"
+    },
+    "countries": {
+      "sa": "Saudi Arabia",
+      "ae": "United Arab Emirates",
+      "kw": "Kuwait"
+    },
+    "errors": {
+      "nationalId": "National ID is required and at least 10 characters",
+      "country": "Please select a country",
+      "role": "Please select a role",
+      "terms": "You must accept the terms and conditions",
+      "phone": "Phone number is required",
+      "email": "Invalid email address",
+      "password": "Password is required and at least 6 characters"
+    },
+    "submit": "Create Account"
+  },
+  "errors": {
+    "unauthorized": {
+      "title": "Unauthorized",
+      "message": "You do not have permission to view this page. You may need to log in or use an account with higher privileges."
+    },
+    "forbidden": {
+      "title": "Forbidden",
+      "message": "Access to the requested resource was denied. Please verify permissions or contact support."
+    },
+    "notFound": {
+      "title": "Not Found",
+      "message": "The page you are looking for doesn't exist or may have been moved."
+    },
+    "backHome": "Back to Home"
+  },
+  "home": {
+    "currentAuctions": "Current Auctions",
+    "upcomingAuctions": "Upcoming Auctions"
+  },
+  "auctionDetails": {
+    "highestBid": "Highest Bid",
+    "remainingTime": "Remaining Time",
+    "seconds": "Seconds",
+    "minutes": "Minutes",
+    "hours": "Hours",
+    "days": "Days",
+    "secondsShort": "s",
+    "minutesShort": "m",
+    "hoursShort": "h",
+    "daysShort": "d",
+    "loginToBid": "Log in to bid",
+    "auctionInfo": "Auction Information",
+    "openingPrice": "Opening Price",
+    "entryAmount": "Entry Amount",
+    "topBid": "Top Bid",
+    "bids": "Bids History",
+    "loadingBids": "Loading bids…",
+    "noBids": "No bids yet.",
+    "propertyInfo": "Property Information",
+    "relatedAuctionsTitle": "Auctions Near You",
+    "timeAgoHour": "{{value}} hour ago",
+    "stats": {
+      "bidsCount": "Number of Bids",
+      "viewsCount": "Number of Views",
+      "participantsCount": "Participants in Auction"
+    },
+    "accordion": {
+      "boundaries": "Boundaries & Lengths",
+      "ownership": "Ownership Type & Rights",
+      "assetInfo": "Primary Asset Info"
+    },
+    "actions": {
+      "bid": "Bid",
+      "liveListing": "Live Listing",
+      "placeBidSuccess": "Bid Created Successfully",
+      "placeBidError": "Failed to create bid",
+      "invalidBidAmount": "Bid Amount must be more than highest bid amount"
+    },
+    "asset": {
+      "planNumber": "Plan Number",
+      "plotNumber": "Plot Number",
+      "front": "Property Front",
+      "type": "Property Type",
+      "location": "Property Location (City & District)",
+      "landType": "Land Type",
+      "deedNumber": "Deed Number",
+      "deedDate": "Deed Date",
+      "area": "Property Area"
+    },
+    "bidAmount": "Bid amount"
+  },
+  "addFunds": {
+    "title": "Add Funds",
+    "amountLabel": "Enter Amount",
+    "methodLabel": "Method of Adding Funds",
+    "confirm": "Add Funds",
+    "cancel": "Back",
+    "methods": {
+      "bank": "Bank Account"
+    },
+    "placeholders": {
+      "amount": "1000 SAR"
+    }
+  },
+  "shared": {
+    "general-error": "Something went wrong please try again"
+  },
+  "profile": {
+    "title": "Profile",
+    "name": "Name",
+    "email": "Email",
+    "roles": "Roles",
+    "noData": "—",
+    "mobile": "Mobile Number"
+  },
+  "auctionTypes": {
+    "title": "Auction Types"
+  },
+  "common": {
+    "close": "Close",
+    "cancel": "Cancel"
+  },
+  "error": {
+    "notAuthenticated": "Must be logged-in"
+  },
+  "watchlist": {
+    "title": "My Watchlist",
+    "loading": "Loading watchlist...",
+    "empty": "Your watchlist is empty. Add auctions to track them here.",
+    "activeOnly": "Active auctions only",
+    "previous": "Previous",
+    "next": "Next",
+    "add": "Add to Watchlist",
+    "remove": "Remove from Watchlist",
+    "toggleAria": "Toggle watchlist",
+    "addedSuccess": "Added to watchlist successfully",
+    "removedSuccess": "Removed from watchlist successfully",
+    "toggleError": "Failed to toggle watchlist"
+  }
+}

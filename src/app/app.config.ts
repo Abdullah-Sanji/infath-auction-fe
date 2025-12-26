@@ -9,21 +9,23 @@ import { definePreset } from '@primeuix/themes';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { provideTransloco } from '@jsverse/transloco';
+import { TranslocoHttpLoader } from './core/services/transloco-loader';
 
-const CustomAura = definePreset(Aura, {
+export const CustomAura = definePreset(Aura, {
   semantic: {
     primary: {
-      50: '{emerald.50}',
-      100: '{emerald.100}',
-      200: '{emerald.200}',
-      300: '{emerald.300}',
-      400: '{emerald.400}',
-      500: '{emerald.500}', // Emerald/green primary
-      600: '{emerald.600}',
-      700: '{emerald.700}',
-      800: '{emerald.800}',
-      900: '{emerald.900}',
-      950: '{emerald.950}',
+      50:  'var(--color-primary-50)',
+      100: 'var(--color-primary-100)',
+      200: 'var(--color-primary-200)',
+      300: 'var(--color-primary-300)',
+      400: 'var(--color-primary-400)',
+      500: 'var(--color-primary-500)', // Brand primary
+      600: 'var(--color-primary-600)',
+      700: 'var(--color-primary-700)',
+      800: 'var(--color-primary-800)',
+      900: 'var(--color-primary-900)',
+      950: 'var(--color-primary-950)',
     },
   },
 });
@@ -47,6 +49,19 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withInterceptors([authInterceptor])),
+    provideTransloco({
+      config: {
+        availableLangs: ['en', 'ar'],
+        defaultLang: 'ar',
+        reRenderOnLangChange: true,
+        prodMode: false,
+        fallbackLang: 'ar',
+        missingHandler: {
+          useFallbackTranslation: true
+        }
+      },
+      loader: TranslocoHttpLoader
+    }),
     MessageService
   ]
 };

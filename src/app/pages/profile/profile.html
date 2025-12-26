@@ -1,0 +1,29 @@
+<section class="profile container py-4">
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title">{{ 'profile.title' | transloco }}</h2>
+
+      <dl class="row">
+        <dt class="col-4 col-sm-3">{{ 'profile.name' | transloco }}</dt>
+        <dd class="col-8 col-sm-9">
+          {{
+            user?.fullName ??
+              (user?.firstName || user?.lastName
+                ? (user?.firstName ?? '') + ' ' + (user?.lastName ?? '')
+                : ('profile.noData' | transloco))
+          }}
+        </dd>
+
+        <dt class="col-4 col-sm-3">{{ 'profile.email' | transloco }}</dt>
+        <dd class="col-8 col-sm-9">
+          {{ user?.email ?? ('profile.noData' | transloco) }}
+        </dd>
+
+        <dt class="col-4 col-sm-3">{{ 'profile.mobile' | transloco }}</dt>
+        <dd class="col-8 col-sm-9">
+          {{ user?.phoneNumber ?? ('profile.noData' | transloco) }}
+        </dd>
+      </dl>
+    </div>
+  </div>
+</section>

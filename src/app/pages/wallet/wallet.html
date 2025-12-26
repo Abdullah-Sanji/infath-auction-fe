@@ -1,0 +1,131 @@
+<section class="wallet container py-4">
+  <div class="wallet-row card p-3">
+    <div class="metric">
+      <div class="metric-text">
+        <div class="title">{{ 'wallet.totalBalance' | transloco }}</div>
+        <div class="value">
+          <span class="sar">﷼</span>
+          <span>{{ totalBalance() | number }}</span>
+        </div>
+      </div>
+      <div class="icon-badge info" aria-hidden="true">
+        <i class="pi pi-money-bill"></i>
+      </div>
+    </div>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="metric">
+      <div class="metric-text">
+        <div class="title">{{ 'wallet.reservedBalance' | transloco }}</div>
+        <div class="value">
+          <span class="sar">﷼</span>
+          <span>{{ reservedBalance() | number }}</span>
+        </div>
+      </div>
+      <div class="icon-badge warning" aria-hidden="true">
+        <i class="pi pi-lock"></i>
+      </div>
+      <lib-button class="btn btn-outline btn-add" (onClick)="openModal()">
+        {{ 'wallet.addFunds' | transloco }}
+        <i class="pi pi-plus"></i>
+      </lib-button>
+    </div>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="metric">
+      <div class="metric-text">
+        <div class="title">{{ 'wallet.availableBalance' | transloco }}</div>
+        <div class="value">
+          <span class="sar">﷼</span>
+          <span>{{ availableBalance() | number }}</span>
+        </div>
+      </div>
+      <div class="icon-badge success" aria-hidden="true">
+        <i class="pi pi-check-circle"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="transactions card p-3 mt-3">
+    <div
+      class="tx-header d-flex align-items-center justify-content-between mb-3"
+    >
+      <div class="d-flex align-items-center gap-2">
+        <h3 class="mb-0">{{ 'transactions.title' | transloco }}</h3>
+        <span class="icon-badge success" aria-hidden="true">
+          <i class="pi pi-chart-bar"></i>
+        </span>
+      </div>
+      <div class="search-group">
+        <i class="pi pi-search" aria-hidden="true"></i>
+        <input
+          type="text"
+          class="search-input"
+          [placeholder]="'search' | transloco"
+          (input)="onSearch($any($event.target).value)"
+        />
+      </div>
+    </div>
+
+    <div class="filters d-flex align-items-center gap-2 mb-3">
+      <lib-button class="btn btn-outline filter">
+        <i class="pi pi-calendar"></i>
+        <span>{{ 'filters.date' | transloco }}</span>
+      </lib-button>
+      <lib-button class="btn btn-outline filter">
+        <i class="pi pi-chevron-down"></i>
+        <span>{{ 'filters.status' | transloco }}</span>
+      </lib-button>
+    </div>
+
+    <ul class="list-unstyled mb-0">
+      <li
+        *ngFor="let t of filteredTransactions()"
+        class="transaction-item d-flex align-items-center justify-content-between"
+      >
+        <div class="left d-flex align-items-center gap-2">
+          <span
+            class="amount-chip"
+            [class.positive]="t.delta > 0"
+            [class.negative]="t.delta < 0"
+          >
+            <span class="sar">﷼</span>
+            <span>{{ t.amount | number }}</span>
+            <span class="delta" *ngIf="t.delta !== 0">
+              {{ t.delta > 0 ? '+' : '-' }}
+            </span>
+          </span>
+        </div>
+        <div class="middle">
+          <div class="tx-title">{{ t.title }}</div>
+          <div class="tx-meta">{{ t.meta }}</div>
+        </div>
+        <div class="right">
+          <span
+            class="icon-badge"
+            [class.warning]="t.type === 'reserve'"
+            [class.success]="t.type === 'deposit'"
+          >
+            <i
+              [class]="t.type === 'reserve' ? 'pi pi-lock' : 'pi pi-plus'"
+              aria-hidden="true"
+            ></i>
+          </span>
+        </div>
+      </li>
+    </ul>
+    <div *ngIf="filteredTransactions().length === 0" class="muted">
+      {{ 'wallet.noTransactions' | transloco }}
+    </div>
+  </div>
+
+  <app-add-funds-modal
+    [open]="isAddFundsOpen()"
+    [initialAmount]="initialAmount"
+    [initialMethod]="initialMethod"
+    (confirm)="onAddFunds($event)"
+    (cancel)="closeModal()"
+  ></app-add-funds-modal>
+</section>

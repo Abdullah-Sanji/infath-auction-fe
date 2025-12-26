@@ -1,0 +1,29 @@
+<footer class="footer">
+  <div class="content">
+    <div class="legal">
+      <div class="links-legal">
+        <div class="link-list">
+          @for (link of links; track $index) {
+          <a href="{{ link.url }}" class="link">{{ link.title }}</a>
+          }
+        </div>
+        <div class="legal-info">
+          <p class="caption">
+            {{ 'footer.caption' | transloco : { value: currentYear } }}
+          </p>
+          <div class="extra-links">
+            <a class="link" [routerLink]="['/privacy-policy']">
+              {{ 'footer.privacy' | transloco }}
+            </a>
+            <a class="link" [routerLink]="['/terms-and-conditions']">
+              {{ 'footer.terms' | transloco }}
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="logos">
+        <img class="logo" alt="Infath" src="images/icons/company-logo.svg" />
+      </div>
+    </div>
+  </div>
+</footer>

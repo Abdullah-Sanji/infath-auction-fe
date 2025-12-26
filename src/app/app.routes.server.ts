@@ -6,16 +6,16 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender  // Static, pre-render at build
   },
   {
-    path: 'about',
-    renderMode: RenderMode.Prerender  // Static, pre-render at build
-  },
-  {
     path: 'auctions',
     renderMode: RenderMode.Server  // Dynamic, render on each request
   },
   {
-    path: 'login',
-    renderMode: RenderMode.Client  // Client-side only (uses localStorage, etc.)
+    path: 'wallet',
+    renderMode: RenderMode.Server  // Dynamic, render on each request
+  },
+  {
+    path: 'privacy-policy',
+    renderMode: RenderMode.Client  // Dynamic, render on each request
   },
   {
     path: '**',

@@ -1,21 +1,98 @@
-<nav class="navbar">
-  <div class="nav-container">
-    <div class="logo">
-      <span class="logo-text">🔨 Auctions</span>
-    </div>
-    <ul class="nav-links">
-      <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
-      <li><a routerLink="/auctions" routerLinkActive="active">Auctions</a></li>
-      <li><a routerLink="/about" routerLinkActive="active">About</a></li>
-      @if (authService.isLoggedIn()) {
-        <li class="auth-section">
-          <span class="user-name">{{ authService.user()?.name }}</span>
-          <button class="logout-button" (click)="logout()">Logout</button>
-        </li>
+<header class="nav-header">
+  <div class="header-content">
+    <div class="actions">
+      @if (!isAuthenticated()) {
+      <lib-button
+        class="secondary"
+        (onClick)="login()"
+        [label]="'nav.login' | transloco"
+      ></lib-button>
       } @else {
-        <li><a routerLink="/login" routerLinkActive="active" class="login-link">Login</a></li>
-      }
-    </ul>
-  </div>
-</nav>
+      <!-- User Icon -->
+      <div class="action-item user-icon-container">
+        <div class="user-icon-placeholder">
+          <a [routerLink]="['/profile']">
+            <i class="pi pi-user"></i>
+          </a>
+        </div>
+      </div>
 
+      <!-- Wallet -->
+      <div class="action-item wallet-display">
+        <div class="wallet-content">
+          <span class="currency-symbol">SAR</span>
+          <span class="balance">{{ walletBalance() }}</span>
+          <i class="pi pi-wallet"></i>
+        </div>
+        <div class="wallet-indicator"></div>
+      </div>
+
+      <!-- Logout -->
+      <lib-button
+        (onClick)="logout()"
+        [label]="'nav.logout' | transloco"
+        icon="pi-sign-out"
+      ></lib-button>
+      }
+      <div class="lang-switch" role="group" aria-label="Language selection">
+        <lib-button
+          [rounded]="true"
+          (onClick)="toggleLanguage()"
+        >
+          العربية
+        </lib-button>
+        <lib-button
+          [rounded]="true"
+          (onClick)="toggleLanguage()"
+        >
+          English
+        </lib-button>
+      </div>
+    </div>
+    <div class="menu-grow">
+      <nav class="menu-items" tAria="nav.ariaMenu">
+        <a
+          class="menu-item"
+          [routerLink]="['/']"
+          aria-label="{{ 'nav.myBids' | transloco }}"
+        >
+          <span class="menu-label">{{ 'nav.browseAuctions' | transloco }}</span>
+        </a>
+        @if (isAuthenticated()) {
+        <a
+          class="menu-item"
+          [routerLink]="['/auctions/bidder/my-bids']"
+          aria-label="{{ 'nav.myBids' | transloco }}"
+        >
+          <span class="menu-label">{{ 'nav.myBids' | transloco }}</span>
+        </a>
+        <a
+          class="menu-item"
+          [routerLink]="['/auctions/bidder/my-purchases']"
+          aria-label="{{ 'nav.myPurchases' | transloco }}"
+        >
+          <span class="menu-label">{{ 'nav.myPurchases' | transloco }}</span>
+        </a>
+        <a
+          class="menu-item"
+          [routerLink]="['/auctions/bidder/watchlist']"
+          aria-label="{{ 'nav.watchlist' | transloco }}"
+        >
+          <span class="menu-label">{{ 'nav.watchlist' | transloco }}</span>
+        </a>
+        <a
+          class="menu-item"
+          [routerLink]="['/account/wallet']"
+          aria-label="{{ 'nav.wallet' | transloco }}"
+        >
+          <span class="menu-label">{{ 'nav.wallet' | transloco }}</span>
+        </a>
+        }
+      </nav>
+      <a class="logo" aria-label="إنفاذ" [routerLink]="['/']">
+        <img class="logo-img" src="images/icons/company-logo.svg" alt="Infath" />
+      </a>
+    </div>
+  </div>
+  <div class="bottom-divider" aria-hidden="true"></div>
+</header>

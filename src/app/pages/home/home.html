@@ -1,7 +1,7 @@
 <div class="container mx-auto p-6">
   <div class="mb-8">
-    <h1 class="text-4xl font-bold text-gray-900 mb-2">Welcome to Auctions</h1>
-    <p class="text-xl text-gray-600">Discover amazing items and place your bids</p>
+    <h1 class="text-4xl font-bold text-gray-900 mb-2">{{ 'home.hero.title' | transloco }}</h1>
+    <p class="text-xl text-gray-600">{{ 'home.hero.subtitle' | transloco }}</p>
   </div>
 
   @if (isLoading()) {
@@ -11,7 +11,7 @@
   }
 
   @if (error()) {
-    <p-message severity="error" [text]="error()!" styleClass="mb-4" />
+    <p-message severity="error" [text]="'common.error' | transloco" styleClass="mb-4" />
   }
 
   @if (!isLoading() && homeData()) {

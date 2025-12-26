@@ -1,52 +1,76 @@
-import { Component, signal, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../core/services/auth.service';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { AuthService } from '@core/services/auth.service';
+import { Button } from '@shared/components/ui/button/button';
+import { InputText } from '@shared/components/ui/input-text/input-text';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, PasswordModule],
+  standalone: true,
+  imports: [CommonModule, TranslocoPipe, Button, InputText],
   templateUrl: './login.html',
-  styleUrl: './login.scss'
+  styleUrls: ['./login.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Login {
-  private authService = inject(AuthService);
-  private router = inject(Router);
+export class LoginComponent {
+  private readonly router = inject(Router);
+  private readonly translate = inject(TranslocoService);
+  private readonly authService = inject(AuthService);
+  private readonly messageService = inject(MessageService);
 
-  username = signal('');
-  password = signal('');
-  errorMessage = signal<string>('');
-  isLoading = signal<boolean>(false);
+  readonly email = signal<string>('');
+  readonly password = signal<string>('');
+  readonly loading = signal<boolean>(false);
 
-  async onSubmit(): Promise<void> {
-    this.errorMessage.set('');
-    this.isLoading.set(true);
+  readonly isEmailValid = computed(() => /\S+@\S+\.\S+/.test(this.email()));
+  readonly isPasswordPresent = computed(() => this.password().length > 0);
 
-    try {
-      const success = await this.authService.login(
-        this.username(),
-        this.password()
-      );
+  setEmail(v: string | number | boolean) {
+    this.email.set(String(v ?? ''));
+  }
+  setPassword(v: string | number | boolean) {
+    this.password.set(String(v ?? ''));
+  }
 
-      if (success) {
-        const redirectUrl = this.authService.getRedirectUrl();
-        await this.router.navigate([redirectUrl]);
-      } else {
-        this.errorMessage.set(
-          'Invalid username or password. Please check your credentials and try again.'
-        );
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      this.errorMessage.set(
-        'Unable to connect to the authentication service. Please try again later.'
-      );
-    } finally {
-      this.isLoading.set(false);
+  async submit() {
+    if (!this.isEmailValid() || !this.isPasswordPresent()) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: this.translate.translate('login.validationIncomplete'),
+        detail: this.translate.translate('login.validationIncompleteDetail'),
+      });
+      return;
     }
+    this.loading.set(true);
+    try {
+      const ok = await this.authService.loginWithCredentials({
+        Email: this.email(),
+        Password: this.password(),
+      });
+      if (ok) {
+        await this.router.navigateByUrl('/');
+      } else {
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translate.translate('login.error'),
+          detail: this.translate.translate('login.errorDetail'),
+        });
+      }
+    } catch (err) {
+      this.messageService.add({
+        severity: 'error',
+        summary: this.translate.translate('login.error'),
+        detail: this.translate.translate('login.errorDetail'),
+      });
+    } finally {
+      this.loading.set(false);
+    }
+  }
+
+  async loginWithSso() {
+    await this.authService.login();
   }
 }
