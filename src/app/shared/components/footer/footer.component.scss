@@ -1,103 +1,17 @@
-.footer {
-  background: #f3f4f6;
-  border-top: 1px solid var(--color-border-neutral);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-inline: var(--spacing-4xl);
-}
+// Minimal SCSS - using Tailwind CSS for styling
+// Only custom styles that can't be achieved with Tailwind go here
 
-.content {
-  width: 100%;
-  padding-block: var(--spacing-5xl) var(--spacing-3xl);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-6xl);
-  align-items: flex-start;
-}
+.footer-gradient {
+  background: linear-gradient(
+    90deg,
+    #00A2A0 -23.7%,
+    #008990 0.65%,
+    #006B7E 37.42%,
+    #00536F 76.14%,
+    #004365 117.54%,
+    #00395E 162.84%,
+    #00365D 219.83%
+  );
 
-.legal {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  gap: var(--spacing-3xl);
-  padding-block: var(--spacing-xl);
-}
 
-.logos {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xl);
-}
-.logo {
-  height: 32px;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-}
-
-@media (min-width: 1024px) {
-  .logo {
-    height: 40px;
-  }
-}
-
-.links-legal {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3xl);
-  align-items: flex-start;
-}
-
-.link-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  justify-content: flex-start;
-}
-
-.link {
-  font-family: var(--font-family-text);
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: var(--font-weight-regular);
-  color: #384250;
-  text-decoration: underline;
-}
-
-.legal-info {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  align-items: flex-start;
-}
-.caption {
-  font-family: var(--font-family-text);
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-default);
-}
-.extra-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-xl);
-}
-
-@media (max-width: 800px) {
-  .content {
-    align-items: stretch;
-  }
-  .legal {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .links-legal {
-    align-items: flex-start;
-  }
-  .link-list {
-    justify-content: flex-start;
-  }
 }

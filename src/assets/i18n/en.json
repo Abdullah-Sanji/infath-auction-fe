@@ -113,20 +113,35 @@
     "or": "Or"
   },
   "footer": {
-    "links": [
-      "Footer link",
-      "Footer link",
-      "Footer link",
-      "Footer link",
-      "Footer link",
-      "Footer link",
-      "Footer link",
-      "Footer link",
-      "Footer link"
-    ],
     "privacy": "Privacy Policy",
     "terms": "Terms & Conditions",
-    "caption": "All rights reserved to the Digital Government Authority © {{value}}"
+    "caption": "All rights reserved to the Digital Government Authority © {{value}}",
+    "contact": {
+      "title": "Contact Us"
+    },
+    "accessibility": {
+      "title": "Accessibility Tools",
+      "magnifier": "Magnifier",
+      "elements": "Elements",
+      "fullscreen": "Fullscreen"
+    },
+    "importantPages": {
+      "title": "Important Pages",
+      "myOrders": "My Orders",
+      "smartAssistant": "Smart Assistant"
+    },
+    "myAuctions": {
+      "title": "My Auctions",
+      "favorite": "My Favorite Auctions",
+      "winning": "My Winning Auctions",
+      "ongoing": "My Ongoing Auctions"
+    },
+    "nav": {
+      "title": "Home",
+      "home": "Home Page",
+      "currentAuctions": "Current Auctions",
+      "upcomingAuctions": "Upcoming Auctions"
+    }
   },
   "terms": {
     "title": "Terms & Conditions",

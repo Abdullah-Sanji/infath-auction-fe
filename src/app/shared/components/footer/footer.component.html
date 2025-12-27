@@ -1,28 +1,187 @@
-<footer class="footer">
-  <div class="content">
-    <div class="legal">
-      <div class="links-legal">
-        <div class="link-list">
-          @for (link of links; track $index) {
-          <a href="{{ link.url }}" class="link">{{ link.title }}</a>
+<footer
+  class="footer-gradient relative flex items-start px-8 justify-center border-t border-neutral-300 w-full overflow-hidden"
+  [attr.dir]="isRTL ? 'ltr' : 'rtl'"
+>
+  <!-- Decorative Lines on the Right -->
+  <div class="absolute right-10 top-0 bottom-0 flex gap-2 items-stretch">
+    <div class="w-px bg-white/20"></div>
+  </div>
+  <div class="absolute right-10 top-0 bottom-[-74px] flex gap-2 items-stretch rotate-45">
+    <div class="w-px bg-white/20"></div>
+  </div>
+
+  <div class="flex flex-col gap-4 items-end w-full max-w-[1440px] pt-10 pb-6">
+    <!-- Nav Links Section -->
+    <div class="flex flex-wrap gap-6 items-start justify-end pt-4 pb-10 w-full">
+      <!-- Contact Us Section -->
+      <div class="flex flex-col gap-8 items-end min-w-[180px] flex-1">
+        <!-- Social Media -->
+        <div class="flex flex-col gap-2 items-end w-full">
+          <div class="flex flex-col items-end pb-2 border-b border-white/30 w-full">
+            <p class="text-white text-base font-medium leading-6 text-right whitespace-nowrap">
+              {{ 'footer.contact.title' | transloco }}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 items-start justify-end w-full">
+            <button
+              class="flex items-center justify-center gap-1 h-8 px-3 border border-white/30 rounded text-white text-sm font-medium leading-5 whitespace-nowrap"
+            >
+              <span>+966920000100</span>
+              <img src="images/icons/phone.svg" alt="" class="w-5 h-5" />
+            </button>
+            <div class="flex gap-2 items-center">
+              <button
+                class="flex items-center justify-center w-8 h-8 border border-white/30 rounded"
+              >
+                <img src="images/icons/mail.svg" alt="Email" class="w-5 h-5" />
+              </button>
+              <button
+                class="flex items-center justify-center w-8 h-8 border border-white/30 rounded"
+              >
+                <img src="images/icons/linkedin.svg" alt="LinkedIn" class="w-5 h-5" />
+              </button>
+              <button
+                class="flex items-center justify-center w-8 h-8 border border-white/30 rounded"
+              >
+                <img src="images/icons/x.svg" alt="X" class="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accessibility Tools -->
+        <div class="flex flex-col gap-2 items-end w-full">
+          <div class="flex flex-col items-end pb-2 border-b border-white/30 w-full">
+            <p class="text-white text-base font-medium leading-6 text-right whitespace-nowrap">
+              {{ 'footer.accessibility.title' | transloco }}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 items-start justify-end w-full">
+            <button class="flex items-center justify-center w-8 h-8 border border-white/30 rounded">
+              <img
+                src="images/icons/magnifier.svg"
+                alt="{{ 'footer.accessibility.magnifier' | transloco }}"
+                class="w-5 h-5"
+              />
+            </button>
+            <button class="flex items-center justify-center w-8 h-8 border border-white/30 rounded">
+              <img
+                src="images/icons/elements.svg"
+                alt="{{ 'footer.accessibility.elements' | transloco }}"
+                class="w-5 h-5"
+              />
+            </button>
+            <button class="flex items-center justify-center w-8 h-8 border border-white/30 rounded">
+              <img
+                src="images/icons/full-screen.svg"
+                alt="{{ 'footer.accessibility.fullscreen' | transloco }}"
+                class="w-5 h-5"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Important Pages Section -->
+      <div class="flex flex-col gap-2 items-end min-w-[180px] flex-1">
+        <div class="flex flex-col items-end pb-2 border-b border-white/30 w-full">
+          <p class="text-white text-base font-medium leading-6 text-right whitespace-nowrap">
+            {{ 'footer.importantPages.title' | transloco }}
+          </p>
+        </div>
+        <div class="flex flex-col gap-2 items-end w-full">
+          @for (link of importantPagesLinks; track $index) {
+          <a
+            [routerLink]="link.url"
+            class="flex gap-1 items-center justify-end text-white text-sm font-normal leading-5 whitespace-nowrap hover:underline"
+          >
+            {{ link.label | transloco }}
+          </a>
           }
         </div>
-        <div class="legal-info">
-          <p class="caption">
-            {{ 'footer.caption' | transloco : { value: currentYear } }}
+      </div>
+
+      <!-- My Auctions Section -->
+      <div class="flex flex-col gap-2 items-end min-w-[180px] flex-1">
+        <div class="flex flex-col items-end pb-2 border-b border-white/30 w-full">
+          <p class="text-white text-base font-medium leading-6 text-right whitespace-nowrap">
+            {{ 'footer.myAuctions.title' | transloco }}
           </p>
-          <div class="extra-links">
-            <a class="link" [routerLink]="['/privacy-policy']">
+        </div>
+        <div class="flex flex-col gap-2 items-end w-full">
+          @for (link of myAuctionsLinks; track $index) {
+          <a
+            [routerLink]="link.url"
+            class="flex gap-1 items-center justify-end text-white text-sm font-normal leading-5 whitespace-nowrap hover:underline"
+          >
+            {{ link.label | transloco }}
+          </a>
+          }
+        </div>
+      </div>
+
+      <!-- Main Navigation Section -->
+      <div class="flex flex-col gap-2 items-end min-w-[180px] flex-1">
+        <div class="flex flex-col items-end pb-2 border-b border-white/30 w-full">
+          <p class="text-white text-base font-medium leading-6 text-right whitespace-nowrap">
+            {{ 'footer.nav.title' | transloco }}
+          </p>
+        </div>
+        <div class="flex flex-col gap-2 items-end w-full">
+          @for (link of mainLinks; track $index) {
+          <a
+            [routerLink]="link.url"
+            class="flex gap-1 items-center justify-end text-white text-sm font-normal leading-5 whitespace-nowrap hover:underline"
+          >
+            {{ link.label | transloco }}
+          </a>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Legal Section -->
+    <div class="flex gap-6 items-center justify-end py-4 w-full">
+      <!-- Logos -->
+      <div class="flex items-center h-full">
+        <div class="flex gap-6 items-center justify-end w-[300px] h-full">
+          <div class="flex gap-4 items-center">
+            <img src="images/icons/digitized-gov.svg" alt="Nafath" class="h-[50px] w-auto" />
+            <img src="images/icons/vision.svg" alt="Vision 2030" class="h-[54px] w-auto" />
+          </div>
+          <!-- Separator Line -->
+          <div class="h-[54px] w-0-5 bg-white"></div>
+          <img
+            src="images/icons/company-logo-white.svg"
+            alt="Company Logo"
+            class="h-[54px] w-auto"
+          />
+        </div>
+      </div>
+
+      <!-- Legal Info -->
+      <div class="flex flex-col gap-0 items-end flex-1">
+        <div class="flex flex-col gap-2 items-end">
+          <div class="flex items-start justify-end">
+            <p class="text-white text-sm font-semibold leading-5 text-right whitespace-nowrap">
+              {{ 'footer.caption' | transloco : { value: currentYear } }}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-4 items-start justify-end">
+            <a
+              [routerLink]="['/privacy-policy']"
+              class="flex gap-1 items-center justify-end text-white text-sm font-normal leading-5 whitespace-nowrap hover:underline"
+            >
               {{ 'footer.privacy' | transloco }}
             </a>
-            <a class="link" [routerLink]="['/terms-and-conditions']">
+            <a
+              [routerLink]="['/terms-and-conditions']"
+              class="flex gap-1 items-center justify-end text-white text-sm font-normal leading-5 whitespace-nowrap hover:underline"
+            >
               {{ 'footer.terms' | transloco }}
             </a>
           </div>
         </div>
-      </div>
-      <div class="logos">
-        <img class="logo" alt="Infath" src="images/icons/company-logo.svg" />
       </div>
     </div>
   </div>

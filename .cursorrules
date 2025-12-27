@@ -732,6 +732,8 @@ Before submitting any code, verify:
 - [ ] Interfaces exist in separate `.interface.ts` files
 - [ ] Using PrimeNG components (not custom UI)
 - [ ] Using Tailwind utility classes for styling
+- [ ] No inline styles
+- [ ] Use custom styles in component scss file by minimal (if needed)
 - [ ] Forms are template-driven (not reactive)
 - [ ] Reusable components extracted where appropriate
 - [ ] No `localStorage` usage - cookies used instead
