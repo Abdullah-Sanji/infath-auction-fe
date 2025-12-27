@@ -43,7 +43,7 @@ export class LanguageService {
   // Current language details
   currentLanguageDetails = computed(() => {
     const lang = this.currentLanguage();
-    return this.languages.find(l => l.code === lang) || this.languages[0];
+    return this.languages.find(l => l.code === lang) || this.languages.find(l => l.code === 'ar') || this.languages[0];
   });
 
   // Text direction
@@ -53,12 +53,16 @@ export class LanguageService {
   isRTL = computed(() => this.textDirection() === 'rtl');
 
   constructor() {
-    // Set initial language in Transloco
-    this.translocoService.setActiveLang(this.currentLanguage());
+    const initialLang = this.currentLanguage();
 
-    // Apply direction to document if in browser
+    // Set initial language in Transloco synchronously
+    this.translocoService.setActiveLang(initialLang);
+
+    // Apply direction to document immediately if in browser
     if (this.isBrowser) {
-      this.applyDirection();
+      // Set direction immediately to prevent flash
+      document.documentElement.dir = initialLang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = initialLang;
     }
   }
 
@@ -67,7 +71,7 @@ export class LanguageService {
    */
   private getInitialLanguage(): Language {
     if (!this.isBrowser) {
-      return 'en'; // Default for SSR
+      return 'ar'; // Default for SSR
     }
 
     // Try to get from cookie
@@ -82,7 +86,7 @@ export class LanguageService {
       return 'ar';
     }
 
-    return 'en';
+    return 'ar'; // Default to Arabic
   }
 
   /**
