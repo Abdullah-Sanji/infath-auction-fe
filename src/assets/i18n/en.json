@@ -30,7 +30,13 @@
     "watchlist": "Watchlist",
     "myPurchases": "My Purchases",
     "myBids": "My Bids",
-    "browseAuctions": "Browse Auctions"
+    "browseAuctions": "Browse Auctions",
+    "myOrders": "My Orders",
+    "myChats": "My Chats",
+    "myAuctions": "My Auctions",
+    "home": "Home",
+    "homeSubItem1": "Sub Item 1",
+    "homeSubItem2": "Sub Item 2"
   },
   "wallet": {
     "subtitle": "Manage your balance and payment methods here.",

@@ -4,6 +4,7 @@ import { provideRouter } from '@angular/router';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { Header } from './header';
 import { AuthService } from '../../../core/services/auth.service';
+import { UserProfile } from '@shared/models/auth.models';
 
 describe('Header', () => {
   let component: Header;
@@ -39,127 +40,236 @@ describe('Header', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display navigation links', () => {
-    const compiled = fixture.nativeElement;
-    const links = compiled.querySelectorAll('.nav-links a');
-
-    expect(links.length).toBeGreaterThan(0);
-    expect(compiled.textContent).toContain('Home');
-    expect(compiled.textContent).toContain('Auctions');
-    expect(compiled.textContent).toContain('About');
-  });
-
-  it('should display logo', () => {
-    const compiled = fixture.nativeElement;
-    const logo = compiled.querySelector('.logo-text');
-
-    expect(logo).toBeTruthy();
-    expect(logo.textContent).toContain('Auctions');
-  });
-
-  it('should display login link when user is not logged in', () => {
+  it('should display login button when user is not logged in', () => {
     // Ensure user is logged out
-    if (authService.isAuthenticated()) {
-      authService.logout();
-    }
+    authService.resetAuthState();
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement;
-    const loginLink = compiled.querySelector('.login-link');
+    const loginButton = compiled.querySelector('.action-login');
 
-    expect(loginLink).toBeTruthy();
-    if (loginLink) {
-      expect(loginLink.textContent).toContain('Login');
-    }
+    expect(loginButton).toBeTruthy();
+    expect(loginButton.textContent).toContain('تسجيل الدخول');
   });
 
-  it('should display user name and logout button when user is logged in', () => {
-    authService.login('john@example.com', 'password123');
+  it('should display menu button, user profile, and wallet when user is logged in', () => {
+    // Mock authenticated state
+    const mockProfile: UserProfile = {
+      id: '1',
+      firstName: 'أحمد',
+      lastName: 'خالد',
+      fullName: 'أحمد خالد',
+      email: 'ahmed@example.com'
+    };
+    
+    // Set user profile directly (bypassing auth flow)
+    (authService as any)._userProfile.set(mockProfile);
+    (authService as any)._isAuthenticated.set(true);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement;
+    const menuButton = compiled.querySelector('.menu-button');
+    const userProfile = compiled.querySelector('.user-profile');
+    const walletDisplay = compiled.querySelector('.wallet-display');
+
+    expect(menuButton).toBeTruthy();
+    expect(userProfile).toBeTruthy();
+    expect(walletDisplay).toBeTruthy();
+  });
+
+  it('should display user name when logged in', () => {
+    const mockProfile: UserProfile = {
+      id: '1',
+      firstName: 'أحمد',
+      lastName: 'خالد',
+      fullName: 'أحمد خالد',
+      email: 'ahmed@example.com'
+    };
+    
+    (authService as any)._userProfile.set(mockProfile);
+    (authService as any)._isAuthenticated.set(true);
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement;
     const userName = compiled.querySelector('.user-name');
-    const logoutButton = compiled.querySelector('.logout-button');
 
     expect(userName).toBeTruthy();
-    expect(userName.textContent).toContain('john');
-    expect(logoutButton).toBeTruthy();
-    expect(logoutButton.textContent).toContain('Logout');
+    expect(userName.textContent).toContain('أحمد خالد');
   });
 
-  it('should not display login link when user is logged in', () => {
-    authService.login('john@example.com', 'password123');
+  it('should display user avatar with initials', () => {
+    const mockProfile: UserProfile = {
+      id: '1',
+      firstName: 'أحمد',
+      lastName: 'خالد',
+      fullName: 'أحمد خالد',
+      email: 'ahmed@example.com'
+    };
+    
+    (authService as any)._userProfile.set(mockProfile);
+    (authService as any)._isAuthenticated.set(true);
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement;
-    const loginLink = compiled.querySelector('.login-link');
+    const avatarInitials = compiled.querySelector('.avatar-initials');
 
-    expect(loginLink).toBeFalsy();
+    expect(avatarInitials).toBeTruthy();
+    expect(avatarInitials.textContent).toBe('أخ');
   });
 
-  it('should call authService.logout when logout button is clicked', () => {
-    authService.login('john@example.com', 'password123');
+  it('should display wallet balance', () => {
+    const mockProfile: UserProfile = {
+      id: '1',
+      firstName: 'أحمد',
+      lastName: 'خالد',
+      fullName: 'أحمد خالد'
+    };
+    
+    (authService as any)._userProfile.set(mockProfile);
+    (authService as any)._isAuthenticated.set(true);
+    component.walletBalance.set(10000);
     fixture.detectChanges();
 
-    spyOn(authService, 'logout').and.callThrough();
-
     const compiled = fixture.nativeElement;
-    const logoutButton = compiled.querySelector('.logout-button') as HTMLButtonElement;
+    const balance = compiled.querySelector('.balance');
 
-    logoutButton.click();
-
-    expect(authService.logout).toHaveBeenCalled();
+    expect(balance).toBeTruthy();
+    expect(balance.textContent).toContain('10000');
   });
 
-  it('should call logout method when logout button is clicked', () => {
-    authService.login('john@example.com', 'password123');
+  it('should display menu items when authenticated', () => {
+    const mockProfile: UserProfile = {
+      id: '1',
+      firstName: 'أحمد',
+      lastName: 'خالد',
+      fullName: 'أحمد خالد'
+    };
+    
+    (authService as any)._userProfile.set(mockProfile);
+    (authService as any)._isAuthenticated.set(true);
     fixture.detectChanges();
 
-    spyOn(component, 'logout');
-
     const compiled = fixture.nativeElement;
-    const logoutButton = compiled.querySelector('.logout-button') as HTMLButtonElement;
+    const menuItems = compiled.querySelectorAll('.menu-item');
 
-    logoutButton.click();
-
-    expect(component.logout).toHaveBeenCalled();
+    expect(menuItems.length).toBeGreaterThan(0);
   });
 
-  it('should have correct navigation structure', () => {
+  it('should display logo', () => {
     const compiled = fixture.nativeElement;
-    const navbar = compiled.querySelector('.navbar');
-    const navContainer = compiled.querySelector('.nav-container');
-    const navLinks = compiled.querySelector('.nav-links');
+    const logo = compiled.querySelector('.logo');
+    const logoImg = compiled.querySelector('.logo-img');
 
-    expect(navbar).toBeTruthy();
-    expect(navContainer).toBeTruthy();
-    expect(navLinks).toBeTruthy();
+    expect(logo).toBeTruthy();
+    expect(logoImg).toBeTruthy();
+    expect(logoImg.getAttribute('src')).toBe('images/icons/company-logo.svg');
   });
 
-  it('should have sticky positioning on navbar', () => {
-    const compiled = fixture.nativeElement;
-    const navbar = compiled.querySelector('.navbar') as HTMLElement;
-    const styles = window.getComputedStyle(navbar);
-
-    expect(styles.position).toBe('sticky');
-  });
-
-  it('should have auth service injected', () => {
-    expect(component['authService']).toBeTruthy();
-  });
-
-  it('should toggle between logged in and logged out states', () => {
-    // Initial state - not logged in
-    expect(authService.isLoggedIn()).toBe(false);
+  it('should call login method when login button is clicked', () => {
+    authService.resetAuthState();
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('.login-link')).toBeTruthy();
 
-    // Login
-    authService.login('test@example.com', 'password');
+    spyOn(component, 'login');
+    spyOn(router, 'navigateByUrl');
+
+    const compiled = fixture.nativeElement;
+    const loginButton = compiled.querySelector('.action-login') as HTMLButtonElement;
+
+    loginButton.click();
+
+    expect(component.login).toHaveBeenCalled();
+  });
+
+  it('should call navigateToProfile when user profile is clicked', () => {
+    const mockProfile: UserProfile = {
+      id: '1',
+      firstName: 'أحمد',
+      lastName: 'خالد',
+      fullName: 'أحمد خالد'
+    };
+    
+    (authService as any)._userProfile.set(mockProfile);
+    (authService as any)._isAuthenticated.set(true);
     fixture.detectChanges();
-    expect(authService.isLoggedIn()).toBe(true);
-    expect(fixture.nativeElement.querySelector('.logout-button')).toBeTruthy();
-    expect(fixture.nativeElement.querySelector('.login-link')).toBeFalsy();
+
+    spyOn(component, 'navigateToProfile');
+    spyOn(router, 'navigateByUrl');
+
+    const compiled = fixture.nativeElement;
+    const userProfile = compiled.querySelector('.user-profile') as HTMLElement;
+
+    userProfile.click();
+
+    expect(component.navigateToProfile).toHaveBeenCalled();
+  });
+
+  it('should call navigateToWallet when wallet is clicked', () => {
+    const mockProfile: UserProfile = {
+      id: '1',
+      firstName: 'أحمد',
+      lastName: 'خالد',
+      fullName: 'أحمد خالد'
+    };
+    
+    (authService as any)._userProfile.set(mockProfile);
+    (authService as any)._isAuthenticated.set(true);
+    fixture.detectChanges();
+
+    spyOn(component, 'navigateToWallet');
+    spyOn(router, 'navigateByUrl');
+
+    const compiled = fixture.nativeElement;
+    const walletDisplay = compiled.querySelector('.wallet-display') as HTMLElement;
+
+    walletDisplay.click();
+
+    expect(component.navigateToWallet).toHaveBeenCalled();
+  });
+
+  it('should compute user initials correctly from firstName and lastName', () => {
+    const mockProfile: UserProfile = {
+      id: '1',
+      firstName: 'John',
+      lastName: 'Doe',
+      fullName: 'John Doe'
+    };
+    
+    (authService as any)._userProfile.set(mockProfile);
+    fixture.detectChanges();
+
+    expect(component.userInitials()).toBe('JD');
+  });
+
+  it('should compute user initials from fullName when firstName/lastName not available', () => {
+    const mockProfile: UserProfile = {
+      id: '1',
+      fullName: 'أحمد خالد'
+    };
+    
+    (authService as any)._userProfile.set(mockProfile);
+    fixture.detectChanges();
+
+    expect(component.userInitials().length).toBeGreaterThan(0);
+  });
+
+  it('should display bottom divider', () => {
+    const compiled = fixture.nativeElement;
+    const divider = compiled.querySelector('.bottom-divider');
+
+    expect(divider).toBeTruthy();
+  });
+
+  it('should have correct header structure', () => {
+    const compiled = fixture.nativeElement;
+    const navHeader = compiled.querySelector('.nav-header');
+    const headerContent = compiled.querySelector('.header-content');
+    const actions = compiled.querySelector('.actions');
+    const menuGrow = compiled.querySelector('.menu-grow');
+
+    expect(navHeader).toBeTruthy();
+    expect(headerContent).toBeTruthy();
+    expect(actions).toBeTruthy();
+    expect(menuGrow).toBeTruthy();
   });
 });
 

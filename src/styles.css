@@ -199,6 +199,9 @@
   --color-primary-a80: #1b8354cc;
   --color-primary-a90: #1b8354e5;
 
+  /* Button */
+  --color-button-primary: #007A8C;
+
   /* Spacing */
   --spacing-0: 0px;
   --spacing-0-5: 2px;

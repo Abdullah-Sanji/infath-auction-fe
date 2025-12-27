@@ -1,16 +1,12 @@
 import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Card } from 'primeng/card';
-import { Button } from 'primeng/button';
-import { ProgressSpinner } from 'primeng/progressspinner';
-import { Message } from 'primeng/message';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { HomeService } from './services/home.service';
 import { HomeData } from './interfaces/home.interface';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, Card, Button, ProgressSpinner, Message, TranslocoPipe],
+  imports: [CommonModule, TranslocoPipe],
   providers: [HomeService],
   templateUrl: './home.html',
   styleUrl: './home.scss'
