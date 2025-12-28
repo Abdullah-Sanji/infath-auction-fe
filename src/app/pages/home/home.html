@@ -1,8 +1,92 @@
-<div class="container mx-auto p-6">
-  <div class="mb-8">
-    <h1 class="text-4xl font-bold text-gray-900 mb-2">{{ 'home.hero.title' | transloco }}</h1>
-    <p class="text-xl text-gray-600">{{ 'home.hero.subtitle' | transloco }}</p>
-  </div>
+<div class="w-full">
+  <!-- Hero Section -->
+  <section
+    class="relative w-full py-12 px-16 bg-[linear-gradient(92.49deg,#00a2a0_0.63%,#19275a_131.39%)] flex flex-col items-center justify-center gap-8 border-b border-neutral-300 overflow-hidden h-[420px]"
+  >
+    <div class="flex flex-col items-center gap-6 max-w-[624px] w-full relative z-10">
+      <!-- Title -->
+      <h1
+        class="font-['Lama_Sans',sans-serif] font-bold text-[36px] leading-[44px] text-center text-white tracking-[-0.72px] m-0 w-full"
+        [innerHTML]="'hero.heading' | transloco"
+      ></h1>
 
+      <!-- Search Bar -->
+      <div class="w-full max-w-[578px]">
+        <div
+          class="bg-white border border-neutral-300 rounded-2xl p-4 shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] flex items-center gap-0"
+        >
+          <!-- Filters Container -->
+          <div class="flex-1 flex items-center gap-6 min-w-0 ms-0">
+            <!-- Auction Type Filter -->
+            <div class="flex items-center min-w-0 flex-1 basis-0">
+              <lib-dropdown
+                [(value)]="selectedAuctionType"
+                [options]="auctionTypeOptions"
+                [optionLabel]="'label'"
+                [optionValue]="'value'"
+                [placeholder]="'hero.filters.auctionType' | transloco"
+                [showClear]="true"
+                [variant]="'outlined'"
+                (onChange)="onAuctionTypeChange($event)"
+                class="w-full min-w-0"
+                [showBorder]="false"
+              ></lib-dropdown>
+            </div>
+
+            <!-- Divider -->
+            <div class="w-px h-10 bg-neutral-300 shrink-0"></div>
+
+            <!-- Date Filter -->
+            <div class="flex items-center min-w-0 flex-1 basis-0">
+              <lib-datepicker
+                [(value)]="selectedDate"
+                [placeholder]="'hero.filters.date' | transloco"
+                [showIcon]="true"
+                [showClear]="true"
+                [variant]="'outlined'"
+                (onChange)="onDateChange($event)"
+                class="w-full min-w-0"
+                [showBorder]="false"
+              ></lib-datepicker>
+            </div>
+
+            <!-- Divider -->
+            <div class="w-px h-10 bg-neutral-300 shrink-0"></div>
+
+            <!-- Price Filter -->
+            <div class="flex items-center min-w-0 flex-1 basis-0">
+              <lib-dropdown
+                [(value)]="selectedPrice"
+                [options]="priceOptions"
+                [optionLabel]="'label'"
+                [optionValue]="'value'"
+                [placeholder]="'hero.filters.price' | transloco"
+                [showClear]="true"
+                [variant]="'outlined'"
+                (onChange)="onPriceChange($event)"
+                class="w-full min-w-0"
+                [showBorder]="false"
+              ></lib-dropdown>
+            </div>
+          </div>
+
+          <!-- Search Button -->
+          <button
+            type="button"
+            (click)="onSearchClick()"
+            [attr.aria-label]="'hero.search' | transloco"
+            class="shrink-0 w-10 h-10 min-w-10 p-0 bg-button-primary rounded-md flex items-center justify-center hover:opacity-90 transition-opacity"
+          >
+            <img src="images/icons/search.svg" alt="" class="w-6 h-6" />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="absolute top-0 left-0">
+      <img src="images/icons/hero-top-line.svg" alt="" class="">
+    </div>
+    <div class="absolute bottom-0 right-0">
+      <img src="images/icons/hero-bottom-line.svg" alt="" class="">
+    </div>
+  </section>
 </div>
-

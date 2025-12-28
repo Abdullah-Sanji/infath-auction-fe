@@ -1,0 +1,18 @@
+// Datepicker wrapper styles
+// Add custom styles here if needed, otherwise use Tailwind classes
+::ng-deep {
+  .p-datepicker {
+    width: 100%;
+
+    .p-inputtext {
+      width: 100% !important;
+      min-width: 0;
+    }
+
+    &.border-none {
+      .p-inputtext {
+        border: none !important;
+      }
+    }
+  }
+}

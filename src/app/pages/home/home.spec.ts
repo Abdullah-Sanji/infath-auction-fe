@@ -76,15 +76,6 @@ describe('Home', () => {
     expect(component.isLoading()).toBe(false);
   });
 
-  it('should display featured auctions when data is loaded', () => {
-    homeService.getHomeData.and.returnValue(of(mockHomeData));
-
-    fixture.detectChanges(); // Triggers ngOnInit
-
-    const compiled = fixture.nativeElement;
-    expect(compiled.textContent).toContain('Featured Auctions');
-  });
-
   it('should display statistics when data is loaded', () => {
     homeService.getHomeData.and.returnValue(of(mockHomeData));
 
@@ -108,6 +99,92 @@ describe('Home', () => {
 
     expect(component.error()).toBeNull();
     expect(component.homeData()).toEqual(mockHomeData);
+  });
+
+  // Hero section tests
+  it('should initialize hero section filter signals', () => {
+    expect(component.selectedPrice()).toBeNull();
+    expect(component.selectedDate()).toBeNull();
+    expect(component.selectedAuctionType()).toBeNull();
+  });
+
+  it('should have price filter options', () => {
+    expect(component.priceOptions.length).toBeGreaterThan(0);
+    expect(component.priceOptions[0]).toHaveProperty('label');
+    expect(component.priceOptions[0]).toHaveProperty('value');
+  });
+
+  it('should have auction type filter options', () => {
+    expect(component.auctionTypeOptions.length).toBeGreaterThan(0);
+    expect(component.auctionTypeOptions[0]).toHaveProperty('label');
+    expect(component.auctionTypeOptions[0]).toHaveProperty('value');
+  });
+
+  it('should handle price filter change', () => {
+    const event = { value: '1000-5000' };
+    component.onPriceChange(event);
+    expect(component.selectedPrice()).toBe('1000-5000');
+  });
+
+  it('should handle date filter change', () => {
+    const testDate = new Date('2025-11-01');
+    const event = { value: testDate };
+    component.onDateChange(event);
+    expect(component.selectedDate()).toEqual(testDate);
+  });
+
+  it('should handle date filter change with null value', () => {
+    const event = { value: null };
+    component.onDateChange(event);
+    expect(component.selectedDate()).toBeNull();
+  });
+
+  it('should handle auction type filter change', () => {
+    const event = { value: 'vehicles' };
+    component.onAuctionTypeChange(event);
+    expect(component.selectedAuctionType()).toBe('vehicles');
+  });
+
+  it('should handle search button click', () => {
+    spyOn(console, 'log');
+    component.selectedPrice.set('1000-5000');
+    component.selectedDate.set(new Date('2025-11-01'));
+    component.selectedAuctionType.set('vehicles');
+
+    component.onSearchClick();
+
+    expect(console.log).toHaveBeenCalledWith('Search clicked', {
+      price: '1000-5000',
+      date: new Date('2025-11-01'),
+      auctionType: 'vehicles'
+    });
+  });
+
+  it('should render hero section', () => {
+    homeService.getHomeData.and.returnValue(of(mockHomeData));
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement;
+    const heroSection = compiled.querySelector('.hero-section');
+    expect(heroSection).toBeTruthy();
+  });
+
+  it('should render search bar', () => {
+    homeService.getHomeData.and.returnValue(of(mockHomeData));
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement;
+    const searchBar = compiled.querySelector('.search-bar');
+    expect(searchBar).toBeTruthy();
+  });
+
+  it('should render filter dropdowns', () => {
+    homeService.getHomeData.and.returnValue(of(mockHomeData));
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement;
+    const filtersContainer = compiled.querySelector('.filters-container');
+    expect(filtersContainer).toBeTruthy();
   });
 });
 

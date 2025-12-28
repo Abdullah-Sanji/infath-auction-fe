@@ -1,0 +1,114 @@
+<p-datepicker
+  [(ngModel)]="value"
+  [selectionMode]="selectionMode()"
+  [dateFormat]="dateFormat()"
+  [placeholder]="placeholder()"
+  [disabled]="disabled()"
+  [readonlyInput]="readonlyInput()"
+  [showIcon]="showIcon()"
+  [iconDisplay]="iconDisplay()"
+  [showOnFocus]="showOnFocus()"
+  [showButtonBar]="showButtonBar()"
+  [showClear]="showClear()"
+  [keepInvalid]="keepInvalid()"
+  [hideOnDateTimeSelect]="hideOnDateTimeSelect()"
+  [minDate]="minDate() ?? null"
+  [maxDate]="maxDate() ?? null"
+  [disabledDates]="disabledDates() ?? []"
+  [disabledDays]="disabledDays() ?? []"
+  [defaultDate]="defaultDate() ?? null"
+  [showTime]="showTime()"
+  [timeOnly]="timeOnly()"
+  [hourFormat]="hourFormat()"
+  [stepHour]="stepHour()"
+  [stepMinute]="stepMinute()"
+  [stepSecond]="stepSecond()"
+  [showSeconds]="showSeconds()"
+  [numberOfMonths]="numberOfMonths()"
+  [view]="view()"
+  [firstDayOfWeek]="firstDayOfWeek()"
+  [showWeek]="showWeek()"
+  [showOtherMonths]="showOtherMonths()"
+  [selectOtherMonths]="selectOtherMonths()"
+  [inline]="inline()"
+  [touchUI]="touchUI()"
+  [multipleSeparator]="multipleSeparator()"
+  [rangeSeparator]="rangeSeparator()"
+  [style]="style()"
+  [styleClass]="styleClass()"
+  [inputStyle]="inputStyle()"
+  [inputStyleClass]="inputStyleClass()"
+  [panelStyle]="panelStyle()"
+  [panelStyleClass]="panelStyleClass()"
+  [variant]="variant()"
+  [fluid]="fluid()"
+  [invalid]="invalid()"
+  [appendTo]="appendTo()"
+  [baseZIndex]="baseZIndex()"
+  [autoZIndex]="autoZIndex()"
+  [focusTrap]="focusTrap()"
+  [shortYearCutoff]="shortYearCutoff()"
+  [attr.aria-label]="ariaLabel()"
+  [attr.aria-labelledby]="ariaLabelledBy()"
+  [attr.aria-describedby]="ariaDescribedBy()"
+  [attr.aria-required]="ariaRequired()"
+  [attr.aria-invalid]="ariaInvalid()"
+  (onChange)="handleChange($event)"
+  (onSelect)="handleSelect($event)"
+  (onClear)="handleClear($event)"
+  (onFocus)="handleFocus($event)"
+  (onBlur)="handleBlur($event)"
+  (onShow)="handleShow()"
+  (onHide)="handleHide()"
+  (onMonthChange)="handleMonthChange($event)"
+  (onYearChange)="handleYearChange($event)"
+  (onTodayClick)="handleTodayClick($event)"
+  (onClearClick)="handleClearClick($event)"
+  [class.border-none!]="!showBorder()"
+>
+  @if (iconTemplate()) {
+    <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+      <ng-container *ngTemplateOutlet="iconTemplate()!; context: { clickCallBack: clickCallBack }"></ng-container>
+    </ng-template>
+  } @else if (showIcon()) {
+    <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+      <img
+        src="images/icons/calendar.svg"
+        alt="Calendar"
+        class="cursor-pointer"
+        (click)="clickCallBack($event)"
+      />
+    </ng-template>
+  }
+  @if (headerTemplate()) {
+    <ng-template pTemplate="header">
+      <ng-container *ngTemplateOutlet="headerTemplate()!"></ng-container>
+    </ng-template>
+  }
+  @if (footerTemplate()) {
+    <ng-template pTemplate="footer">
+      <ng-container *ngTemplateOutlet="footerTemplate()!"></ng-container>
+    </ng-template>
+  }
+  @if (dateTemplate()) {
+    <ng-template pTemplate="date" let-date>
+      <ng-container *ngTemplateOutlet="dateTemplate()!; context: { $implicit: date }"></ng-container>
+    </ng-template>
+  }
+  @if (decadeTemplate()) {
+    <ng-template pTemplate="decade" let-decade>
+      <ng-container *ngTemplateOutlet="decadeTemplate()!; context: { $implicit: decade }"></ng-container>
+    </ng-template>
+  }
+  @if (monthTemplate()) {
+    <ng-template pTemplate="month" let-month>
+      <ng-container *ngTemplateOutlet="monthTemplate()!; context: { $implicit: month }"></ng-container>
+    </ng-template>
+  }
+  @if (yearTemplate()) {
+    <ng-template pTemplate="year" let-year>
+      <ng-container *ngTemplateOutlet="yearTemplate()!; context: { $implicit: year }"></ng-container>
+    </ng-template>
+  }
+</p-datepicker>
+

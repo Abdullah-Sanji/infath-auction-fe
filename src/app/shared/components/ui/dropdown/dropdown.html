@@ -29,6 +29,7 @@
   (onHide)="handleHide()"
   (onFilter)="handleFilter($event)"
   (onClear)="handleClear()"
+  [class.border-none!]="!showBorder()"
 >
   @if (itemTemplate()) {
     <ng-template pTemplate="item" let-item>

@@ -65,6 +65,7 @@ export class Dropdown implements ControlValueAccessor {
   invalid: InputSignal<boolean> = input<boolean>(false);
   variant: InputSignal<'filled' | 'outlined'> = input<'filled' | 'outlined'>('outlined');
   fluid: InputSignal<boolean> = input<boolean>(false);
+  showBorder: InputSignal<boolean> = input<boolean>(true);
 
   // Template inputs
   itemTemplate: InputSignal<TemplateRef<unknown> | undefined> = input<TemplateRef<unknown> | undefined>(undefined);
