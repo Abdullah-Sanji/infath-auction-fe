@@ -34,9 +34,7 @@
     "myOrders": "My Orders",
     "myChats": "My Chats",
     "myAuctions": "My Auctions",
-    "home": "Home",
-    "homeSubItem1": "Sub Item 1",
-    "homeSubItem2": "Sub Item 2"
+    "home": "Home"
   },
   "wallet": {
     "subtitle": "Manage your balance and payment methods here.",

@@ -34,9 +34,7 @@
     "myOrders": "طلباتي",
     "myChats": "محادثاتي",
     "myAuctions": "مزاداتي",
-    "home": "الرئيسية",
-    "homeSubItem1": "عنصر فرعي 1",
-    "homeSubItem2": "عنصر فرعي 2"
+    "home": "الرئيسية"
   },
   "wallet": {
     "subtitle": "قم بإدارة رصيدك وطرق الدفع هنا.",

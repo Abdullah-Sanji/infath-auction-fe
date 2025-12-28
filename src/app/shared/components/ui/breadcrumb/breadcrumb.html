@@ -1,0 +1,40 @@
+<nav aria-label="Breadcrumb" class="z-10">
+  <div class="flex gap-0 items-center">
+    @for (item of items(); track $index; let isLast = $last) {
+    <div class="flex gap-1 items-center justify-end pl-1 pr-0 py-0">
+      @if (item.route && !isLast) {
+      <a
+        [routerLink]="item.route"
+        class="text-neutral-700 text-sm leading-5 font-normal text-right whitespace-nowrap breadcrumb-link"
+        [attr.aria-label]="item.translationKey ? (item.translationKey | transloco) : item.label"
+      >
+        @if (item.translationKey) {
+        {{ item.translationKey | transloco }}
+        } @else {
+        {{ item.label }}
+        }
+      </a>
+      } @else {
+      <span
+        class="text-neutral-400 text-base leading-6 font-normal text-right whitespace-nowrap breadcrumb-current"
+        [attr.aria-current]="isLast ? 'page' : null"
+      >
+        @if (item.translationKey) {
+        {{ item.translationKey | transloco }}
+        } @else {
+        {{ item.label }}
+        }
+      </span>
+      } @if (!isLast) {
+      <div class="shrink-0 flex items-center justify-center px-2" aria-hidden="true">
+        <img
+          src="images/icons/arrow-gray.svg"
+          alt=""
+          class="block max-w-none w-full h-full"
+        />
+      </div>
+      }
+    </div>
+    }
+  </div>
+</nav>
