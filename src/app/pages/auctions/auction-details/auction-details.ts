@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { AuctionDetailsService } from './services/auction-details.service';
 import { Breadcrumb, BreadcrumbItem } from '../../../shared/components/ui/breadcrumb/breadcrumb';
 import {
@@ -15,7 +16,8 @@ import {
   selector: 'app-auction-details',
   imports: [
     CommonModule,
-    Breadcrumb
+    Breadcrumb,
+    TranslocoPipe
   ],
   providers: [AuctionDetailsService],
   templateUrl: './auction-details.html',
@@ -116,7 +118,7 @@ export class AuctionDetails {
     ],
     neighborhoodServices: [
       { name: 'مسجد', distance: 'على بعد 500 متر', icon: 'mosque' },
-      { name: 'حديقة', distance: 'على بعد 700 متر', icon: 'park' },
+      { name: 'حديقة', distance: 'على بعد 700 متر', icon: 'garden' },
       { name: 'مستشفى / مركز صحي', distance: 'على بعد 1.2 كم', icon: 'hospital' },
       { name: 'مدرسة', distance: 'على بعد 300 متر', icon: 'school' },
       { name: 'مجمع تجاري / مول', distance: 'على بعد 900 متر', icon: 'mall' },

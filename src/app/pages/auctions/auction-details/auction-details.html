@@ -34,130 +34,63 @@
   <div class="flex gap-4">
     <div class="details-container w-3/4">
       <!-- Header with Title and Actions -->
-      <div class="flex items-center justify-between w-full gap-2">
-        <p class="text-xl font-bold text-neutral-800 leading-[30px] flex-1 text-right">
+      <div class="flex items-center justify-between w-full gap-4 mb-5">
+        <p class="text-xl font-bold text-neutral-800 leading-[30px]">
           {{ auctionDetails().title }}
         </p>
         <div class="flex items-center gap-2">
-          <!-- Share Button -->
-          <button
-            class="flex items-center justify-center w-10 h-10 max-w-10 max-h-10 min-w-10 min-h-10 rounded overflow-hidden hover:bg-gray-100 transition-colors"
-          >
-            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M21 6.5C21 8.433 19.433 10 17.5 10C16.9193 10 16.3684 9.86469 15.8758 9.62389L9.62389 15.8758C9.86469 16.3684 10 16.9193 10 17.5C10 19.433 8.433 21 6.5 21C4.567 21 3 19.433 3 17.5C3 15.567 4.567 14 6.5 14C7.08072 14 7.63161 14.1353 8.12415 14.3761L14.3761 8.12415C14.1353 7.63161 14 7.08072 14 6.5C14 4.567 15.567 3 17.5 3C19.433 3 21 4.567 21 6.5Z"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
           <!-- Favorite Button -->
           <button
             class="flex items-center justify-center w-10 h-10 max-w-10 max-h-10 min-w-10 min-h-10 rounded overflow-hidden hover:bg-gray-100 transition-colors"
           >
-            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M12 21C12 21 3.5 15.5 3.5 8.5C3.5 7.04131 4.07946 5.64236 5.11091 4.61091C6.14236 3.57946 7.54131 3 9 3C10.2 3 11.3 3.4 12.2 4.1C13.1 3.4 14.2 3 15.4 3C16.8587 3 18.2576 3.57946 19.2891 4.61091C20.3205 5.64236 20.9 7.04131 20.9 8.5C20.9 15.5 12 21 12 21Z"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+            <img alt="favorite" class="w-6 h-6" src="images/icons/heart.svg" />
+          </button>
+          <!-- Share Button -->
+          <button
+            class="flex items-center justify-center w-10 h-10 max-w-10 max-h-10 min-w-10 min-h-10 rounded overflow-hidden hover:bg-gray-100 transition-colors"
+          >
+            <img alt="share" class="w-6 h-6" src="images/icons/share.svg" />
           </button>
         </div>
       </div>
 
       <!-- Stats Cards -->
-      <div class="flex items-start gap-4 w-full">
-        <!-- Bids Count -->
-        <div
-          class="flex-1 min-w-0 bg-white border border-neutral-200 rounded-lg p-4 flex items-center justify-end gap-4"
-        >
-          <div class="flex flex-col items-end gap-1 text-right whitespace-nowrap text-black">
-            <p class="text-base font-normal leading-6">عدد المزايدات</p>
-            <p class="text-base font-semibold leading-6">{{ auctionDetails().stats.bidsCount }}</p>
-          </div>
-          <div class="bg-blue-50 rounded-full p-3 flex items-center justify-center shrink-0">
-            <svg
-              class="w-6 h-6 text-sky-600"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div>
-        </div>
-
-        <!-- Views Count -->
-        <div
-          class="flex-1 min-w-0 bg-white border border-neutral-200 rounded-lg p-4 flex items-center justify-end gap-4"
-        >
-          <div class="flex flex-col items-end gap-1 text-right whitespace-nowrap text-black">
-            <p class="text-base font-normal leading-6">عدد المشاهدات</p>
-            <p class="text-base font-semibold leading-6">{{ auctionDetails().stats.viewsCount }}</p>
-          </div>
-          <div class="bg-yellow-50 rounded-full p-3 flex items-center justify-center shrink-0">
-            <svg
-              class="w-6 h-6 text-amber-500"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <circle
-                cx="12"
-                cy="12"
-                r="3"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div>
-        </div>
-
+      <div class="flex items-start gap-4 mb-5 w-full">
         <!-- Participants Count -->
         <div
-          class="flex-1 min-w-0 bg-white border border-neutral-200 rounded-lg p-4 flex items-center justify-end gap-4"
+          class="flex-1 min-w-0 bg-white border border-neutral-200 rounded-lg p-4 flex items-center gap-4"
         >
-          <div class="flex flex-col items-end gap-1 text-right whitespace-nowrap text-black">
+          <img alt="people" class="" src="images/icons/people.svg" />
+
+          <div class="flex flex-col gap-1 whitespace-nowrap text-black">
             <p class="text-base font-normal leading-6">عدد المشاركين بالمزاد</p>
             <p class="text-base font-semibold leading-6">
               {{ auctionDetails().stats.participantsCount }}
             </p>
           </div>
-          <div class="bg-primary-50 rounded-full p-3 flex items-center justify-center shrink-0">
-            <svg
-              class="w-6 h-6 text-emerald-600"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89317 18.7122 8.75608 18.1676 9.45768C17.623 10.1593 16.8604 10.6597 16 10.88M13 7C13 9.20914 11.2091 11 9 11C6.79086 11 5 9.20914 5 7C5 4.79086 6.79086 3 9 3C11.2091 3 13 4.79086 13 7Z"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+        </div>
+
+        <!-- Views Count -->
+        <div
+          class="flex-1 min-w-0 bg-white border border-neutral-200 rounded-lg p-4 flex items-center gap-4"
+        >
+          <img alt="eye" src="images/icons/eye.svg" />
+
+          <div class="flex flex-col gap-1 whitespace-nowrap text-black">
+            <p class="text-base font-normal leading-6">عدد المشاهدات</p>
+            <p class="text-base font-semibold leading-6">{{ auctionDetails().stats.viewsCount }}</p>
+          </div>
+        </div>
+
+        <!-- Bids Count -->
+        <div
+          class="flex-1 min-w-0 bg-white border border-neutral-200 rounded-lg p-4 flex items-center gap-4"
+        >
+          <img alt="legal" src="images/icons/legal.svg" />
+
+          <div class="flex flex-col gap-1 whitespace-nowrap text-black">
+            <p class="text-base font-normal leading-6">عدد المزايدات</p>
+            <p class="text-base font-semibold leading-6">{{ auctionDetails().stats.bidsCount }}</p>
           </div>
         </div>
       </div>
@@ -166,28 +99,22 @@
       <div
         class="bg-white border border-neutral-200 rounded-lg p-4 flex flex-col items-end gap-4 w-full"
       >
-        <div class="flex flex-col items-start gap-1 w-full">
-          <p class="text-base font-bold leading-6 text-black text-right w-full">
-            معلومات المزاد
-          </p>
+        <div class="flex flex-col gap-1 w-full">
+          <p class="font-bold leading-6 text-black w-full">معلومات المزاد</p>
 
           <!-- Auction Type -->
-          <div class="flex items-start justify-end gap-2 w-full border-b border-neutral-200 pb-1">
-            <p class="flex-1 min-w-0 text-base font-normal leading-6 text-neutral-800">
+          <div class="flex justify-between gap-2 w-full border-b border-neutral-200 pb-1">
+            <p class="font-normal leading-6 text-neutral-800">نوع المزاد</p>
+            <p class="font-normal leading-6 text-neutral-800">
               {{ auctionDetails().info.auctionType }}
-            </p>
-            <p class="text-base font-normal leading-6 text-neutral-800 text-right w-[200px]">
-              نوع المزاد
             </p>
           </div>
 
           <!-- Asset Type -->
-          <div class="flex items-start justify-end gap-2 w-full border-b border-neutral-200 pb-1">
-            <p class="flex-1 min-w-0 text-base font-normal leading-6 text-neutral-800">
+          <div class="flex justify-between gap-2 w-full border-b border-neutral-200 pb-1">
+            <p class="font-normal leading-6 text-neutral-800">نوع الأصول</p>
+            <p class="font-normal leading-6 text-neutral-800">
               {{ auctionDetails().info.assetType }}
-            </p>
-            <p class="text-base font-normal leading-6 text-neutral-800 text-right w-[200px]">
-              نوع الأصول
             </p>
           </div>
         </div>
@@ -197,57 +124,39 @@
           class="flex flex-col items-end p-0 w-full cursor-pointer"
           (click)="toggleAccordion('boundaries')"
         >
-          <div
-            class="flex items-center justify-between h-10 px-2 w-full rounded-lg"
-            [class.bg-neutral-50]="accordionStates().boundaries"
-          >
+          <div class="flex items-center justify-between h-10 px-2 w-full rounded-lg bg-neutral-50">
             <p class="text-base font-semibold leading-6 text-black text-right flex-1">
               الحدود والأطوال
             </p>
+
+            @if (accordionStates().boundaries) {
+            <img alt="accordianArrow" src="images/icons/accordianArrow.svg" />
+            } @else {
+            <img alt="accordianArrow" class="rotate-180" src="images/icons/accordianArrow.svg" />
+            }
           </div>
 
           @if (accordionStates().boundaries) {
           <div class="flex flex-col items-center gap-2 w-full pt-2 pb-6 pr-2 pl-4">
             <!-- Property Area -->
             <div class="flex items-start justify-end gap-2 w-full border-b border-neutral-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-neutral-800 text-left">
-                150 م٢
-              </p>
               <p class="text-base font-normal leading-6 text-neutral-800 text-right w-[200px]">
                 مساحة العقار
+              </p>
+              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-neutral-800 text-left">
+                150 م٢
               </p>
             </div>
 
             @for (boundary of auctionDetails().boundaries; track boundary.direction) {
-            <div class="flex items-start justify-end gap-2 w-full border-b border-neutral-200 pb-1">
+            <div class="flex gap-2 w-full border-b border-neutral-200 pb-1">
+              <img alt="arrow" class="w-5 h-5" [src]="'images/icons/' + boundary.icon + '.svg'" />
+              <p class="text-base font-normal leading-6 text-neutral-800">
+                {{ boundary.direction }}
+              </p>
               <p class="flex-1 min-w-0 text-base font-normal leading-6 text-neutral-800 text-left">
                 {{ boundary.description }}
               </p>
-              <p class="text-base font-normal leading-6 text-neutral-800 text-right w-[200px]">
-                {{ boundary.direction }}
-              </p>
-              <svg
-                class="w-6 h-6 shrink-0"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  x="3"
-                  y="3"
-                  width="18"
-                  height="18"
-                  rx="2"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-                <path
-                  d="M12 8V16M8 12H16"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                />
-              </svg>
             </div>
             }
           </div>
@@ -259,39 +168,41 @@
           class="flex flex-col items-end p-0 w-full cursor-pointer"
           (click)="toggleAccordion('ownership')"
         >
-          <div
-            class="flex items-center justify-between h-10 px-2 w-full rounded-lg"
-            [class.bg-neutral-50]="accordionStates().ownership"
-          >
+          <div class="flex items-center justify-between h-10 px-2 w-full rounded-lg bg-neutral-50">
             <p class="text-base font-semibold leading-6 text-black text-right flex-1">
               نوع الملكية والحقوق
             </p>
+            @if (accordionStates().ownership) {
+            <img alt="accordianArrow" src="images/icons/accordianArrow.svg" />
+            } @else {
+            <img alt="accordianArrow" class="rotate-180" src="images/icons/accordianArrow.svg" />
+            }
           </div>
 
           @if (accordionStates().ownership) {
           <div class="flex flex-col items-center gap-2 w-full pt-2 pb-6 pr-2 pl-4">
             <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800 text-left">
-                {{ auctionDetails().ownership.propertyArea }}
-              </p>
               <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
                 مساحة العقار
               </p>
+              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800 text-left">
+                {{ auctionDetails().ownership.propertyArea }}
+              </p>
             </div>
             <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800 text-left">
-                {{ auctionDetails().ownership.ownershipType }}
-              </p>
               <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
                 نوع الملكية
               </p>
+              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800 text-left">
+                {{ auctionDetails().ownership.ownershipType }}
+              </p>
             </div>
             <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800 text-left">
-                {{ auctionDetails().ownership.ownershipRights }}
-              </p>
               <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
                 الحقوق على الملكية
+              </p>
+              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800 text-left">
+                {{ auctionDetails().ownership.ownershipRights }}
               </p>
             </div>
           </div>
@@ -301,86 +212,73 @@
         <!-- Asset Info Accordion -->
         <div class="flex flex-col items-end w-full">
           <div
-            class="flex items-center justify-between h-10 px-2 w-full rounded-lg bg-gray-50 cursor-pointer"
+            class="flex items-center justify-between h-10 px-2 w-full rounded-lg bg-neutral-50 cursor-pointer"
             (click)="toggleAccordion('assetInfo')"
           >
             <p class="text-base font-semibold leading-6 text-gray-900 text-right flex-1">
               معلومات الأصل
             </p>
+            @if (accordionStates().assetInfo) {
+            <img alt="accordianArrow" src="images/icons/accordianArrow.svg" />
+            } @else {
+            <img alt="accordianArrow" class="rotate-180" src="images/icons/accordianArrow.svg" />
+            }
           </div>
 
           @if (accordionStates().assetInfo) {
           <div class="flex flex-col items-center gap-2 w-full pt-2 pb-6 pr-2 pl-4">
-            <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800">
+            <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
+              <p class="font-normal leading-6 text-gray-800">رقم المخطط</p>
+              <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.planNumber }}
               </p>
-              <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                رقم المخطط
-              </p>
             </div>
-            <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800">
+            <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
+              <p class="font-normal leading-6 text-gray-800">رقم القطعة</p>
+              <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.plotNumber }}
               </p>
-              <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                رقم القطعة
-              </p>
             </div>
-            <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800">
+            <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
+              <p class="font-normal leading-6 text-gray-800">واجهة العقار</p>
+              <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.propertyFacing }}
               </p>
-              <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                واجهة العقار
-              </p>
             </div>
-            <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800">
+            <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
+              <p class="font-normal leading-6 text-gray-800">استخدام العقار</p>
+              <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.propertyUsage }}
               </p>
-              <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                استخدام العقار
-              </p>
             </div>
-            <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800">
+            <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
+              <p class="font-normal leading-6 text-gray-800">موقع العقار (المدينة والحي)</p>
+              <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.propertyLocation }}
               </p>
-              <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                موقع العقار (المدينة والحي)
-              </p>
             </div>
-            <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800">
+            <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
+              <p class="font-normal leading-6 text-gray-800">نوع الأرض</p>
+              <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.landType }}
               </p>
-              <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                نوع الأرض
-              </p>
             </div>
-            <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800">
+            <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
+              <p class="font-normal leading-6 text-gray-800">رقم الصك</p>
+              <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.deedNumber }}
               </p>
-              <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                رقم الصك
-              </p>
             </div>
-            <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800">
+            <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
+              <p class="font-normal leading-6 text-gray-800">تاريخ الصك</p>
+              <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.deedDate }}
               </p>
-              <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                تاريخ الصك
-              </p>
             </div>
-            <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800">
+            <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
+              <p class="font-normal leading-6 text-gray-800">مساحة العقار</p>
+              <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.propertyArea }}
-              </p>
-              <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                مساحة العقار
               </p>
             </div>
           </div>
@@ -390,58 +288,131 @@
         <!-- Residential Details Accordion -->
         <div class="flex flex-col items-end w-full">
           <div
-            class="flex items-center justify-between h-10 px-2 w-full rounded-lg bg-gray-50 cursor-pointer"
+            class="flex items-center justify-between h-10 px-2 w-full rounded-lg bg-neutral-50 cursor-pointer"
             (click)="toggleAccordion('residentialDetails')"
           >
-            <p class="text-base font-semibold leading-6 text-gray-900 text-right flex-1">
+            <p class="font-semibold leading-6 text-gray-900 text-right flex-1">
               تفاصيل العقار السكني
             </p>
+            @if (accordionStates().residentialDetails) {
+            <img alt="accordianArrow" src="images/icons/accordianArrow.svg" />
+            } @else {
+            <img alt="accordianArrow" class="rotate-180" src="images/icons/accordianArrow.svg" />
+            }
           </div>
 
           @if (accordionStates().residentialDetails) {
           <div class="flex flex-col items-center gap-2 w-full pt-2 pb-6 pr-2 pl-4">
-            <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800">
+            <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
+              <p class="font-normal leading-6 text-gray-800">عدد الغرف</p>
+              <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().residentialDetails.roomsCount }}
               </p>
-              <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                عدد الغرف
-              </p>
             </div>
-            <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800">
+            <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
+              <p class="font-normal leading-6 text-gray-800">عدد الصالات</p>
+              <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().residentialDetails.hallsCount }}
               </p>
-              <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                عدد الصالات
-              </p>
             </div>
-            <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800">
+            <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
+              <p class="font-normal leading-6 text-gray-800">عدد دورات المياه</p>
+              <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().residentialDetails.bathroomsCount }}
               </p>
-              <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                عدد دورات المياه
-              </p>
             </div>
-            <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800">
+            <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
+              <p class="font-normal leading-6 text-gray-800">عدد المطابخ</p>
+              <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().residentialDetails.kitchensCount }}
               </p>
-              <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                عدد المطابخ
-              </p>
             </div>
-            <div class="flex items-start justify-end gap-2 w-full pb-1">
-              <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800">
+            <div class="flex justify-between gap-2 w-full pb-1">
+              <p class="font-normal leading-6 text-gray-800">عمر البناء</p>
+              <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().residentialDetails.buildingAge }}
-              </p>
-              <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                عمر البناء
               </p>
             </div>
           </div>
           }
+        </div>
+
+        <!-- Public Services Card -->
+        <div
+          class="bg-white border border-gray-200 rounded-lg p-2 flex flex-col items-end gap-2 w-full"
+        >
+          <div
+            class="flex items-center justify-between h-10 px-2 w-full rounded-lg bg-neutral-50 cursor-pointer"
+            (click)="toggleAccordion('publicServices')"
+          >
+            <p class="text-base font-semibold leading-6 text-gray-900 text-right flex-1">
+              الخدمات العامة
+            </p>
+            @if (accordionStates().publicServices) {
+            <img alt="accordianArrow" src="images/icons/accordianArrow.svg" />
+            } @else {
+            <img alt="accordianArrow" class="rotate-180" src="images/icons/accordianArrow.svg" />
+            }
+          </div>
+
+          @if (accordionStates().publicServices) {
+          <div class="flex flex-col gap-1 w-full">
+            @for (service of auctionDetails().publicServices; track service.name; let isLast =
+            $last) {
+            <div
+              class="flex gap-2 px-0 py-2 w-full"
+              [class.border-b]="!isLast"
+              [class.border-gray-200]="!isLast"
+            >
+              <img
+                [src]="'images/icons/' + service.icon + '.svg'"
+                [alt]="service.icon"
+                class="w-5 h-5 shrink-0"
+              />
+              <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
+                {{ service.name }}
+              </p>
+            </div>
+            }
+          </div>
+          }
+        </div>
+
+        <!-- Neighborhood Services Card -->
+        <div
+          class="bg-white border border-gray-200 rounded-lg p-2 flex flex-col items-end gap-2 w-full"
+        >
+          <div
+            class="flex items-center justify-between h-10 px-2 w-full rounded-lg bg-neutral-50 cursor-pointer"
+            (click)="toggleAccordion('neighborhoodServices')"
+          >
+            <p class="font-semibold leading-6 text-gray-900 text-right flex-1">خدمات الحي</p>
+            @if (accordionStates().neighborhoodServices) {
+            <img alt="accordianArrow" src="images/icons/accordianArrow.svg" />
+            } @else {
+            <img alt="accordianArrow" class="rotate-180" src="images/icons/accordianArrow.svg" />
+            }
+          </div>
+
+          @if (accordionStates().neighborhoodServices) { @for (service of
+          auctionDetails().neighborhoodServices; track service.name; let isLast = $last) {
+          <!-- <div class="flex justify-between gap-2 w-full border-b border-neutral-200 pb-1"></div> -->
+          <div
+            class="flex justify-between gap-2 p-2 w-full"
+            [class.border-b]="!isLast"
+            [class.border-gray-200]="!isLast"
+          >
+            <div class="flex gap-2 w-full pb-1">
+              <img [src]="'images/icons/' + service.icon + '.svg'" [alt]="service.icon" />
+              <p class="text-base font-normal leading-6 text-neutral-800">
+                {{ service.name }}
+              </p>
+              <p class="flex-1 text-sm font-normal leading-5 text-neutral-500 text-left">
+                {{ service.distance }}
+              </p>
+            </div>
+          </div>
+          } }
         </div>
 
         <!-- Download Brochure Button -->
@@ -468,119 +439,21 @@
 
       <!-- Property Image Section (Empty for now as requested) -->
       <div
-        class="flex flex-col items-start justify-end gap-2.5 h-[386px] p-6 w-full rounded-lg relative bg-gray-200"
+        class="flex flex-col justify-end gap-2.5 h-[386px] p-6 w-full rounded-lg relative bg-gray-200 my-4"
       >
         <div class="absolute inset-0 flex items-center justify-center text-gray-500">
           <p class="text-lg">Map placeholder - to be implemented</p>
         </div>
       </div>
 
-      <!-- Public Services Card -->
-      <div
-        class="bg-white border border-gray-200 rounded-lg p-2 flex flex-col items-end gap-2 w-full"
-      >
-        <div
-          class="flex items-center justify-between h-10 px-2 w-full rounded-lg bg-gray-50 cursor-pointer"
-          (click)="toggleAccordion('publicServices')"
-        >
-          <p class="text-base font-semibold leading-6 text-gray-900 text-right flex-1">
-            الخدمات العامة
-          </p>
-        </div>
-
-        @if (accordionStates().publicServices) {
-        <div class="flex flex-col items-start gap-1 w-full">
-          @for (service of auctionDetails().publicServices; track service.name; let isLast = $last)
-          {
-          <div
-            class="flex items-start justify-end gap-2 px-0 py-2 w-full"
-            [class.border-b]="!isLast"
-            [class.border-gray-200]="!isLast"
-          >
-            <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-              {{ service.name }}
-            </p>
-            <svg
-              class="w-5 h-5 shrink-0"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" />
-            </svg>
-          </div>
-          }
-        </div>
-        }
-      </div>
-
-      <!-- Neighborhood Services Card -->
-      <div
-        class="bg-white border border-gray-200 rounded-lg p-2 flex flex-col items-end gap-2 w-full"
-      >
-        <div
-          class="flex items-center justify-between h-10 px-2 w-full rounded-lg bg-gray-50 cursor-pointer"
-          (click)="toggleAccordion('neighborhoodServices')"
-        >
-          <p class="text-base font-semibold leading-6 text-gray-900 text-right flex-1">
-            خدمات الحي
-          </p>
-        </div>
-
-        @if (accordionStates().neighborhoodServices) { @for (service of
-        auctionDetails().neighborhoodServices; track service.name; let isLast = $last) {
-        <div
-          class="flex items-start justify-end gap-2 p-2 w-full"
-          [class.border-b]="!isLast"
-          [class.border-gray-200]="!isLast"
-        >
-          <p class="flex-1 min-w-0 text-sm font-normal leading-5 text-slate-500">
-            {{ service.distance }}
-          </p>
-          <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-            {{ service.name }}
-          </p>
-          <svg
-            class="w-5 h-5 shrink-0"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" />
-          </svg>
-        </div>
-        } }
-      </div>
-
       <!-- Seller Review Card -->
       <div
-        class="bg-white border border-gray-200 rounded-lg p-4 flex flex-col items-end justify-center gap-4 w-full"
+        class="bg-white border border-gray-200 rounded-lg p-4 flex flex-col justify-center gap-4 w-full mb-4"
       >
         <!-- Review Header -->
-        <div class="flex items-center justify-end gap-4 w-full">
-          <!-- Rating -->
-          <div class="flex items-center gap-1">
-            <svg
-              class="w-5 h-5 text-gray-200"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10 1L12.9389 7.0206L19.5106 7.82417L14.6447 12.4794L15.8779 19L10 15.7L4.12215 19L5.35534 12.4794L0.489435 7.82417L7.06107 7.0206L10 1Z"
-              />
-            </svg>
-            <p class="text-base font-bold leading-6 text-gray-800 whitespace-nowrap text-right">
-              {{ auctionDetails().sellerReview.overallRating }}
-            </p>
-          </div>
-
+        <div class="flex items-center gap-4 w-full">
           <!-- Seller Info -->
           <div class="flex items-center justify-end gap-3">
-            <p class="text-base font-bold leading-6 text-gray-900 whitespace-nowrap text-right">
-              {{ auctionDetails().sellerReview.sellerName }}
-            </p>
-
             <!-- Avatar with Badge -->
             <div class="relative">
               <div
@@ -610,49 +483,42 @@
               </svg>
               }
             </div>
+            <p class="text-base font-normal leading-6 text-gray-900 whitespace-nowrap text-right">
+              {{ auctionDetails().sellerReview.sellerName }}
+            </p>
+          </div>
+
+          <!-- Rating -->
+          <div class="flex items-center gap-1">
+            <p class="text-base font-bold leading-6 text-gray-800 whitespace-nowrap text-right">
+              {{ auctionDetails().sellerReview.overallRating }}
+            </p>
+            <img alt="star" class="w-5 h-5" src="images/icons/gray-star.svg" />
           </div>
         </div>
 
         <!-- Review Details -->
         <div class="flex items-start gap-2 w-full">
-          <!-- Accuracy Rating -->
-          <div class="flex-1 min-w-0 flex flex-col items-end gap-2 pb-1 pr-0.5">
-            <svg class="w-5 h-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M7 2H13L19 8V18C19 18.5304 18.7893 19.0391 18.4142 19.4142C18.0391 18.7893 17.5304 19 17 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V4C1 3.46957 1.21071 2.96086 1.58579 2.58579C1.96086 2.21071 2.46957 2 3 2H7Z"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div
-              class="flex flex-col items-end gap-1.5 text-gray-800 whitespace-nowrap text-right"
-            >
-              <p class="text-base font-normal leading-6">دقة الوصف</p>
+          <!-- Communication Rating -->
+          <div class="flex-1 flex flex-col gap-2 pb-1 pr-0.5">
+            <img alt="chat" class="w-5 h-5" src="images/icons/buble-chat.svg" />
+
+            <div class="flex flex-col gap-1.5 text-gray-800 whitespace-nowrap">
+              <p class="text-base font-normal leading-6">التواصل</p>
               <p class="text-base font-bold leading-6">
-                {{ auctionDetails().sellerReview.accuracyRating }}
+                {{ auctionDetails().sellerReview.communicationRating }}
               </p>
             </div>
           </div>
 
-          <!-- Communication Rating -->
-          <div class="flex-1 min-w-0 flex flex-col items-end gap-2 pb-1 pr-0.5">
-            <svg class="w-5 h-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M19 13C19 13.5304 18.7893 14.0391 18.4142 14.4142C18.0391 14.7893 17.5304 15 17 15H5L1 19V3C1 2.46957 1.21071 1.96086 1.58579 1.58579C1.96086 1.21071 2.46957 1 3 1H17C17.5304 1 18.0391 1.21071 18.4142 1.58579C18.7893 1.96086 19 2.46957 19 3V13Z"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div
-              class="flex flex-col items-end gap-1.5 text-gray-800 whitespace-nowrap text-right"
-            >
-              <p class="text-base font-normal leading-6">التواصل</p>
+          <!-- Accuracy Rating -->
+          <div class="flex-1 flex flex-col gap-2 pb-1 pr-0.5">
+            <img alt="file" class="w-5 h-5" src="images/icons/file-validation.svg" />
+
+            <div class="flex flex-col gap-1.5 text-gray-800 whitespace-nowrap">
+              <p class="text-base font-normal leading-6">دقة الوصف</p>
               <p class="text-base font-bold leading-6">
-                {{ auctionDetails().sellerReview.communicationRating }}
+                {{ auctionDetails().sellerReview.accuracyRating }}
               </p>
             </div>
           </div>
@@ -663,50 +529,24 @@
 
         <!-- Action Buttons -->
         <div class="flex items-start gap-5">
-          <!-- Contact Seller Button -->
-          <button
-            class="flex items-center justify-center gap-1 h-10 max-h-10 min-h-10 px-4 rounded bg-gray-100 overflow-hidden hover:bg-gray-200 transition-colors"
-          >
-            <svg
-              class="w-6 h-6 shrink-0"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <p class="text-base font-medium leading-6 text-gray-900 whitespace-nowrap">
-              التواصل مع وكيل البيع
-            </p>
-          </button>
-
           <!-- Go to Seller Page Button -->
           <button
             class="flex items-center justify-center gap-1 h-10 max-h-10 min-h-10 px-4 rounded bg-gray-100 overflow-hidden hover:bg-gray-200 transition-colors"
           >
-            <svg
-              class="w-6 h-6 shrink-0"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M18 13V19C18 19.5304 17.7893 20.0391 17.4142 20.4142C17.0391 20.7893 16.5304 21 16 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V8C3 7.46957 3.21071 6.96086 3.58579 6.58579C3.96086 6.21071 4.46957 6 5 6H11M15 3H21M21 3V9M21 3L10 14"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
             <p class="text-base font-medium leading-6 text-gray-900 whitespace-nowrap">
               الذهاب الى صفحة وكيل البيع
             </p>
+            <img alt="person" class="w-5 h-5" src="images/icons/gray-single-person.svg" />
+          </button>
+
+          <!-- Contact Seller Button -->
+          <button
+            class="flex items-center justify-center gap-1 h-10 max-h-10 min-h-10 px-4 rounded bg-gray-100 overflow-hidden hover:bg-gray-200 transition-colors"
+          >
+            <p class="text-base font-medium leading-6 text-gray-900 whitespace-nowrap">
+              التواصل مع وكيل البيع
+            </p>
+            <img alt="person" class="w-5 h-5" src="images/icons/gray-buble-chat.svg" />
           </button>
         </div>
       </div>
@@ -716,71 +556,54 @@
     <div class="flex flex-col gap-6 w-1/4">
       <!-- Card 1: Auction Information -->
       <div class="bg-white rounded-2xl shadow-md p-4 flex flex-col gap-4">
-        <p class="text-lg font-bold text-gray-800 leading-7 text-right">
-          معلومات المزاد
-        </p>
+        <p class="text-lg font-bold text-gray-800 leading-7 text-right">معلومات المزاد</p>
 
         <div class="flex flex-col gap-1.5 w-full">
           <!-- Opening Price -->
           <div class="flex gap-2 items-center justify-end w-full">
-            <div class="flex items-start justify-end">
-              <div class="flex gap-2 items-center justify-end p-0">
-                <!-- Currency Symbol -->
-                <svg class="w-[13.421px] h-[15px] shrink-0" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2.79 12.21C2.79 12.21 2.79 12.21 2.79 12.21Z" fill="#161616"/>
-                  <path d="M13.42 0H11.18V1.13H13.42V13.87H11.18V15H13.42V0ZM2.24 0H0V15H2.24V0ZM9.49 3.39H7.25V5.65H9.49V3.39ZM9.49 7.91H7.25V10.17H9.49V7.91ZM5.01 5.65H7.25V7.91H5.01V5.65Z" fill="#161616"/>
-                </svg>
+            <div class="flex-1 flex gap-0 min-h-px min-w-px">
+              <p class="font-medium text-gray-800 leading-6 text-nowrap">الافتتاح</p>
+            </div>
+            <div class="flex">
+              <div class="flex gap-2 items-center p-0">
                 <p class="text-lg font-medium text-gray-800 leading-7 text-nowrap text-right">
                   {{ auctionDetails().auctionCard.openingPrice.toLocaleString('ar-SA') }}
                 </p>
+                <!-- Currency Symbol -->
+                <img alt="riyal" src="images/icons/black-riyal.svg" />
               </div>
-            </div>
-            <div class="flex-1 flex gap-0 items-start justify-end min-h-px min-w-px">
-              <p class="text-base font-medium text-gray-800 leading-6 text-nowrap text-right">
-                الافتتاح
-              </p>
             </div>
           </div>
 
           <!-- Entry Amount -->
-          <div class="flex gap-2 items-center justify-end w-full">
-            <div class="flex items-start justify-end">
-              <div class="flex gap-2 items-center justify-end p-0">
+          <div class="flex gap-2 items-center w-full">
+            <div class="flex-1 flex gap-0 min-h-px min-w-px">
+              <p class="text-base font-medium text-gray-800 leading-6 text-nowrap">مبلغ الدخول</p>
+            </div>
+            <div class="flex">
+              <div class="flex gap-2 items-center p-0">
                 <!-- Currency Symbol -->
-                <svg class="w-[13.421px] h-[15px] shrink-0" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2.79 12.21C2.79 12.21 2.79 12.21 2.79 12.21Z" fill="#161616"/>
-                  <path d="M13.42 0H11.18V1.13H13.42V13.87H11.18V15H13.42V0ZM2.24 0H0V15H2.24V0ZM9.49 3.39H7.25V5.65H9.49V3.39ZM9.49 7.91H7.25V10.17H9.49V7.91ZM5.01 5.65H7.25V7.91H5.01V5.65Z" fill="#161616"/>
-                </svg>
-                <p class="text-lg font-medium text-gray-800 leading-7 text-nowrap text-right">
+                <p class="text-lg font-medium text-gray-800 leading-7 text-nowrap">
                   {{ auctionDetails().auctionCard.entryAmount.toLocaleString('ar-SA') }}
                 </p>
+                <img alt="riyal" src="images/icons/black-riyal.svg" />
               </div>
-            </div>
-            <div class="flex-1 flex gap-0 items-start justify-end min-h-px min-w-px">
-              <p class="text-base font-medium text-gray-800 leading-6 text-nowrap text-right">
-                مبلغ الدخول
-              </p>
             </div>
           </div>
 
           <!-- Highest Price -->
-          <div class="flex gap-2 items-center justify-end w-full">
-            <div class="flex items-start justify-end">
-              <div class="flex gap-2 items-center justify-end p-0">
-                <!-- Currency Symbol -->
-                <svg class="w-[13.421px] h-[15px] shrink-0" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2.79 12.21C2.79 12.21 2.79 12.21 2.79 12.21Z" fill="#161616"/>
-                  <path d="M13.42 0H11.18V1.13H13.42V13.87H11.18V15H13.42V0ZM2.24 0H0V15H2.24V0ZM9.49 3.39H7.25V5.65H9.49V3.39ZM9.49 7.91H7.25V10.17H9.49V7.91ZM5.01 5.65H7.25V7.91H5.01V5.65Z" fill="#161616"/>
-                </svg>
-                <p class="text-lg font-medium text-gray-800 leading-7 text-nowrap text-right">
+          <div class="flex gap-2 items-center w-full">
+            <div class="flex-1 flex gap-0 min-h-px min-w-px">
+              <p class="font-medium text-gray-800 leading-6 text-nowrap">أعلى سعر</p>
+            </div>
+            <div class="flex">
+              <div class="flex gap-2 items-center p-0">
+                <p class="text-lg font-medium text-gray-800 leading-7 text-nowrap">
                   {{ auctionDetails().auctionCard.highestPrice.toLocaleString('ar-SA') }}
                 </p>
+                <!-- Currency Symbol -->
+                <img alt="riyal" src="images/icons/black-riyal.svg" />
               </div>
-            </div>
-            <div class="flex-1 flex gap-0 items-start justify-end min-h-px min-w-px">
-              <p class="text-base font-medium text-gray-800 leading-6 text-nowrap text-right">
-                أعلى سعر
-              </p>
             </div>
           </div>
         </div>
@@ -789,119 +612,105 @@
         <div class="border-t border-gray-200 flex flex-col gap-2 pt-2 w-full">
           <div class="flex flex-col gap-0 w-full">
             <div class="flex items-center justify-between w-full">
+              <p class="font-bold leading-6 text-gray-800 text-right w-[200px]">مبلغ العربون</p>
               <div class="flex gap-2 items-center">
-                <!-- Currency Symbol (Green) -->
-                <svg class="w-[20px] h-[22.353px] shrink-0" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.73 16.28C3.73 16.28 3.73 16.28 3.73 16.28Z" fill="#1b8354"/>
-                  <path d="M17.89 0H14.91V1.51H17.89V18.49H14.91V20H17.89V0ZM2.99 0H0V20H2.99V0ZM12.65 4.52H9.67V7.54H12.65V4.52ZM12.65 10.55H9.67V13.56H12.65V10.55ZM6.68 7.54H9.67V10.55H6.68V7.54Z" fill="#1b8354"/>
-                </svg>
-                <p class="text-xl font-bold text-emerald-700 leading-[30px] text-nowrap text-right">
+                <p class="text-xl font-bold text-button-primary leading-[30px] text-nowrap">
                   {{ auctionDetails().auctionCard.depositAmount.toLocaleString('ar-SA') }}
                 </p>
+                <!-- Currency Symbol (Green) -->
+                <img alt="riyal" src="images/icons/green-riyal.svg" />
               </div>
-              <p class="text-base font-bold leading-6 text-gray-800 text-right w-[200px]">
-                مبلغ العربون
-              </p>
             </div>
           </div>
 
           <!-- Pay Deposit Button -->
-          <button class="bg-emerald-700 flex gap-1 h-10 items-center justify-center px-4 rounded overflow-hidden hover:bg-emerald-800 transition-colors w-full">
-            <div class="flex items-center justify-center">
-              <p class="text-base font-medium text-white leading-6 text-nowrap">
-                دفع العربون
-              </p>
-            </div>
+          <button
+            class="bg-button-primary flex gap-1 h-10 items-center justify-center px-4 rounded overflow-hidden hover:bg-emerald-800 transition-colors w-full"
+          >
             <!-- Wallet Icon -->
-            <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21 7H3C2.44772 7 2 7.44772 2 8V18C2 18.5523 2.44772 19 3 19H21C21.5523 19 22 18.5523 22 18V8C22 7.44772 21.5523 7 21 7Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M16 15C16 15.5523 16.4477 16 17 16C17.5523 16 18 15.5523 18 15C18 14.4477 17.5523 14 17 14C16.4477 14 16 14.4477 16 15Z" fill="white"/>
-              <path d="M2 8L2 6C2 5.44772 2.44772 5 3 5L18 5C18.5523 5 19 5.44772 19 6V7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <img alt="riyal" src="images/icons/wallet.svg" />
+
+            <div class="flex items-center justify-center">
+              <p class="text-base font-medium text-white leading-6 text-nowrap">دفع العربون</p>
+            </div>
           </button>
         </div>
       </div>
 
       <!-- Card 2: Time Remaining -->
-      <div class="bg-white border border-gray-200 rounded-2xl p-4 flex flex-col gap-4 h-[309px] w-[456px]">
+      <div class="bg-white border border-gray-200 rounded-2xl p-4 flex flex-col gap-4">
         <!-- Header -->
-        <div class="flex gap-1 items-start justify-end w-full">
-          <p class="text-lg font-bold text-gray-800 leading-7 text-nowrap text-right">
+        <div class="flex gap-1 w-full">
+          <!-- Clock Icon -->
+          <img alt="clock" src="images/icons/clock.svg" />
+
+          <p class="text-lg font-bold text-gray-800 leading-7 text-nowrap">
             الوقت المتبقي لإغلاق المزاد
           </p>
-          <!-- Clock Icon -->
-          <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-            <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
         </div>
 
         <!-- Time Values -->
         <div class="flex gap-2 h-[91px] items-center w-full">
           <!-- Seconds -->
-          <div class="flex-1 bg-green-50 border border-green-200 rounded-lg flex flex-col gap-0 h-full items-center justify-center px-2 py-1 text-emerald-700 text-nowrap text-right">
+          <div
+            class="flex-1 bg-green-50 border border-green-200 rounded-lg flex flex-col gap-0 h-full items-center justify-center px-2 py-1 text-button-primary text-nowrap text-right"
+          >
             <p class="text-xl font-bold leading-[30px]">
               {{ auctionDetails().auctionCard.timeRemaining.seconds }}
             </p>
-            <p class="text-base font-normal leading-6">
-              ثانية
-            </p>
+            <p class="font-normal leading-6">ثانية</p>
           </div>
 
           <!-- Minutes -->
-          <div class="flex-1 bg-green-50 border border-green-200 rounded-lg flex flex-col gap-0 h-full items-center justify-center px-2 py-1 text-emerald-700 text-nowrap text-right">
+          <div
+            class="flex-1 bg-green-50 border border-green-200 rounded-lg flex flex-col gap-0 h-full items-center justify-center px-2 py-1 text-emerald-700 text-nowrap text-right"
+          >
             <p class="text-xl font-bold leading-[30px]">
               {{ auctionDetails().auctionCard.timeRemaining.minutes }}
             </p>
-            <p class="text-base font-normal leading-6">
-              دقيقة
-            </p>
+            <p class="text-base font-normal leading-6">دقيقة</p>
           </div>
 
           <!-- Hours -->
-          <div class="flex-1 bg-green-50 border border-green-200 rounded-lg flex flex-col gap-0 h-full items-center justify-center px-2 py-1 text-emerald-700 text-nowrap text-right">
+          <div
+            class="flex-1 bg-green-50 border border-green-200 rounded-lg flex flex-col gap-0 h-full items-center justify-center px-2 py-1 text-emerald-700 text-nowrap text-right"
+          >
             <p class="text-xl font-bold leading-[30px]">
               {{ auctionDetails().auctionCard.timeRemaining.hours }}
             </p>
-            <p class="text-base font-normal leading-6">
-              ساعة
-            </p>
+            <p class="text-base font-normal leading-6">ساعة</p>
           </div>
 
           <!-- Days -->
-          <div class="flex-1 bg-green-50 border border-green-200 rounded-lg flex flex-col gap-0 h-full items-center justify-center px-2 py-1 text-emerald-700 text-nowrap text-right">
+          <div
+            class="flex-1 bg-green-50 border border-green-200 rounded-lg flex flex-col gap-0 h-full items-center justify-center px-2 py-1 text-emerald-700 text-nowrap text-right"
+          >
             <p class="text-xl font-bold leading-[30px]">
               {{ auctionDetails().auctionCard.timeRemaining.days }}
             </p>
-            <p class="text-base font-normal leading-6">
-              يوم
-            </p>
+            <p class="text-base font-normal leading-6">يوم</p>
           </div>
         </div>
 
         <!-- Highest Price Header -->
-        <div class="flex gap-1 items-start justify-end w-full">
-          <p class="text-lg font-bold text-gray-800 leading-7 text-nowrap text-right">
-            أعلى سعر
-          </p>
-          <!-- Trophy Icon -->
-          <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 9H4C3.46957 9 2.96086 8.78929 2.58579 8.41421C2.21071 8.03914 2 7.53043 2 7V6C2 5.46957 2.21071 4.96086 2.58579 4.58579C2.96086 4.21071 3.46957 4 4 4H6M18 9H20C20.5304 9 21.0391 8.78929 21.4142 8.41421C21.7893 8.03914 22 7.53043 22 7V6C22 5.46957 21.7893 4.96086 21.4142 4.58579C21.0391 4.21071 20.5304 4 20 4H18M6 4V18C6 18.5304 6.21071 19.0391 6.58579 19.4142C6.96086 19.7893 7.46957 20 8 20H16C16.5304 20 17.0391 19.7893 17.4142 19.4142C17.7893 19.0391 18 18.5304 18 18V4M6 4H18M9 20V22M15 20V22M9 22H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <div class="flex gap-1 w-full">
+          <!-- currency arrow up Icon -->
+          <img alt="currency arrow" src="images/icons/currency-arrow-up.svg" />
+
+          <p class="text-lg font-bold text-gray-800 leading-7 text-nowrap">أعلى سعر</p>
         </div>
 
         <!-- Current Highest Bid Display -->
-        <div class="bg-green-50 border border-green-200 flex h-[82px] items-center justify-between p-2 rounded-lg w-full">
-          <div class="flex items-start justify-end">
-            <div class="flex gap-2 items-center justify-end p-0">
-              <!-- Currency Symbol (Green) -->
-              <svg class="w-[13.421px] h-[15px] shrink-0" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2.79 12.21C2.79 12.21 2.79 12.21 2.79 12.21Z" fill="#1b8354"/>
-                <path d="M13.42 0H11.18V1.13H13.42V13.87H11.18V15H13.42V0ZM2.24 0H0V15H2.24V0ZM9.49 3.39H7.25V5.65H9.49V3.39ZM9.49 7.91H7.25V10.17H9.49V7.91ZM5.01 5.65H7.25V7.91H5.01V5.65Z" fill="#1b8354"/>
-              </svg>
-              <p class="text-base font-bold leading-6 text-emerald-700 text-nowrap text-right">
+        <div
+          class="bg-green-50 border border-green-200 flex h-[82px] justify-center items-center p-2 rounded-lg w-full"
+        >
+          <div class="flex">
+            <div class="flex gap-2 p-0">
+              <p class="font-bold leading-6 text-emerald-700 text-nowrap">
                 {{ auctionDetails().auctionCard.currentHighestBid.toLocaleString('ar-SA') }}
               </p>
+              <!-- Currency Symbol (Green) -->
+              <img alt="riyal" class="w-4 h-4" src="images/icons/green-riyal.svg" />
             </div>
           </div>
         </div>
@@ -911,93 +720,76 @@
       <div class="bg-white border border-gray-200 rounded-lg p-4 flex flex-col gap-3 w-full">
         <!-- Header -->
         <div class="flex items-center justify-between pb-1 w-full">
-          <!-- Live Status Tag -->
-          <div class="flex gap-1 h-6 items-center justify-end p-0 rounded-full">
-            <p class="text-sm font-medium text-gray-800 leading-5 text-nowrap text-right">
-              مباشر
-            </p>
-            <!-- Green Dot -->
-            <svg class="w-2.5 h-2.5 shrink-0" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="5" cy="5" r="5" fill="#079455"/>
-            </svg>
-          </div>
-
           <!-- Title -->
-          <div class="flex gap-2 items-center justify-end w-[218.5px]">
-            <p class="text-xl font-bold leading-[30px] text-gray-800 text-nowrap text-right">
+          <div class="flex gap-2 items-center w-[218.5px]">
+            <!-- Chart Icon -->
+            <img alt="currency-charts" src="images/icons/green-currency-chart.svg" />
+            <p class="text-xl font-bold leading-[30px] text-gray-800 text-nowrap">
               اللائحة المباشرة
             </p>
-            <!-- Chart Icon -->
-            <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 3V21M21 21H3M7 13L12 8L16 12L21 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          </div>
+
+          <!-- Live Status Tag -->
+          <div class="flex gap-1 h-6 items-center justify-end p-0 rounded-full">
+            <!-- Green Dot -->
+            <img alt="green dot" class="w-3 h-3" src="images/icons/green-dot.svg" />
+            <p class="text-sm font-medium text-gray-800 leading-5 text-nowrap text-right">مباشر</p>
           </div>
         </div>
 
         <!-- Bid History List -->
-        @for (bid of auctionDetails().auctionCard.bidHistory; track $index) {
-          @if (bid.isHighest) {
-            <!-- Highest Bid (Highlighted) -->
-            <div class="bg-green-50 border border-green-200 flex gap-2 items-center justify-end px-2 py-4 rounded w-full">
-              <div class="flex flex-col gap-2 items-start">
-                <!-- Highest Bid Badge -->
-                <div class="bg-emerald-800 flex gap-1 h-6 items-center justify-end px-2 py-0 rounded-full">
-                  <p class="text-sm font-medium text-white leading-5 text-nowrap text-right">
-                    أعلى مزايدة
-                  </p>
-                  <!-- White Dot -->
-                  <svg class="w-2.5 h-2.5 shrink-0" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="5" cy="5" r="5" fill="white"/>
-                  </svg>
-                </div>
-                <p class="text-base font-normal text-gray-800 leading-6 text-nowrap text-right">
-                  {{ bid.timeAgo }}
+        @for (bid of auctionDetails().auctionCard.bidHistory; track $index) { @if (bid.isHighest) {
+        <!-- Highest Bid (Highlighted) -->
+        <div
+          class="bg-green-50 border border-green-200 flex gap-2 items-center px-2 py-4 rounded w-full"
+        >
+          <div class="flex-1 flex flex-row items-center">
+            <div class="flex-1 flex flex-col gap-0 h-full min-h-px min-w-px">
+              <div class="flex gap-2 items-center">
+                <p class="text-xl font-bold text-gray-800 leading-[30px] text-nowrap">
+                  {{ bid.amount.toLocaleString('ar-SA') }}
                 </p>
-              </div>
-
-              <div class="flex-1 flex flex-row items-center">
-                <div class="flex-1 flex flex-col gap-0 h-full items-end min-h-px min-w-px">
-                  <div class="flex gap-2 items-center">
-                    <!-- Currency Symbol -->
-                    <svg class="w-[20px] h-[22.353px] shrink-0" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3.73 16.28C3.73 16.28 3.73 16.28 3.73 16.28Z" fill="#1f2a37"/>
-                      <path d="M17.89 0H14.91V1.51H17.89V18.49H14.91V20H17.89V0ZM2.99 0H0V20H2.99V0ZM12.65 4.52H9.67V7.54H12.65V4.52ZM12.65 10.55H9.67V13.56H12.65V10.55ZM6.68 7.54H9.67V10.55H6.68V7.54Z" fill="#1f2a37"/>
-                    </svg>
-                    <p class="text-xl font-bold text-gray-800 leading-[30px] text-nowrap text-right">
-                      {{ bid.amount.toLocaleString('ar-SA') }}
-                    </p>
-                  </div>
-                </div>
+                <!-- Currency Symbol -->
+                <img alt="riyal" class="w-5 h-5" src="images/icons/black-riyal.svg" />
               </div>
             </div>
-          } @else {
-            <!-- Regular Bid -->
-            <div class="border border-gray-300 flex gap-2 items-center justify-end px-2 py-4 rounded w-full">
-              <div class="flex flex-col gap-0 items-start">
-                <p class="text-base font-normal text-gray-800 leading-6 text-nowrap text-right">
-                  {{ bid.timeAgo }}
+          </div>
+          <div class="flex flex-col gap-2">
+            <!-- Highest Bid Badge -->
+            <div class="bg-emerald-800 flex gap-1 h-6 items-center px-2 py-0 rounded-full">
+              <!-- gray Dot -->
+              <img alt="gray dot" src="images/icons/gray-dot.svg" />
+              <p class="text-sm font-medium text-white leading-5 text-nowrap">أعلى مزايدة</p>
+            </div>
+            <p class="font-normal text-gray-800 leading-6 text-nowrap text-end">
+              {{ bid.timeAgo }}
+            </p>
+          </div>
+        </div>
+        } @else {
+        <!-- Regular Bid -->
+        <div
+          class="border border-gray-300 flex gap-2 items-center justify-end px-2 py-4 rounded w-full"
+        >
+          <div class="flex-1 flex flex-row items-center">
+            <div class="flex-1 flex flex-col gap-0 h-full min-h-px min-w-px">
+              <div class="flex gap-2 items-center">
+                <p class="text-xl font-bold text-gray-800 leading-[30px] text-nowrap">
+                  {{ bid.amount.toLocaleString('ar-SA') }}
                 </p>
-              </div>
-
-              <div class="flex-1 flex flex-row items-center">
-                <div class="flex-1 flex flex-col gap-0 h-full items-end min-h-px min-w-px">
-                  <div class="flex gap-2 items-center">
-                    <!-- Currency Symbol -->
-                    <svg class="w-[20px] h-[22.353px] shrink-0" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3.73 16.28C3.73 16.28 3.73 16.28 3.73 16.28Z" fill="#1f2a37"/>
-                      <path d="M17.89 0H14.91V1.51H17.89V18.49H14.91V20H17.89V0ZM2.99 0H0V20H2.99V0ZM12.65 4.52H9.67V7.54H12.65V4.52ZM12.65 10.55H9.67V13.56H12.65V10.55ZM6.68 7.54H9.67V10.55H6.68V7.54Z" fill="#1f2a37"/>
-                    </svg>
-                    <p class="text-xl font-bold text-gray-800 leading-[30px] text-nowrap text-right">
-                      {{ bid.amount.toLocaleString('ar-SA') }}
-                    </p>
-                  </div>
-                </div>
+                <!-- Currency Symbol -->
+                <img alt="riyal" class="w-5 h-5" src="images/icons/black-riyal.svg" />
               </div>
             </div>
-          }
-        }
+          </div>
+          <div class="flex flex-col gap-0">
+            <p class="font-normal text-gray-800 leading-6 text-nowrap">
+              {{ bid.timeAgo }}
+            </p>
+          </div>
+        </div>
+        } }
       </div>
     </div>
-
   </div>
 </div>
