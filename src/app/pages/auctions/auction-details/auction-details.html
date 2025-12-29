@@ -4,7 +4,7 @@
 
   <div class="flex gap-2 items-start py-0 relative w-full">
     <!-- Large Image - Right Side -->
-    <div class="h-[386px] relative rounded-br-xl rounded-tr-xl shrink-0 w-[919px]">
+    <div class="h-[386px] relative rounded-br-xl rounded-tr-xl shrink-0 w-2/3">
       <img
         alt="Auction property main image"
         class="absolute inset-0 max-w-none object-center object-cover pointer-events-none rounded-br-xl rounded-tr-xl w-full h-full"
@@ -13,7 +13,7 @@
     </div>
 
     <!-- Image Gallery - Left Side -->
-    <div class="flex flex-col gap-2 grow">
+    <div class="flex flex-col gap-2 grow w-1/3">
       <!-- Image Rows (2 rows) -->
       @for (row of [0, 1]; track row) {
       <div class="flex gap-2 w-full">
@@ -32,7 +32,7 @@
   </div>
 
   <div class="flex gap-4">
-    <div class="details-container w-3/4">
+    <div class="details-container w-2/3">
       <!-- Header with Title and Actions -->
       <div class="flex items-center justify-between w-full gap-4 mb-5">
         <p class="text-xl font-bold text-neutral-800 leading-[30px]">
@@ -63,7 +63,7 @@
           <img alt="people" class="" src="images/icons/people.svg" />
 
           <div class="flex flex-col gap-1 whitespace-nowrap text-black">
-            <p class="text-base font-normal leading-6">عدد المشاركين بالمزاد</p>
+            <p class="text-base font-normal leading-6">{{ 'auctionDetails.stats.participantsCount' | transloco }}</p>
             <p class="text-base font-semibold leading-6">
               {{ auctionDetails().stats.participantsCount }}
             </p>
@@ -77,7 +77,7 @@
           <img alt="eye" src="images/icons/eye.svg" />
 
           <div class="flex flex-col gap-1 whitespace-nowrap text-black">
-            <p class="text-base font-normal leading-6">عدد المشاهدات</p>
+            <p class="text-base font-normal leading-6">{{ 'auctionDetails.stats.viewsCount' | transloco }}</p>
             <p class="text-base font-semibold leading-6">{{ auctionDetails().stats.viewsCount }}</p>
           </div>
         </div>
@@ -89,7 +89,7 @@
           <img alt="legal" src="images/icons/legal.svg" />
 
           <div class="flex flex-col gap-1 whitespace-nowrap text-black">
-            <p class="text-base font-normal leading-6">عدد المزايدات</p>
+            <p class="text-base font-normal leading-6">{{ 'auctionDetails.stats.bidsCount' | transloco }}</p>
             <p class="text-base font-semibold leading-6">{{ auctionDetails().stats.bidsCount }}</p>
           </div>
         </div>
@@ -100,11 +100,11 @@
         class="bg-white border border-neutral-200 rounded-lg p-4 flex flex-col items-end gap-4 w-full"
       >
         <div class="flex flex-col gap-1 w-full">
-          <p class="font-bold leading-6 text-black w-full">معلومات المزاد</p>
+          <p class="font-bold leading-6 text-black w-full">{{ 'auctionDetails.auctionInfo' | transloco }}</p>
 
           <!-- Auction Type -->
           <div class="flex justify-between gap-2 w-full border-b border-neutral-200 pb-1">
-            <p class="font-normal leading-6 text-neutral-800">نوع المزاد</p>
+            <p class="font-normal leading-6 text-neutral-800">{{ 'auctionDetails.auctionType' | transloco }}</p>
             <p class="font-normal leading-6 text-neutral-800">
               {{ auctionDetails().info.auctionType }}
             </p>
@@ -112,7 +112,7 @@
 
           <!-- Asset Type -->
           <div class="flex justify-between gap-2 w-full border-b border-neutral-200 pb-1">
-            <p class="font-normal leading-6 text-neutral-800">نوع الأصول</p>
+            <p class="font-normal leading-6 text-neutral-800">{{ 'auctionDetails.assetType' | transloco }}</p>
             <p class="font-normal leading-6 text-neutral-800">
               {{ auctionDetails().info.assetType }}
             </p>
@@ -126,7 +126,7 @@
         >
           <div class="flex items-center justify-between h-10 px-2 w-full rounded-lg bg-neutral-50">
             <p class="text-base font-semibold leading-6 text-black text-right flex-1">
-              الحدود والأطوال
+              {{ 'auctionDetails.accordion.boundaries' | transloco }}
             </p>
 
             @if (accordionStates().boundaries) {
@@ -141,7 +141,7 @@
             <!-- Property Area -->
             <div class="flex items-start justify-end gap-2 w-full border-b border-neutral-200 pb-1">
               <p class="text-base font-normal leading-6 text-neutral-800 text-right w-[200px]">
-                مساحة العقار
+                {{ 'auctionDetails.asset.area' | transloco }}
               </p>
               <p class="flex-1 min-w-0 text-base font-normal leading-6 text-neutral-800 text-left">
                 150 م٢
@@ -170,7 +170,7 @@
         >
           <div class="flex items-center justify-between h-10 px-2 w-full rounded-lg bg-neutral-50">
             <p class="text-base font-semibold leading-6 text-black text-right flex-1">
-              نوع الملكية والحقوق
+              {{ 'auctionDetails.accordion.ownership' | transloco }}
             </p>
             @if (accordionStates().ownership) {
             <img alt="accordianArrow" src="images/icons/accordianArrow.svg" />
@@ -183,7 +183,7 @@
           <div class="flex flex-col items-center gap-2 w-full pt-2 pb-6 pr-2 pl-4">
             <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
               <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                مساحة العقار
+                {{ 'auctionDetails.asset.area' | transloco }}
               </p>
               <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800 text-left">
                 {{ auctionDetails().ownership.propertyArea }}
@@ -191,7 +191,7 @@
             </div>
             <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
               <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                نوع الملكية
+                {{ 'auctionDetails.ownershipType' | transloco }}
               </p>
               <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800 text-left">
                 {{ auctionDetails().ownership.ownershipType }}
@@ -199,7 +199,7 @@
             </div>
             <div class="flex items-start justify-end gap-2 w-full border-b border-gray-200 pb-1">
               <p class="text-base font-normal leading-6 text-gray-800 text-right w-[200px]">
-                الحقوق على الملكية
+                {{ 'auctionDetails.ownershipRights' | transloco }}
               </p>
               <p class="flex-1 min-w-0 text-base font-normal leading-6 text-gray-800 text-left">
                 {{ auctionDetails().ownership.ownershipRights }}
@@ -216,7 +216,7 @@
             (click)="toggleAccordion('assetInfo')"
           >
             <p class="text-base font-semibold leading-6 text-gray-900 text-right flex-1">
-              معلومات الأصل
+              {{ 'auctionDetails.propertyInfo' | transloco }}
             </p>
             @if (accordionStates().assetInfo) {
             <img alt="accordianArrow" src="images/icons/accordianArrow.svg" />
@@ -228,55 +228,55 @@
           @if (accordionStates().assetInfo) {
           <div class="flex flex-col items-center gap-2 w-full pt-2 pb-6 pr-2 pl-4">
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">رقم المخطط</p>
+              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.planNumber' | transloco }}</p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.planNumber }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">رقم القطعة</p>
+              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.plotNumber' | transloco }}</p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.plotNumber }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">واجهة العقار</p>
+              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.front' | transloco }}</p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.propertyFacing }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">استخدام العقار</p>
+              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.propertyUsage' | transloco }}</p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.propertyUsage }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">موقع العقار (المدينة والحي)</p>
+              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.location' | transloco }}</p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.propertyLocation }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">نوع الأرض</p>
+              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.landType' | transloco }}</p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.landType }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">رقم الصك</p>
+              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.deedNumber' | transloco }}</p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.deedNumber }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">تاريخ الصك</p>
+              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.deedDate' | transloco }}</p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.deedDate }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">مساحة العقار</p>
+              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.area' | transloco }}</p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.propertyArea }}
               </p>
@@ -292,7 +292,7 @@
             (click)="toggleAccordion('residentialDetails')"
           >
             <p class="font-semibold leading-6 text-gray-900 text-right flex-1">
-              تفاصيل العقار السكني
+              {{ 'auctionDetails.residentialDetails' | transloco }}
             </p>
             @if (accordionStates().residentialDetails) {
             <img alt="accordianArrow" src="images/icons/accordianArrow.svg" />
@@ -304,31 +304,31 @@
           @if (accordionStates().residentialDetails) {
           <div class="flex flex-col items-center gap-2 w-full pt-2 pb-6 pr-2 pl-4">
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">عدد الغرف</p>
+              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.roomsCount' | transloco }}</p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().residentialDetails.roomsCount }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">عدد الصالات</p>
+              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.hallsCount' | transloco }}</p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().residentialDetails.hallsCount }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">عدد دورات المياه</p>
+              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.bathroomsCount' | transloco }}</p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().residentialDetails.bathroomsCount }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">عدد المطابخ</p>
+              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.kitchensCount' | transloco }}</p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().residentialDetails.kitchensCount }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full pb-1">
-              <p class="font-normal leading-6 text-gray-800">عمر البناء</p>
+              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.buildingAge' | transloco }}</p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().residentialDetails.buildingAge }}
               </p>
@@ -346,7 +346,7 @@
             (click)="toggleAccordion('publicServices')"
           >
             <p class="text-base font-semibold leading-6 text-gray-900 text-right flex-1">
-              الخدمات العامة
+              {{ 'auctionDetails.publicServices' | transloco }}
             </p>
             @if (accordionStates().publicServices) {
             <img alt="accordianArrow" src="images/icons/accordianArrow.svg" />
@@ -386,7 +386,7 @@
             class="flex items-center justify-between h-10 px-2 w-full rounded-lg bg-neutral-50 cursor-pointer"
             (click)="toggleAccordion('neighborhoodServices')"
           >
-            <p class="font-semibold leading-6 text-gray-900 text-right flex-1">خدمات الحي</p>
+            <p class="font-semibold leading-6 text-gray-900 text-right flex-1">{{ 'auctionDetails.neighborhoodServices' | transloco }}</p>
             @if (accordionStates().neighborhoodServices) {
             <img alt="accordianArrow" src="images/icons/accordianArrow.svg" />
             } @else {
@@ -433,7 +433,7 @@
               stroke-linejoin="round"
             />
           </svg>
-          <p class="text-sm font-medium leading-5 text-gray-900 whitespace-nowrap">كتيّب المزاد</p>
+          <p class="text-sm font-medium leading-5 text-gray-900 whitespace-nowrap">{{ 'auctionDetails.downloadBrochure' | transloco }}</p>
         </button>
       </div>
 
@@ -442,7 +442,7 @@
         class="flex flex-col justify-end gap-2.5 h-[386px] p-6 w-full rounded-lg relative bg-gray-200 my-4"
       >
         <div class="absolute inset-0 flex items-center justify-center text-gray-500">
-          <p class="text-lg">Map placeholder - to be implemented</p>
+          <p class="text-lg">{{ 'auctionDetails.mapPlaceholder' | transloco }}</p>
         </div>
       </div>
 
@@ -504,7 +504,7 @@
             <img alt="chat" class="w-5 h-5" src="images/icons/buble-chat.svg" />
 
             <div class="flex flex-col gap-1.5 text-gray-800 whitespace-nowrap">
-              <p class="text-base font-normal leading-6">التواصل</p>
+              <p class="text-base font-normal leading-6">{{ 'auctionDetails.communication' | transloco }}</p>
               <p class="text-base font-bold leading-6">
                 {{ auctionDetails().sellerReview.communicationRating }}
               </p>
@@ -516,7 +516,7 @@
             <img alt="file" class="w-5 h-5" src="images/icons/file-validation.svg" />
 
             <div class="flex flex-col gap-1.5 text-gray-800 whitespace-nowrap">
-              <p class="text-base font-normal leading-6">دقة الوصف</p>
+              <p class="text-base font-normal leading-6">{{ 'auctionDetails.accuracyRating' | transloco }}</p>
               <p class="text-base font-bold leading-6">
                 {{ auctionDetails().sellerReview.accuracyRating }}
               </p>
@@ -534,7 +534,7 @@
             class="flex items-center justify-center gap-1 h-10 max-h-10 min-h-10 px-4 rounded bg-gray-100 overflow-hidden hover:bg-gray-200 transition-colors"
           >
             <p class="text-base font-medium leading-6 text-gray-900 whitespace-nowrap">
-              الذهاب الى صفحة وكيل البيع
+              {{ 'auctionDetails.goToSellerPage' | transloco }}
             </p>
             <img alt="person" class="w-5 h-5" src="images/icons/gray-single-person.svg" />
           </button>
@@ -544,7 +544,7 @@
             class="flex items-center justify-center gap-1 h-10 max-h-10 min-h-10 px-4 rounded bg-gray-100 overflow-hidden hover:bg-gray-200 transition-colors"
           >
             <p class="text-base font-medium leading-6 text-gray-900 whitespace-nowrap">
-              التواصل مع وكيل البيع
+              {{ 'auctionDetails.contactSeller' | transloco }}
             </p>
             <img alt="person" class="w-5 h-5" src="images/icons/gray-buble-chat.svg" />
           </button>
@@ -553,16 +553,16 @@
     </div>
 
     <!-- Auction Information Card -->
-    <div class="flex flex-col gap-6 w-1/4">
+    <div class="flex flex-col gap-6 w-1/3">
       <!-- Card 1: Auction Information -->
       <div class="bg-white rounded-2xl shadow-md p-4 flex flex-col gap-4">
-        <p class="text-lg font-bold text-gray-800 leading-7 text-right">معلومات المزاد</p>
+        <p class="text-lg font-bold text-gray-800 leading-7 text-right">{{ 'auctionDetails.auctionInfo' | transloco }}</p>
 
         <div class="flex flex-col gap-1.5 w-full">
           <!-- Opening Price -->
           <div class="flex gap-2 items-center justify-end w-full">
             <div class="flex-1 flex gap-0 min-h-px min-w-px">
-              <p class="font-medium text-gray-800 leading-6 text-nowrap">الافتتاح</p>
+              <p class="font-medium text-gray-800 leading-6 text-nowrap">{{ 'auctionDetails.openingPrice' | transloco }}</p>
             </div>
             <div class="flex">
               <div class="flex gap-2 items-center p-0">
@@ -578,7 +578,7 @@
           <!-- Entry Amount -->
           <div class="flex gap-2 items-center w-full">
             <div class="flex-1 flex gap-0 min-h-px min-w-px">
-              <p class="text-base font-medium text-gray-800 leading-6 text-nowrap">مبلغ الدخول</p>
+              <p class="text-base font-medium text-gray-800 leading-6 text-nowrap">{{ 'auctionDetails.entryAmount' | transloco }}</p>
             </div>
             <div class="flex">
               <div class="flex gap-2 items-center p-0">
@@ -594,7 +594,7 @@
           <!-- Highest Price -->
           <div class="flex gap-2 items-center w-full">
             <div class="flex-1 flex gap-0 min-h-px min-w-px">
-              <p class="font-medium text-gray-800 leading-6 text-nowrap">أعلى سعر</p>
+              <p class="font-medium text-gray-800 leading-6 text-nowrap">{{ 'auctionDetails.highestPrice' | transloco }}</p>
             </div>
             <div class="flex">
               <div class="flex gap-2 items-center p-0">
@@ -612,7 +612,7 @@
         <div class="border-t border-gray-200 flex flex-col gap-2 pt-2 w-full">
           <div class="flex flex-col gap-0 w-full">
             <div class="flex items-center justify-between w-full">
-              <p class="font-bold leading-6 text-gray-800 text-right w-[200px]">مبلغ العربون</p>
+              <p class="font-bold leading-6 text-gray-800 text-right w-[200px]">{{ 'auctionDetails.depositAmount' | transloco }}</p>
               <div class="flex gap-2 items-center">
                 <p class="text-xl font-bold text-button-primary leading-[30px] text-nowrap">
                   {{ auctionDetails().auctionCard.depositAmount.toLocaleString('ar-SA') }}
@@ -631,7 +631,7 @@
             <img alt="riyal" src="images/icons/wallet.svg" />
 
             <div class="flex items-center justify-center">
-              <p class="text-base font-medium text-white leading-6 text-nowrap">دفع العربون</p>
+              <p class="text-base font-medium text-white leading-6 text-nowrap">{{ 'auctionDetails.payDeposit' | transloco }}</p>
             </div>
           </button>
         </div>
@@ -645,7 +645,7 @@
           <img alt="clock" src="images/icons/clock.svg" />
 
           <p class="text-lg font-bold text-gray-800 leading-7 text-nowrap">
-            الوقت المتبقي لإغلاق المزاد
+            {{ 'auctionDetails.timeRemainingToClose' | transloco }}
           </p>
         </div>
 
@@ -658,7 +658,7 @@
             <p class="text-xl font-bold leading-[30px] text-button-primary">
               {{ auctionDetails().auctionCard.timeRemaining.days }}
             </p>
-            <p class="text-base font-normal leading-6 text-button-primary">يوم</p>
+            <p class="text-base font-normal leading-6 text-button-primary">{{ 'auctionDetails.days' | transloco }}</p>
           </div>
 
           <!-- Hours -->
@@ -668,7 +668,7 @@
             <p class="text-xl font-bold leading-[30px] text-button-primary">
               {{ auctionDetails().auctionCard.timeRemaining.hours }}
             </p>
-            <p class="text-base font-normal leading-6 text-button-primary">ساعة</p>
+            <p class="text-base font-normal leading-6 text-button-primary">{{ 'auctionDetails.hours' | transloco }}</p>
           </div>
 
           <!-- Minutes -->
@@ -678,7 +678,7 @@
             <p class="text-xl font-bold leading-[30px] text-button-primary">
               {{ auctionDetails().auctionCard.timeRemaining.minutes }}
             </p>
-            <p class="text-base font-normal leading-6 text-button-primary">دقيقة</p>
+            <p class="text-base font-normal leading-6 text-button-primary">{{ 'auctionDetails.minutes' | transloco }}</p>
           </div>
 
           <!-- Seconds -->
@@ -688,7 +688,7 @@
             <p class="text-xl font-bold leading-[30px] text-button-primary">
               {{ auctionDetails().auctionCard.timeRemaining.seconds }}
             </p>
-            <p class="font-normal leading-6 text-button-primary">ثانية</p>
+            <p class="font-normal leading-6 text-button-primary">{{ 'auctionDetails.seconds' | transloco }}</p>
           </div>
         </div>
 
@@ -697,7 +697,7 @@
           <!-- currency arrow up Icon -->
           <img alt="currency arrow" src="images/icons/currency-arrow-up.svg" />
 
-          <p class="text-lg font-bold text-gray-800 leading-7 text-nowrap">أعلى سعر</p>
+          <p class="text-lg font-bold text-gray-800 leading-7 text-nowrap">{{ 'auctionDetails.highestPrice' | transloco }}</p>
         </div>
 
         <!-- Current Highest Bid Display -->
@@ -725,7 +725,7 @@
             <!-- Chart Icon -->
             <img alt="currency-charts" src="images/icons/green-currency-chart.svg" />
             <p class="text-xl font-bold leading-[30px] text-gray-800 text-nowrap">
-              اللائحة المباشرة
+              {{ 'auctionDetails.actions.liveListing' | transloco }}
             </p>
           </div>
 
@@ -733,7 +733,7 @@
           <div class="flex gap-1 h-6 items-center justify-end p-0 rounded-full">
             <!-- Green Dot -->
             <img alt="green dot" class="w-3 h-3" src="images/icons/green-dot.svg" />
-            <p class="text-sm font-medium text-gray-800 leading-5 text-nowrap text-right">مباشر</p>
+            <p class="text-sm font-medium text-gray-800 leading-5 text-nowrap text-right">{{ 'auctionDetails.live' | transloco }}</p>
           </div>
         </div>
 
@@ -759,7 +759,7 @@
             <div class="bg-bg-tag-success flex gap-1 h-6 items-center px-2 py-0 rounded-full">
               <!-- gray Dot -->
               <img alt="gray dot" src="images/icons/gray-dot.svg" />
-              <p class="text-sm font-medium text-white leading-5 text-nowrap">أعلى مزايدة</p>
+              <p class="text-sm font-medium text-white leading-5 text-nowrap">{{ 'auctionDetails.topBid' | transloco }}</p>
             </div>
             <p class="font-normal text-gray-800 leading-6 text-nowrap text-end">
               {{ bid.timeAgo }}
