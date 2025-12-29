@@ -56,12 +56,8 @@ export class InputText implements ControlValueAccessor {
   onPaste: OutputEmitterRef<ClipboardEvent> = output<ClipboardEvent>();
 
   // ControlValueAccessor implementation
-  private onChange: (value: string | null) => void = () => {
-    console.log('onChange');
-  };
-  private onTouched: () => void = () => {
-    console.log('onTouched');
-  }
+  private onChange: (value: string | null) => void = () => {};
+  private onTouched: () => void = () => {};
 
   constructor() {
     // Watch for value changes and notify parent

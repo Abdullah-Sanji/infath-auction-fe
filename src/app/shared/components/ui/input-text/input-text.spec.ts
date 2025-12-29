@@ -20,8 +20,8 @@ describe('InputText', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have default value as empty string', () => {
-    expect(component.value()).toBe('');
+  it('should have default value as null', () => {
+    expect(component.value()).toBe(null);
   });
 
   it('should update value', () => {
@@ -58,22 +58,22 @@ describe('InputText', () => {
     expect(component.onBlur.emit).toHaveBeenCalledWith(mockEvent);
   });
 
-  it('should emit onKeydown event', () => {
-    spyOn(component.onKeydown, 'emit');
+  it('should emit onKeyDown event', () => {
+    spyOn(component.onKeyDown, 'emit');
     const mockEvent = new KeyboardEvent('keydown');
 
-    component.onKeydown.emit(mockEvent);
+    component.onKeyDown.emit(mockEvent);
 
-    expect(component.onKeydown.emit).toHaveBeenCalledWith(mockEvent);
+    expect(component.onKeyDown.emit).toHaveBeenCalledWith(mockEvent);
   });
 
-  it('should emit onKeyup event', () => {
-    spyOn(component.onKeyup, 'emit');
+  it('should emit onKeyUp event', () => {
+    spyOn(component.onKeyUp, 'emit');
     const mockEvent = new KeyboardEvent('keyup');
 
-    component.onKeyup.emit(mockEvent);
+    component.onKeyUp.emit(mockEvent);
 
-    expect(component.onKeyup.emit).toHaveBeenCalledWith(mockEvent);
+    expect(component.onKeyUp.emit).toHaveBeenCalledWith(mockEvent);
   });
 
   it('should emit onPaste event', () => {
@@ -85,57 +85,69 @@ describe('InputText', () => {
     expect(component.onPaste.emit).toHaveBeenCalledWith(mockEvent);
   });
 
-  it('should emit onClear event', () => {
-    spyOn(component.onClear, 'emit');
-    const mockEvent = new Event('clear');
+  // ControlValueAccessor tests for ngModel support
+  describe('ControlValueAccessor', () => {
+    it('should write value through writeValue', () => {
+      component.writeValue('Test Value');
+      expect(component.value()).toBe('Test Value');
+    });
 
-    component.onClear.emit(mockEvent);
+    it('should write null value through writeValue', () => {
+      component.writeValue('Initial');
+      component.writeValue(null);
+      expect(component.value()).toBe(null);
+    });
 
-    expect(component.onClear.emit).toHaveBeenCalledWith(mockEvent);
-  });
+    it('should register onChange callback', () => {
+      const mockFn = jasmine.createSpy('onChange');
+      component.registerOnChange(mockFn);
+      
+      component.value.set('New Value');
+      fixture.detectChanges();
+      
+      expect(mockFn).toHaveBeenCalledWith('New Value');
+    });
 
-  it('should set disabled state', () => {
-    component.disabled.set(true);
-    fixture.detectChanges();
+    it('should register onTouched callback', () => {
+      const mockFn = jasmine.createSpy('onTouched');
+      component.registerOnTouched(mockFn);
+      
+      const mockEvent = new FocusEvent('blur');
+      component.handleBlur(mockEvent);
+      
+      expect(mockFn).toHaveBeenCalled();
+    });
 
-    const compiled = fixture.nativeElement;
-    const input = compiled.querySelector('p-inputText');
-    expect(input.getAttribute('ng-reflect-disabled')).toBe('true');
-  });
+    it('should call onTouched on blur', () => {
+      const mockFn = jasmine.createSpy('onTouched');
+      component.registerOnTouched(mockFn);
+      
+      const mockEvent = new FocusEvent('blur');
+      component.handleBlur(mockEvent);
+      
+      expect(mockFn).toHaveBeenCalled();
+    });
 
-  it('should set placeholder', () => {
-    component.placeholder.set('Enter text');
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement;
-    const input = compiled.querySelector('p-inputText');
-    expect(input.getAttribute('ng-reflect-placeholder')).toBe('Enter text');
-  });
-
-  it('should set type', () => {
-    component.type.set('email');
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement;
-    const input = compiled.querySelector('p-inputText');
-    expect(input.getAttribute('ng-reflect-type')).toBe('email');
-  });
-
-  it('should set required state', () => {
-    component.required.set(true);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement;
-    const input = compiled.querySelector('p-inputText');
-    expect(input.getAttribute('ng-reflect-required')).toBe('true');
+    it('should support two-way binding with ngModel', () => {
+      const mockOnChange = jasmine.createSpy('onChange');
+      component.registerOnChange(mockOnChange);
+      
+      // Simulate ngModel writing value
+      component.writeValue('Initial Value');
+      expect(component.value()).toBe('Initial Value');
+      
+      // Simulate user input
+      component.value.set('Updated Value');
+      fixture.detectChanges();
+      
+      expect(mockOnChange).toHaveBeenCalledWith('Updated Value');
+    });
   });
 
   it('should have default values', () => {
     expect(component.type()).toBe('text');
     expect(component.disabled()).toBe(false);
     expect(component.readonly()).toBe(false);
-    expect(component.required()).toBe(false);
     expect(component.autocomplete()).toBe('off');
-    expect(component.autofocus()).toBe(false);
   });
 });

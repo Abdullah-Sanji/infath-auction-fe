@@ -637,9 +637,10 @@
 
           <lib-input-text
             type="number"
+            name="bidAmount"
             [fluid]="true"
             [placeholder]="'auctionDetails.enterBidAmount' | transloco"
-            [value]="selectedQuickBidAmount()?.toString() || null"
+            [(ngModel)]="bidAmount"
           />
         </div>
 

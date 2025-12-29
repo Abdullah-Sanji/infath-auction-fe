@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { AuctionDetailsService } from './services/auction-details.service';
 import { Breadcrumb, BreadcrumbItem } from '@shared/components/ui/breadcrumb/breadcrumb';
@@ -18,6 +19,7 @@ import { InputText } from '@shared/components/ui/input-text/input-text';
   selector: 'app-auction-details',
   imports: [
     CommonModule,
+    FormsModule,
     Breadcrumb,
     Button,
     TranslocoPipe,
@@ -171,6 +173,9 @@ export class AuctionDetails {
   // Current image index for gallery
   currentImageIndex = signal(0);
 
+  // Bid amount
+  bidAmount = signal<number | null>(null);
+
   // Quick bid amounts
   quickBidAmounts = signal<number[]>([15550, 10000, 15000, 20000]);
 
@@ -215,6 +220,6 @@ export class AuctionDetails {
 
   selectQuickBidAmount(amount: number): void {
     this.selectedQuickBidAmount.set(amount);
-    console.log('Quick bid amount selected:', amount);
+    this.bidAmount.set(amount);
   }
 }
