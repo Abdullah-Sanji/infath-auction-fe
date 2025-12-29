@@ -330,7 +330,8 @@
     "timeRemainingToClose": "Time Remaining Until Auction Closes",
     "highestPrice": "Highest Price",
     "live": "Live",
-    "enterBidAmount": "Enter Bid Amount"
+    "enterBidAmount": "Enter Bid Amount",
+    "auctionInfo": "Auction Information"
   },
   "addFunds": {
     "title": "Add Funds",

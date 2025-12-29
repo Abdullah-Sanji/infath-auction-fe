@@ -330,7 +330,8 @@
     "timeRemainingToClose": "الوقت المتبقي لإغلاق المزاد",
     "highestPrice": "أعلى سعر",
     "live": "مباشر",
-    "enterBidAmount": "ادخل قيمة للمزايدة"
+    "enterBidAmount": "ادخل قيمة للمزايدة",
+    "auctionInfo": "معلومات المزاد"
   },
   "addFunds": {
     "title": "إضافة رصيد",
