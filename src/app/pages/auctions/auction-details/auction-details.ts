@@ -2,7 +2,8 @@ import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { AuctionDetailsService } from './services/auction-details.service';
-import { Breadcrumb, BreadcrumbItem } from '../../../shared/components/ui/breadcrumb/breadcrumb';
+import { Breadcrumb, BreadcrumbItem } from '@shared/components/ui/breadcrumb/breadcrumb';
+import { Button } from '@shared/components/ui/button/button';
 import {
   AuctionDetails as AuctionDetailsData,
   AccordionState,
@@ -11,13 +12,16 @@ import {
   NeighborhoodService,
   BidHistoryItem
 } from './interfaces/auction-details.interface';
+import { InputText } from '@shared/components/ui/input-text/input-text';
 
 @Component({
   selector: 'app-auction-details',
   imports: [
     CommonModule,
     Breadcrumb,
-    TranslocoPipe
+    Button,
+    TranslocoPipe,
+    InputText
   ],
   providers: [AuctionDetailsService],
   templateUrl: './auction-details.html',
@@ -167,6 +171,12 @@ export class AuctionDetails {
   // Current image index for gallery
   currentImageIndex = signal(0);
 
+  // Quick bid amounts
+  quickBidAmounts = signal<number[]>([15550, 10000, 15000, 20000]);
+
+  // Selected quick bid amount
+  selectedQuickBidAmount = signal<number | null>(null);
+
   toggleAccordion(section: keyof AccordionState): void {
     const currentStates = this.accordionStates();
     this.accordionStates.set({
@@ -201,5 +211,10 @@ export class AuctionDetails {
       ...details,
       mainImage: images[newIndex]
     });
+  }
+
+  selectQuickBidAmount(amount: number): void {
+    this.selectedQuickBidAmount.set(amount);
+    console.log('Quick bid amount selected:', amount);
   }
 }

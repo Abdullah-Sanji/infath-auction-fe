@@ -265,11 +265,13 @@
     "hoursShort": "س",
     "daysShort": "ي",
     "loginToBid": "تسجيل الدخول للمزايدة",
-    "auctionInfo": "معلومات المزاد",
+    "quickBid": "المزايدة السريعة",
+    "currency": "ريال سعودي",
     "openingPrice": "السعر الافتتاحي",
     "entryAmount": "مبلغ الدخول",
     "topBid": "أعلى مزايدة",
     "bids": "سجل المزايدات",
+    "bid": "المزايدة",
     "loadingBids": "جارٍ تحميل المزايدات…",
     "noBids": "لا توجد مزايدات بعد.",
     "propertyInfo": "معلومات الأصل",
@@ -327,7 +329,8 @@
     "payDeposit": "دفع العربون",
     "timeRemainingToClose": "الوقت المتبقي لإغلاق المزاد",
     "highestPrice": "أعلى سعر",
-    "live": "مباشر"
+    "live": "مباشر",
+    "enterBidAmount": "ادخل قيمة للمزايدة"
   },
   "addFunds": {
     "title": "إضافة رصيد",

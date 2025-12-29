@@ -265,11 +265,13 @@
     "hoursShort": "h",
     "daysShort": "d",
     "loginToBid": "Log in to bid",
-    "auctionInfo": "Auction Information",
+    "quickBid": "Quick Bid",
+    "currency": "SAR",
     "openingPrice": "Opening Price",
     "entryAmount": "Entry Amount",
     "topBid": "Top Bid",
     "bids": "Bids History",
+    "bid": "Bid",
     "loadingBids": "Loading bids…",
     "noBids": "No bids yet.",
     "propertyInfo": "Property Information",
@@ -327,7 +329,8 @@
     "payDeposit": "Pay Deposit",
     "timeRemainingToClose": "Time Remaining Until Auction Closes",
     "highestPrice": "Highest Price",
-    "live": "Live"
+    "live": "Live",
+    "enterBidAmount": "Enter Bid Amount"
   },
   "addFunds": {
     "title": "Add Funds",

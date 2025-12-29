@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AuctionDetails } from './auction-details';
 import { AuctionDetailsService } from './services/auction-details.service';
 import { provideRouter } from '@angular/router';
+import { provideTransloco } from '@jsverse/transloco';
+import { TranslocoHttpLoader } from '../../../core/services/transloco-loader';
 
 describe('AuctionDetails', () => {
   let component: AuctionDetails;
@@ -12,7 +14,16 @@ describe('AuctionDetails', () => {
       imports: [AuctionDetails],
       providers: [
         AuctionDetailsService,
-        provideRouter([])
+        provideRouter([]),
+        provideTransloco({
+          config: {
+            availableLangs: ['ar', 'en'],
+            defaultLang: 'ar',
+            reRenderOnLangChange: true,
+            prodMode: true,
+          },
+          loader: TranslocoHttpLoader
+        })
       ]
     }).compileComponents();
 
@@ -183,5 +194,75 @@ describe('AuctionDetails', () => {
   it('should have correct number of neighborhood services', () => {
     const services = component.auctionDetails().neighborhoodServices;
     expect(services.length).toBe(6);
+  });
+
+  describe('Quick Bid Functionality', () => {
+    it('should initialize with quick bid amounts', () => {
+      const amounts = component.quickBidAmounts();
+      expect(amounts).toBeTruthy();
+      expect(amounts.length).toBe(4);
+      expect(amounts).toEqual([15550, 10000, 15000, 20000]);
+    });
+
+    it('should initialize with no selected quick bid amount', () => {
+      expect(component.selectedQuickBidAmount()).toBeNull();
+    });
+
+    it('should select quick bid amount when clicked', () => {
+      const testAmount = 15550;
+      component.selectQuickBidAmount(testAmount);
+      expect(component.selectedQuickBidAmount()).toBe(testAmount);
+    });
+
+    it('should update selected amount when different button is clicked', () => {
+      component.selectQuickBidAmount(15550);
+      expect(component.selectedQuickBidAmount()).toBe(15550);
+
+      component.selectQuickBidAmount(20000);
+      expect(component.selectedQuickBidAmount()).toBe(20000);
+    });
+
+    it('should log selected amount to console', () => {
+      spyOn(console, 'log');
+      const testAmount = 10000;
+      component.selectQuickBidAmount(testAmount);
+      expect(console.log).toHaveBeenCalledWith('Quick bid amount selected:', testAmount);
+    });
+
+    it('should render quick bid buttons in template', () => {
+      fixture.detectChanges();
+      const compiled = fixture.nativeElement;
+      const quickBidButtons = compiled.querySelectorAll('.grid.grid-cols-2 button');
+      expect(quickBidButtons.length).toBe(4);
+    });
+
+    it('should display correct amounts in quick bid buttons', () => {
+      fixture.detectChanges();
+      const compiled = fixture.nativeElement;
+      const quickBidButtons = compiled.querySelectorAll('.grid.grid-cols-2 button p');
+      const amounts = component.quickBidAmounts();
+      
+      quickBidButtons.forEach((button: Element, index: number) => {
+        const expectedAmount = amounts[index].toLocaleString('ar-SA');
+        expect(button.textContent).toContain(expectedAmount);
+      });
+    });
+
+    it('should apply selected styles when quick bid button is clicked', () => {
+      const testAmount = 15550;
+      component.selectQuickBidAmount(testAmount);
+      fixture.detectChanges();
+
+      expect(component.selectedQuickBidAmount()).toBe(testAmount);
+    });
+
+    it('should handle multiple quick bid selections', () => {
+      const amounts = [15550, 10000, 15000, 20000];
+      
+      amounts.forEach(amount => {
+        component.selectQuickBidAmount(amount);
+        expect(component.selectedQuickBidAmount()).toBe(amount);
+      });
+    });
   });
 });

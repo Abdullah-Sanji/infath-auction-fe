@@ -57,21 +57,21 @@
             </p>
           </div>
           <div class="flex flex-wrap gap-2 items-start justify-end w-full">
-            <button class="flex items-center justify-center w-8 h-8 border border-white/30 rounded">
+            <button class="flex items-center justify-center w-8 h-8 border border-white/30 rounded" (click)="onMagnifierClick()">
               <img
                 src="images/icons/magnifier.svg"
                 alt="{{ 'footer.accessibility.magnifier' | transloco }}"
                 class="w-5 h-5"
               />
             </button>
-            <button class="flex items-center justify-center w-8 h-8 border border-white/30 rounded">
+            <button class="flex items-center justify-center w-8 h-8 border border-white/30 rounded" (click)="onVisibilityClick()">
               <img
-                src="images/icons/elements.svg"
+                src="images/icons/visibility.svg"
                 alt="{{ 'footer.accessibility.elements' | transloco }}"
                 class="w-5 h-5"
               />
             </button>
-            <button class="flex items-center justify-center w-8 h-8 border border-white/30 rounded">
+            <button class="flex items-center justify-center w-8 h-8 border border-white/30 rounded" (click)="onFullscreenClick()">
               <img
                 src="images/icons/full-screen.svg"
                 alt="{{ 'footer.accessibility.fullscreen' | transloco }}"

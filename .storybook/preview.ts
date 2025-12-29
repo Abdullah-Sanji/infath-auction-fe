@@ -15,7 +15,7 @@ export const CustomAura = definePreset(Aura, {
       200: '#b8eacb',
       300: '#88d8ad',
       400: '#54c08a',
-      500: '#25935f', // Brand primary
+      500: '#007A8C', // Brand primary
       600: '#1b8354',
       700: '#166a45',
       800: '#14573a',

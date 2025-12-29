@@ -308,3 +308,51 @@ body {
   font-family: var(--font-family-text);
   font-weight: var(--font-weight-regular);
 }
+
+/* High Contrast Mode - Accessibility Enhancement */
+html.high-contrast {
+  /* Increase contrast for text */
+  --color-text-default: #000000;
+  --color-text-display: #000000;
+  --color-text-heading-dark: #000000;
+  --color-text-placeholder: #333333;
+
+  /* Increase contrast for backgrounds */
+  --color-bg-card: #ffffff;
+  --color-bg-menu: #ffffff;
+  --color-bg-primary: #000000;
+
+  /* Increase contrast for borders */
+  --color-border-neutral: #000000;
+  --color-border-default: #000000;
+
+  /* Apply high contrast styles */
+  filter: contrast(1.2);
+
+  /* Enhance focus indicators */
+  * {
+    &:focus,
+    &:focus-visible {
+      outline: 3px solid #000000 !important;
+      outline-offset: 2px !important;
+    }
+  }
+
+  /* Enhance button contrast */
+  button,
+  a {
+    border: 2px solid currentColor !important;
+  }
+
+  /* Remove subtle shadows */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Increase image contrast */
+  img,
+  svg {
+    filter: contrast(1.3);
+  }
+}

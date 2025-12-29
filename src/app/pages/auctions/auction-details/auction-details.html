@@ -63,7 +63,9 @@
           <img alt="people" class="" src="images/icons/people.svg" />
 
           <div class="flex flex-col gap-1 whitespace-nowrap text-black">
-            <p class="text-base font-normal leading-6">{{ 'auctionDetails.stats.participantsCount' | transloco }}</p>
+            <p class="text-base font-normal leading-6">
+              {{ 'auctionDetails.stats.participantsCount' | transloco }}
+            </p>
             <p class="text-base font-semibold leading-6">
               {{ auctionDetails().stats.participantsCount }}
             </p>
@@ -77,7 +79,9 @@
           <img alt="eye" src="images/icons/eye.svg" />
 
           <div class="flex flex-col gap-1 whitespace-nowrap text-black">
-            <p class="text-base font-normal leading-6">{{ 'auctionDetails.stats.viewsCount' | transloco }}</p>
+            <p class="text-base font-normal leading-6">
+              {{ 'auctionDetails.stats.viewsCount' | transloco }}
+            </p>
             <p class="text-base font-semibold leading-6">{{ auctionDetails().stats.viewsCount }}</p>
           </div>
         </div>
@@ -89,7 +93,9 @@
           <img alt="legal" src="images/icons/legal.svg" />
 
           <div class="flex flex-col gap-1 whitespace-nowrap text-black">
-            <p class="text-base font-normal leading-6">{{ 'auctionDetails.stats.bidsCount' | transloco }}</p>
+            <p class="text-base font-normal leading-6">
+              {{ 'auctionDetails.stats.bidsCount' | transloco }}
+            </p>
             <p class="text-base font-semibold leading-6">{{ auctionDetails().stats.bidsCount }}</p>
           </div>
         </div>
@@ -100,11 +106,15 @@
         class="bg-white border border-neutral-200 rounded-lg p-4 flex flex-col items-end gap-4 w-full"
       >
         <div class="flex flex-col gap-1 w-full">
-          <p class="font-bold leading-6 text-black w-full">{{ 'auctionDetails.auctionInfo' | transloco }}</p>
+          <p class="font-bold leading-6 text-black w-full">
+            {{ 'auctionDetails.auctionInfo' | transloco }}
+          </p>
 
           <!-- Auction Type -->
           <div class="flex justify-between gap-2 w-full border-b border-neutral-200 pb-1">
-            <p class="font-normal leading-6 text-neutral-800">{{ 'auctionDetails.auctionType' | transloco }}</p>
+            <p class="font-normal leading-6 text-neutral-800">
+              {{ 'auctionDetails.auctionType' | transloco }}
+            </p>
             <p class="font-normal leading-6 text-neutral-800">
               {{ auctionDetails().info.auctionType }}
             </p>
@@ -112,7 +122,9 @@
 
           <!-- Asset Type -->
           <div class="flex justify-between gap-2 w-full border-b border-neutral-200 pb-1">
-            <p class="font-normal leading-6 text-neutral-800">{{ 'auctionDetails.assetType' | transloco }}</p>
+            <p class="font-normal leading-6 text-neutral-800">
+              {{ 'auctionDetails.assetType' | transloco }}
+            </p>
             <p class="font-normal leading-6 text-neutral-800">
               {{ auctionDetails().info.assetType }}
             </p>
@@ -228,55 +240,73 @@
           @if (accordionStates().assetInfo) {
           <div class="flex flex-col items-center gap-2 w-full pt-2 pb-6 pr-2 pl-4">
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.planNumber' | transloco }}</p>
+              <p class="font-normal leading-6 text-gray-800">
+                {{ 'auctionDetails.asset.planNumber' | transloco }}
+              </p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.planNumber }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.plotNumber' | transloco }}</p>
+              <p class="font-normal leading-6 text-gray-800">
+                {{ 'auctionDetails.asset.plotNumber' | transloco }}
+              </p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.plotNumber }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.front' | transloco }}</p>
+              <p class="font-normal leading-6 text-gray-800">
+                {{ 'auctionDetails.asset.front' | transloco }}
+              </p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.propertyFacing }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.propertyUsage' | transloco }}</p>
+              <p class="font-normal leading-6 text-gray-800">
+                {{ 'auctionDetails.propertyUsage' | transloco }}
+              </p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.propertyUsage }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.location' | transloco }}</p>
+              <p class="font-normal leading-6 text-gray-800">
+                {{ 'auctionDetails.asset.location' | transloco }}
+              </p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.propertyLocation }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.landType' | transloco }}</p>
+              <p class="font-normal leading-6 text-gray-800">
+                {{ 'auctionDetails.asset.landType' | transloco }}
+              </p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.landType }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.deedNumber' | transloco }}</p>
+              <p class="font-normal leading-6 text-gray-800">
+                {{ 'auctionDetails.asset.deedNumber' | transloco }}
+              </p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.deedNumber }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.deedDate' | transloco }}</p>
+              <p class="font-normal leading-6 text-gray-800">
+                {{ 'auctionDetails.asset.deedDate' | transloco }}
+              </p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.deedDate }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.asset.area' | transloco }}</p>
+              <p class="font-normal leading-6 text-gray-800">
+                {{ 'auctionDetails.asset.area' | transloco }}
+              </p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().assetInfo.propertyArea }}
               </p>
@@ -304,31 +334,41 @@
           @if (accordionStates().residentialDetails) {
           <div class="flex flex-col items-center gap-2 w-full pt-2 pb-6 pr-2 pl-4">
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.roomsCount' | transloco }}</p>
+              <p class="font-normal leading-6 text-gray-800">
+                {{ 'auctionDetails.roomsCount' | transloco }}
+              </p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().residentialDetails.roomsCount }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.hallsCount' | transloco }}</p>
+              <p class="font-normal leading-6 text-gray-800">
+                {{ 'auctionDetails.hallsCount' | transloco }}
+              </p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().residentialDetails.hallsCount }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.bathroomsCount' | transloco }}</p>
+              <p class="font-normal leading-6 text-gray-800">
+                {{ 'auctionDetails.bathroomsCount' | transloco }}
+              </p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().residentialDetails.bathroomsCount }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full border-b border-gray-200 pb-1">
-              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.kitchensCount' | transloco }}</p>
+              <p class="font-normal leading-6 text-gray-800">
+                {{ 'auctionDetails.kitchensCount' | transloco }}
+              </p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().residentialDetails.kitchensCount }}
               </p>
             </div>
             <div class="flex justify-between gap-2 w-full pb-1">
-              <p class="font-normal leading-6 text-gray-800">{{ 'auctionDetails.buildingAge' | transloco }}</p>
+              <p class="font-normal leading-6 text-gray-800">
+                {{ 'auctionDetails.buildingAge' | transloco }}
+              </p>
               <p class="font-normal leading-6 text-gray-800">
                 {{ auctionDetails().residentialDetails.buildingAge }}
               </p>
@@ -386,7 +426,9 @@
             class="flex items-center justify-between h-10 px-2 w-full rounded-lg bg-neutral-50 cursor-pointer"
             (click)="toggleAccordion('neighborhoodServices')"
           >
-            <p class="font-semibold leading-6 text-gray-900 text-right flex-1">{{ 'auctionDetails.neighborhoodServices' | transloco }}</p>
+            <p class="font-semibold leading-6 text-gray-900 text-right flex-1">
+              {{ 'auctionDetails.neighborhoodServices' | transloco }}
+            </p>
             @if (accordionStates().neighborhoodServices) {
             <img alt="accordianArrow" src="images/icons/accordianArrow.svg" />
             } @else {
@@ -433,7 +475,9 @@
               stroke-linejoin="round"
             />
           </svg>
-          <p class="text-sm font-medium leading-5 text-gray-900 whitespace-nowrap">{{ 'auctionDetails.downloadBrochure' | transloco }}</p>
+          <p class="text-sm font-medium leading-5 text-gray-900 whitespace-nowrap">
+            {{ 'auctionDetails.downloadBrochure' | transloco }}
+          </p>
         </button>
       </div>
 
@@ -504,7 +548,9 @@
             <img alt="chat" class="w-5 h-5" src="images/icons/buble-chat.svg" />
 
             <div class="flex flex-col gap-1.5 text-gray-800 whitespace-nowrap">
-              <p class="text-base font-normal leading-6">{{ 'auctionDetails.communication' | transloco }}</p>
+              <p class="text-base font-normal leading-6">
+                {{ 'auctionDetails.communication' | transloco }}
+              </p>
               <p class="text-base font-bold leading-6">
                 {{ auctionDetails().sellerReview.communicationRating }}
               </p>
@@ -516,7 +562,9 @@
             <img alt="file" class="w-5 h-5" src="images/icons/file-validation.svg" />
 
             <div class="flex flex-col gap-1.5 text-gray-800 whitespace-nowrap">
-              <p class="text-base font-normal leading-6">{{ 'auctionDetails.accuracyRating' | transloco }}</p>
+              <p class="text-base font-normal leading-6">
+                {{ 'auctionDetails.accuracyRating' | transloco }}
+              </p>
               <p class="text-base font-bold leading-6">
                 {{ auctionDetails().sellerReview.accuracyRating }}
               </p>
@@ -556,84 +604,52 @@
     <div class="flex flex-col gap-6 w-1/3">
       <!-- Card 1: Auction Information -->
       <div class="bg-white rounded-2xl shadow-md p-4 flex flex-col gap-4">
-        <p class="text-lg font-bold text-gray-800 leading-7 text-right">{{ 'auctionDetails.auctionInfo' | transloco }}</p>
+        <div class="flex gap-1">
+          <img alt="bid" src="images/icons/bid-green.svg" />
+          <p class="text-lg font-bold text-gray-800 leading-7 text-nowrap">
+            {{ 'auctionDetails.quickBid' | transloco }}
+          </p>
+        </div>
 
-        <div class="flex flex-col gap-1.5 w-full">
-          <!-- Opening Price -->
-          <div class="flex gap-2 items-center justify-end w-full">
-            <div class="flex-1 flex gap-0 min-h-px min-w-px">
-              <p class="font-medium text-gray-800 leading-6 text-nowrap">{{ 'auctionDetails.openingPrice' | transloco }}</p>
-            </div>
-            <div class="flex">
-              <div class="flex gap-2 items-center p-0">
-                <p class="text-lg font-medium text-gray-800 leading-7 text-nowrap text-right">
-                  {{ auctionDetails().auctionCard.openingPrice.toLocaleString('ar-SA') }}
-                </p>
-                <!-- Currency Symbol -->
-                <img alt="riyal" src="images/icons/black-riyal.svg" />
-              </div>
-            </div>
-          </div>
+        <!-- Quick Bid Amount Buttons -->
+        <div class="grid grid-cols-2 gap-2 w-full">
+          @for (amount of quickBidAmounts(); track amount; let idx = $index) {
+          <button
+            type="button"
+            class="bg-neutral-100 flex items-center justify-center px-3 py-2 rounded-full transition-colors hover:bg-neutral-200 cursor-pointer"
+            [class.bg-button-primary]="selectedQuickBidAmount() === amount"
+            [class.hover:bg-button-primary-hover]="selectedQuickBidAmount() === amount"
+            (click)="selectQuickBidAmount(amount)"
+          >
+            <p
+              class="text-base font-medium leading-6 text-center whitespace-nowrap text-neutral-800"
+            >
+              {{ amount.toLocaleString('ar-SA') }} {{ 'auctionDetails.currency' | transloco }}
+            </p>
+          </button>
+          }
+        </div>
 
-          <!-- Entry Amount -->
-          <div class="flex gap-2 items-center w-full">
-            <div class="flex-1 flex gap-0 min-h-px min-w-px">
-              <p class="text-base font-medium text-gray-800 leading-6 text-nowrap">{{ 'auctionDetails.entryAmount' | transloco }}</p>
-            </div>
-            <div class="flex">
-              <div class="flex gap-2 items-center p-0">
-                <!-- Currency Symbol -->
-                <p class="text-lg font-medium text-gray-800 leading-7 text-nowrap">
-                  {{ auctionDetails().auctionCard.entryAmount.toLocaleString('ar-SA') }}
-                </p>
-                <img alt="riyal" src="images/icons/black-riyal.svg" />
-              </div>
-            </div>
-          </div>
+        <div>
+          <p class="text-base text-black mb-2">
+            {{ 'auctionDetails.enterBidAmount' | transloco }}
+          </p>
 
-          <!-- Highest Price -->
-          <div class="flex gap-2 items-center w-full">
-            <div class="flex-1 flex gap-0 min-h-px min-w-px">
-              <p class="font-medium text-gray-800 leading-6 text-nowrap">{{ 'auctionDetails.highestPrice' | transloco }}</p>
-            </div>
-            <div class="flex">
-              <div class="flex gap-2 items-center p-0">
-                <p class="text-lg font-medium text-gray-800 leading-7 text-nowrap">
-                  {{ auctionDetails().auctionCard.highestPrice.toLocaleString('ar-SA') }}
-                </p>
-                <!-- Currency Symbol -->
-                <img alt="riyal" src="images/icons/black-riyal.svg" />
-              </div>
-            </div>
-          </div>
+          <lib-input-text
+            type="number"
+            [fluid]="true"
+            [placeholder]="'auctionDetails.enterBidAmount' | transloco"
+            [value]="selectedQuickBidAmount()?.toString() || null"
+          />
         </div>
 
         <!-- Deposit Section -->
-        <div class="border-t border-gray-200 flex flex-col gap-2 pt-2 w-full">
-          <div class="flex flex-col gap-0 w-full">
-            <div class="flex items-center justify-between w-full">
-              <p class="font-bold leading-6 text-gray-800 text-right w-[200px]">{{ 'auctionDetails.depositAmount' | transloco }}</p>
-              <div class="flex gap-2 items-center">
-                <p class="text-xl font-bold text-button-primary leading-[30px] text-nowrap">
-                  {{ auctionDetails().auctionCard.depositAmount.toLocaleString('ar-SA') }}
-                </p>
-                <!-- Currency Symbol (Green) -->
-                <img alt="riyal" src="images/icons/green-riyal.svg" />
-              </div>
-            </div>
-          </div>
-
+        <div class="flex flex-col gap-2 pt-2 w-full">
           <!-- Pay Deposit Button -->
-          <button
-            class="bg-button-primary flex gap-1 h-10 items-center justify-center px-4 rounded overflow-hidden hover:bg-emerald-800 transition-colors w-full"
-          >
-            <!-- Wallet Icon -->
-            <img alt="riyal" src="images/icons/wallet.svg" />
-
-            <div class="flex items-center justify-center">
-              <p class="text-base font-medium text-white leading-6 text-nowrap">{{ 'auctionDetails.payDeposit' | transloco }}</p>
-            </div>
-          </button>
+          <lib-button [fluid]="true" severity="primary" styleClass="h-10">
+            <img alt="wallet" src="images/icons/bid-white.svg" class="w-5 h-5" />
+            <span class="font-medium ml-1">{{ 'auctionDetails.bid' | transloco }}</span>
+          </lib-button>
         </div>
       </div>
 
@@ -658,7 +674,9 @@
             <p class="text-xl font-bold leading-[30px] text-button-primary">
               {{ auctionDetails().auctionCard.timeRemaining.days }}
             </p>
-            <p class="text-base font-normal leading-6 text-button-primary">{{ 'auctionDetails.days' | transloco }}</p>
+            <p class="text-base font-normal leading-6 text-button-primary">
+              {{ 'auctionDetails.days' | transloco }}
+            </p>
           </div>
 
           <!-- Hours -->
@@ -668,7 +686,9 @@
             <p class="text-xl font-bold leading-[30px] text-button-primary">
               {{ auctionDetails().auctionCard.timeRemaining.hours }}
             </p>
-            <p class="text-base font-normal leading-6 text-button-primary">{{ 'auctionDetails.hours' | transloco }}</p>
+            <p class="text-base font-normal leading-6 text-button-primary">
+              {{ 'auctionDetails.hours' | transloco }}
+            </p>
           </div>
 
           <!-- Minutes -->
@@ -678,7 +698,9 @@
             <p class="text-xl font-bold leading-[30px] text-button-primary">
               {{ auctionDetails().auctionCard.timeRemaining.minutes }}
             </p>
-            <p class="text-base font-normal leading-6 text-button-primary">{{ 'auctionDetails.minutes' | transloco }}</p>
+            <p class="text-base font-normal leading-6 text-button-primary">
+              {{ 'auctionDetails.minutes' | transloco }}
+            </p>
           </div>
 
           <!-- Seconds -->
@@ -688,7 +710,9 @@
             <p class="text-xl font-bold leading-[30px] text-button-primary">
               {{ auctionDetails().auctionCard.timeRemaining.seconds }}
             </p>
-            <p class="font-normal leading-6 text-button-primary">{{ 'auctionDetails.seconds' | transloco }}</p>
+            <p class="font-normal leading-6 text-button-primary">
+              {{ 'auctionDetails.seconds' | transloco }}
+            </p>
           </div>
         </div>
 
@@ -697,7 +721,9 @@
           <!-- currency arrow up Icon -->
           <img alt="currency arrow" src="images/icons/currency-arrow-up.svg" />
 
-          <p class="text-lg font-bold text-gray-800 leading-7 text-nowrap">{{ 'auctionDetails.highestPrice' | transloco }}</p>
+          <p class="text-lg font-bold text-gray-800 leading-7 text-nowrap">
+            {{ 'auctionDetails.highestPrice' | transloco }}
+          </p>
         </div>
 
         <!-- Current Highest Bid Display -->
@@ -733,7 +759,9 @@
           <div class="flex gap-1 h-6 items-center justify-end p-0 rounded-full">
             <!-- Green Dot -->
             <img alt="green dot" class="w-3 h-3" src="images/icons/green-dot.svg" />
-            <p class="text-sm font-medium text-gray-800 leading-5 text-nowrap text-right">{{ 'auctionDetails.live' | transloco }}</p>
+            <p class="text-sm font-medium text-gray-800 leading-5 text-nowrap text-right">
+              {{ 'auctionDetails.live' | transloco }}
+            </p>
           </div>
         </div>
 
@@ -759,7 +787,9 @@
             <div class="bg-bg-tag-success flex gap-1 h-6 items-center px-2 py-0 rounded-full">
               <!-- gray Dot -->
               <img alt="gray dot" src="images/icons/gray-dot.svg" />
-              <p class="text-sm font-medium text-white leading-5 text-nowrap">{{ 'auctionDetails.topBid' | transloco }}</p>
+              <p class="text-sm font-medium text-white leading-5 text-nowrap">
+                {{ 'auctionDetails.topBid' | transloco }}
+              </p>
             </div>
             <p class="font-normal text-gray-800 leading-6 text-nowrap text-end">
               {{ bid.timeAgo }}

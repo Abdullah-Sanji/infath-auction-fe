@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, PLATFORM_ID, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 
@@ -12,8 +13,15 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 })
 export class FooterComponent {
   private translocoService = inject(TranslocoService);
+  private platformId = inject(PLATFORM_ID);
+  private isBrowser = isPlatformBrowser(this.platformId);
 
   currentLang = this.translocoService.langChanges$;
+
+  // Accessibility state
+  zoomLevel = signal(100);
+  highContrastEnabled = signal(false);
+  isFullscreen = signal(false);
 
   get currentYear(): number {
     return new Date().getFullYear();
@@ -42,4 +50,67 @@ export class FooterComponent {
     { label: 'footer.importantPages.myOrders', url: '/my-purchases' },
     { label: 'footer.importantPages.smartAssistant', url: '#' },
   ];
+
+  /**
+   * Toggle text magnification/zoom
+   * Cycles through zoom levels: 100% -> 125% -> 150% -> 100%
+   */
+  onMagnifierClick(): void {
+    if (!this.isBrowser) return;
+
+    const currentZoom = this.zoomLevel();
+    let newZoom: number;
+
+    if (currentZoom === 100) {
+      newZoom = 125;
+    } else if (currentZoom === 125) {
+      newZoom = 150;
+    } else {
+      newZoom = 100;
+    }
+
+    this.zoomLevel.set(newZoom);
+    document.documentElement.style.fontSize = `${newZoom}%`;
+  }
+
+  /**
+   * Toggle high contrast mode for better visibility
+   * Adds/removes a CSS class to enable high contrast styles
+   */
+  onVisibilityClick(): void {
+    if (!this.isBrowser) return;
+
+    const newState = !this.highContrastEnabled();
+    this.highContrastEnabled.set(newState);
+
+    if (newState) {
+      document.documentElement.classList.add('high-contrast');
+    } else {
+      document.documentElement.classList.remove('high-contrast');
+    }
+  }
+
+  /**
+   * Toggle fullscreen mode
+   * Enters/exits browser fullscreen mode
+   */
+  onFullscreenClick(): void {
+    if (!this.isBrowser) return;
+
+    if (!document.fullscreenElement) {
+      // Enter fullscreen
+      document.documentElement.requestFullscreen().then(() => {
+        this.isFullscreen.set(true);
+      }).catch((error) => {
+        console.error('Failed to enter fullscreen:', error);
+      });
+    } else {
+      // Exit fullscreen
+      document.exitFullscreen().then(() => {
+        this.isFullscreen.set(false);
+      }).catch((error) => {
+        console.error('Failed to exit fullscreen:', error);
+      });
+    }
+  }
 }

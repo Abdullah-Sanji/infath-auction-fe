@@ -64,7 +64,7 @@
   (onYearChange)="handleYearChange($event)"
   (onTodayClick)="handleTodayClick($event)"
   (onClearClick)="handleClearClick($event)"
-  [class.border-none!]="!showBorder()"
+  [class.border-none]="!showBorder()"
 >
   @if (iconTemplate()) {
     <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
