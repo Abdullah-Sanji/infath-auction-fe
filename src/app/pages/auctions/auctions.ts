@@ -1,17 +1,23 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Breadcrumb, BreadcrumbItem } from '@shared/components/ui/breadcrumb/breadcrumb';
-import { AuctionsFilter, AuctionsFilterData } from '@shared/components/pages/auctions-filter/auctions-filter';
+import {
+  AuctionsFilter,
+  AuctionsFilterData,
+} from '@shared/components/pages/auctions-filter/auctions-filter';
 import { AuctionCard, AuctionCardData } from '@shared/components/pages/auction-card/auction-card';
+import { Paginator, PageState } from '@shared/components/ui/paginator/paginator';
 
 @Component({
   selector: 'app-auctions',
-  imports: [CommonModule, Breadcrumb, AuctionsFilter, AuctionCard],
+  imports: [CommonModule, Breadcrumb, AuctionsFilter, AuctionCard, Paginator],
   templateUrl: './auctions.html',
   styleUrl: './auctions.scss',
 })
 export class Auctions {
-
+  // Pagination state
+  first = signal<number>(0);
+  rows = signal<number>(8);
   breadcrumbItems = signal<BreadcrumbItem[]>([
     { label: 'الصفحة الرئيسية', route: ['/'], translationKey: 'nav.home' },
     { label: 'مزادات العقارات' },
@@ -47,9 +53,10 @@ export class Auctions {
       title: 'الصناعية',
       icon: 'images/icons/industrial.svg',
       numberOfItems: 50,
-    }
+    },
   ]);
 
+  // All auctions data
   auctions = signal<AuctionCardData[]>([
     {
       id: 1,
@@ -60,7 +67,7 @@ export class Auctions {
       isLive: true,
       isFavorited: false,
       participantsCount: 15,
-      timeRemaining: '4 أيام 3 ساعات 40 دقيقة'
+      timeRemaining: '4 أيام 3 ساعات 40 دقيقة',
     },
     {
       id: 2,
@@ -71,7 +78,7 @@ export class Auctions {
       isLive: true,
       isFavorited: false,
       participantsCount: 23,
-      timeRemaining: '2 أيام 5 ساعات 15 دقيقة'
+      timeRemaining: '2 أيام 5 ساعات 15 دقيقة',
     },
     {
       id: 3,
@@ -82,7 +89,7 @@ export class Auctions {
       isLive: false,
       isFavorited: true,
       participantsCount: 42,
-      timeRemaining: '7 أيام 12 ساعة 30 دقيقة'
+      timeRemaining: '7 أيام 12 ساعة 30 دقيقة',
     },
     {
       id: 4,
@@ -93,7 +100,7 @@ export class Auctions {
       isLive: true,
       isFavorited: false,
       participantsCount: 31,
-      timeRemaining: '5 أيام 8 ساعات 20 دقيقة'
+      timeRemaining: '5 أيام 8 ساعات 20 دقيقة',
     },
     {
       id: 5,
@@ -104,7 +111,7 @@ export class Auctions {
       isLive: false,
       isFavorited: false,
       participantsCount: 18,
-      timeRemaining: '9 أيام 4 ساعات 50 دقيقة'
+      timeRemaining: '9 أيام 4 ساعات 50 دقيقة',
     },
     {
       id: 6,
@@ -115,8 +122,74 @@ export class Auctions {
       isLive: true,
       isFavorited: true,
       participantsCount: 8,
-      timeRemaining: '3 أيام 1 ساعة 10 دقائق'
-    }
+      timeRemaining: '3 أيام 1 ساعة 10 دقائق',
+    },
+    {
+      id: 7,
+      title: 'شقة في حي الياسمين',
+      highestBid: 350000,
+      endDate: new Date('2025-01-07'),
+      imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop',
+      isLive: true,
+      isFavorited: false,
+      participantsCount: 19,
+      timeRemaining: '6 أيام 2 ساعة 45 دقيقة',
+    },
+    {
+      id: 8,
+      title: 'فيلا فاخرة في حي الربوة',
+      highestBid: 2800000,
+      endDate: new Date('2025-01-09'),
+      imageUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop',
+      isLive: false,
+      isFavorited: false,
+      participantsCount: 35,
+      timeRemaining: '8 أيام 6 ساعات 15 دقيقة',
+    },
+    {
+      id: 9,
+      title: 'أرض تجارية في حي العليا',
+      highestBid: 1200000,
+      endDate: new Date('2025-01-05'),
+      imageUrl: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop',
+      isLive: true,
+      isFavorited: true,
+      participantsCount: 28,
+      timeRemaining: '4 أيام 7 ساعات 30 دقيقة',
+    },
+    {
+      id: 10,
+      title: 'مبنى إداري في حي الملز',
+      highestBid: 4500000,
+      endDate: new Date('2025-01-11'),
+      imageUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop',
+      isLive: false,
+      isFavorited: false,
+      participantsCount: 45,
+      timeRemaining: '10 أيام 3 ساعات 20 دقيقة',
+    },
+    {
+      id: 11,
+      title: 'شقة في حي النخيل',
+      highestBid: 280000,
+      endDate: new Date('2025-01-06'),
+      imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop',
+      isLive: true,
+      isFavorited: false,
+      participantsCount: 12,
+      timeRemaining: '5 أيام 4 ساعات 50 دقيقة',
+    },
+    {
+      id: 12,
+      title: 'أرض سكنية في حي الورود',
+      highestBid: 650000,
+      endDate: new Date('2025-01-08'),
+      imageUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop',
+      isLive: true,
+      isFavorited: true,
+      participantsCount: 22,
+      timeRemaining: '7 أيام 1 ساعة 40 دقيقة',
+    },
   ]);
 
   onFilterChange(item: AuctionsFilterData): void {
@@ -131,10 +204,10 @@ export class Auctions {
 
   onFavoriteClick(auction: AuctionCardData): void {
     console.log('Favorite clicked:', auction);
-    // Toggle favorite status
-    const updatedAuctions = this.auctions().map(a =>
-      a.id === auction.id ? { ...a, isFavorited: !a.isFavorited } : a
-    );
-    this.auctions.set(updatedAuctions);
+  }
+
+  onPageChange(event: PageState): void {
+    // Scroll to top of auction list
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

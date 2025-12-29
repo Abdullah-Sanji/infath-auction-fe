@@ -8,7 +8,7 @@
   </div>
 
   <!-- Auction Listing -->
-  <div class="px-16 pb-16">
+  <div class="px-16 pb-8">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       @for (auction of auctions(); track auction.id) {
         <app-auction-card
@@ -18,5 +18,17 @@
         />
       }
     </div>
+  </div>
+
+  <!-- Paginator -->
+  <div class="flex justify-center px-16 pb-16">
+    <lib-paginator
+      [totalRecords]="15"
+      [rows]="2"
+      [showFirstLastIcon]="false"
+      [size]="'small'"
+      [rtl]="false"
+      (onPageChange)="onPageChange($event)"
+    />
   </div>
 </div>

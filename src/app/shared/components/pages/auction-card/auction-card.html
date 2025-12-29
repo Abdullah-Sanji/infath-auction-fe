@@ -13,7 +13,7 @@
     <!-- Top Tags Overlay -->
     <div class="absolute top-3 left-3 right-3 flex items-start justify-between">
       <!-- Live Status Tag -->
-      <div class="bg-bg-tag-success px-[13px] py-[2px] rounded-full">
+      <div class="bg-bg-tag-success px-[13px] py-[2px] rounded-full" [class.opacity-0]="!auction().isLive">
         @if (auction().isLive) {
         <p class="text-white text-[13px] font-medium leading-[20px] text-nowrap">مباشر الآن</p>
         }

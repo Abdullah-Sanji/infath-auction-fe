@@ -1,0 +1,216 @@
+@if (pageCount() > 0 || alwaysShow()) {
+<div
+  class="flex items-center gap-2"
+  [class.flex-row]="!rtl()"
+  [class.flex-row-reverse]="rtl()"
+  role="navigation"
+  aria-label="Pagination"
+>
+  <!-- First Page Button (RTL: appears on right) -->
+  @if (showFirstLastIcon()) {
+  <button
+    type="button"
+    class="flex items-center justify-center overflow-hidden rounded transition-colors duration-200"
+    [class.w-10]="size() === 'large'"
+    [class.h-10]="size() === 'large'"
+    [class.w-8]="size() === 'medium'"
+    [class.h-8]="size() === 'medium'"
+    [class.w-6]="size() === 'small'"
+    [class.h-6]="size() === 'small'"
+    [class.cursor-pointer]="!isFirstPage()"
+    [class.cursor-not-allowed]="isFirstPage()"
+    [class.opacity-40]="isFirstPage()"
+    [class.hover:bg-gray-100]="!isFirstPage()"
+    [disabled]="isFirstPage()"
+    (click)="changePageToFirst()"
+    [attr.aria-label]="'First Page'"
+    [attr.aria-disabled]="isFirstPage()"
+  >
+    <svg
+      class="block"
+      [class.w-6]="size() === 'large'"
+      [class.h-6]="size() === 'large'"
+      [class.w-5]="size() === 'medium'"
+      [class.h-5]="size() === 'medium'"
+      [class.w-4]="size() === 'small'"
+      [class.h-4]="size() === 'small'"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      [class.rotate-180]="!rtl()"
+    >
+      <path
+        d="M18.9999 5.25L11.9999 12L18.9999 18.75M12.9999 5.25L5.99994 12L12.9999 18.75"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </button>
+  }
+
+  <!-- Previous Page Button -->
+  <button
+    type="button"
+    class="flex items-center justify-center overflow-hidden rounded transition-colors duration-200"
+    [class.w-10]="size() === 'large'"
+    [class.h-10]="size() === 'large'"
+    [class.w-8]="size() === 'medium'"
+    [class.h-8]="size() === 'medium'"
+    [class.w-6]="size() === 'small'"
+    [class.h-6]="size() === 'small'"
+    [class.cursor-pointer]="!isFirstPage()"
+    [class.cursor-not-allowed]="isFirstPage()"
+    [class.opacity-40]="isFirstPage()"
+    [class.hover:bg-gray-100]="!isFirstPage()"
+    [disabled]="isFirstPage()"
+    (click)="changePageToPrev()"
+    [attr.aria-label]="'Previous Page'"
+    [attr.aria-disabled]="isFirstPage()"
+  >
+    <img src="images/icons/arrow-black.svg" alt="" class="rotate-270 w-[14px] h-[14px]" />
+  </button>
+
+  <!-- Page Numbers -->
+  @for (page of pageLinks(); track $index) { @if (isEllipsis(page)) {
+  <!-- Ellipsis -->
+  <div
+    class="flex flex-col items-center justify-center rounded border border-black"
+    [class.h-10]="size() === 'large'"
+    [class.min-w-[40px]]="size() === 'large'"
+    [class.px-2]="size() === 'large'"
+    [class.py-2]="size() === 'large'"
+    [class.h-8]="size() === 'medium'"
+    [class.min-w-[32px]]="size() === 'medium'"
+    [class.px-2]="size() === 'medium'"
+    [class.py-1]="size() === 'medium'"
+    [class.h-6]="size() === 'small'"
+    [class.min-w-[24px]]="size() === 'small'"
+    [class.px-1]="size() === 'small'"
+    [class.py-1]="size() === 'small'"
+    aria-hidden="true"
+  >
+    <span
+      class="font-normal text-black leading-tight whitespace-nowrap"
+      [class.text-base]="size() === 'large' || size() === 'medium'"
+      [class.text-sm]="size() === 'small'"
+      >...</span
+    >
+  </div>
+  } @else {
+  <!-- Page Number Button -->
+  <button
+    type="button"
+    class="flex flex-col items-center justify-center rounded transition-colors duration-200 relative"
+    [class.h-10]="size() === 'large'"
+    [class.min-w-[40px]]="size() === 'large'"
+    [class.px-2]="size() === 'large'"
+    [class.py-2]="size() === 'large'"
+    [class.h-8]="size() === 'medium'"
+    [class.min-w-[32px]]="size() === 'medium'"
+    [class.px-2]="size() === 'medium'"
+    [class.py-1]="size() === 'medium'"
+    [class.h-6]="size() === 'small'"
+    [class.min-w-[24px]]="size() === 'small'"
+    [class.px-1]="size() === 'small'"
+    [class.py-1]="size() === 'small'"
+    [class.hover:bg-gray-100]="!isCurrentPage(page)"
+    [class.cursor-pointer]="!isCurrentPage(page)"
+    [class.cursor-default]="isCurrentPage(page)"
+    (click)="onPageClick(page)"
+    [attr.aria-label]="'Page ' + getPageNumber(page)"
+    [attr.aria-current]="isCurrentPage(page) ? 'page' : null"
+  >
+    <span
+      class="text-md text-black leading-tight whitespace-nowrap"
+      [class.text-base]="size() === 'large' || size() === 'medium'"
+      [class.leading-6]="size() === 'large' || size() === 'medium'"
+      [class.text-sm]="size() === 'small'"
+      [class.leading-5]="size() === 'small'"
+    >
+      {{ getPageNumber(page) }}
+    </span>
+
+    <!-- Current Page Indicator (underline) -->
+    @if (isCurrentPage(page)) {
+    <div
+      class="absolute bg-primary-600 rounded-full"
+      [class.h-[3px]]="size() === 'large' || size() === 'medium' || size() === 'small'"
+      [class.w-6]="size() === 'large' || size() === 'medium'"
+      [class.bottom-[3px]]="size() === 'large'"
+      [class.bottom-[2px]]="size() === 'medium'"
+      [class.w-4]="size() === 'small'"
+      [class.bottom-[1px]]="size() === 'small'"
+    ></div>
+    }
+  </button>
+  } }
+
+  <!-- Next Page Button -->
+  <button
+    type="button"
+    class="flex items-center justify-center overflow-hidden rounded transition-colors duration-200"
+    [class.w-10]="size() === 'large'"
+    [class.h-10]="size() === 'large'"
+    [class.w-8]="size() === 'medium'"
+    [class.h-8]="size() === 'medium'"
+    [class.w-6]="size() === 'small'"
+    [class.h-6]="size() === 'small'"
+    [class.cursor-pointer]="!isLastPage()"
+    [class.cursor-not-allowed]="isLastPage()"
+    [class.opacity-40]="isLastPage()"
+    [class.hover:bg-gray-100]="!isLastPage()"
+    [disabled]="isLastPage()"
+    (click)="changePageToNext()"
+    [attr.aria-label]="'Next Page'"
+    [attr.aria-disabled]="isLastPage()"
+  >
+    <img src="images/icons/arrow-black.svg" alt="" class="rotate-90 w-[14px] h-[14px]" />
+  </button>
+
+  <!-- Last Page Button (RTL: appears on left) -->
+  @if (showFirstLastIcon()) {
+  <button
+    type="button"
+    class="flex items-center justify-center overflow-hidden rounded transition-colors duration-200"
+    [class.w-10]="size() === 'large'"
+    [class.h-10]="size() === 'large'"
+    [class.w-8]="size() === 'medium'"
+    [class.h-8]="size() === 'medium'"
+    [class.w-6]="size() === 'small'"
+    [class.h-6]="size() === 'small'"
+    [class.cursor-pointer]="!isLastPage()"
+    [class.cursor-not-allowed]="isLastPage()"
+    [class.opacity-40]="isLastPage()"
+    [class.hover:bg-gray-100]="!isLastPage()"
+    [disabled]="isLastPage()"
+    (click)="changePageToLast()"
+    [attr.aria-label]="'Last Page'"
+    [attr.aria-disabled]="isLastPage()"
+  >
+    <svg
+      class="block"
+      [class.w-6]="size() === 'large'"
+      [class.h-6]="size() === 'large'"
+      [class.w-5]="size() === 'medium'"
+      [class.h-5]="size() === 'medium'"
+      [class.w-4]="size() === 'small'"
+      [class.h-4]="size() === 'small'"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      [class.rotate-180]="rtl()"
+    >
+      <path
+        d="M5.00006 5.25L12.0001 12L5.00006 18.75M11.0001 5.25L18.0001 12L11.0001 18.75"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </button>
+  }
+</div>
+}
