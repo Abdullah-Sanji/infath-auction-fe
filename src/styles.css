@@ -202,6 +202,13 @@
   /* Button */
   --color-button-primary: #007A8C;
 
+  /* Background */
+  --color-bg-primary-50: #E4F1F3;
+  --color-bg-tag-success: #3F866C;
+
+  /* Border */
+  --color-border-primary-light: #ACD4DA;
+
   /* Spacing */
   --spacing-0: 0px;
   --spacing-0-5: 2px;
