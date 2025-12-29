@@ -159,13 +159,13 @@ export class AuctionDetails {
       },
       status: 'live',
       bidHistory: [
-        { amount: 987654321, timeAgo: 'منذ ٥ دقائق', isHighest: true },
-        { amount: 555666777, timeAgo: 'منذ ١٠ دقائق', isHighest: false },
-        { amount: 123456789, timeAgo: 'منذ ١٥ دقيقة', isHighest: false },
-        { amount: 333222111, timeAgo: 'منذ ٢٠ دقيقة', isHighest: false },
-        { amount: 444555666, timeAgo: 'منذ ٢٥ دقيقة', isHighest: false },
-        { amount: 777888999, timeAgo: 'منذ ٣٠ دقيقة', isHighest: false },
-        { amount: 246135790, timeAgo: 'منذ ٣٥ دقيقة', isHighest: false }
+        { amount: 987654321, timeAgo: 'منذ 5 دقائق', isHighest: true },
+        { amount: 555666777, timeAgo: 'منذ 10 دقائق', isHighest: false },
+        { amount: 123456789, timeAgo: 'منذ 15 دقيقة', isHighest: false },
+        { amount: 333222111, timeAgo: 'منذ 20 دقيقة', isHighest: false },
+        { amount: 444555666, timeAgo: 'منذ 25 دقيقة', isHighest: false },
+        { amount: 777888999, timeAgo: 'منذ 30 دقيقة', isHighest: false },
+        { amount: 246135790, timeAgo: 'منذ 35 دقيقة', isHighest: false }
       ]
     }
   });

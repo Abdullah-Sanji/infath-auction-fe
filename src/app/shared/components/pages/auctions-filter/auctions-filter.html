@@ -1,0 +1,18 @@
+<div class="flex gap-4">
+  @for (item of data(); track $index) {
+  <div class="flex items-center justify-between flex-1 gap-2 p-xl rounded-md border border-neutral-300 cursor-pointer"
+   [class.border-border-primary-light!]="selectedFilter() === item"
+   [class.bg-bg-primary-50]="selectedFilter() === item"
+   (click)="onFilterClick(item)">
+    <div class="flex items-center gap-3">
+      <div
+        class="flex items-center justify-center w-paragraph-display-xl aspect-square bg-bg-primary-50 border border-border-primary-light rounded-md"
+      >
+        <img [src]="item.icon" alt="" class="" />
+      </div>
+      <p class="text-primary text-xl font-bold">{{ item.title }}</p>
+    </div>
+    <p class="text-lg font-medium text-neutral-800">({{ item.numberOfItems }})</p>
+  </div>
+  }
+</div>

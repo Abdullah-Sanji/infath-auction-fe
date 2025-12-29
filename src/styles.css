@@ -67,6 +67,7 @@
   --color-neutral-950: #0c111b;
 
   /* Primary – SA Flag */
+  --color-primary: #00515d;
   --color-primary-25: #f7fdf9;
   --color-primary-50: #f3fcf6;
   --color-primary-100: #dff6e7;
@@ -210,23 +211,65 @@
   --color-border-primary-light: #ACD4DA;
 
   /* Spacing */
-  --spacing-0: 0px;
-  --spacing-0-5: 2px;
-  --spacing-1: 4px;
-  --spacing-1-5: 6px;
-  --spacing-2: 8px;
-  --spacing-3: 12px;
-  --spacing-4: 16px;
-  --spacing-5: 20px;
-  --spacing-6: 24px;
-  --spacing-8: 32px;
-  --spacing-10: 40px;
-  --spacing-12: 48px;
-  --spacing-16: 64px;
-  --spacing-20: 80px;
-  --spacing-24: 96px;
-  --spacing-32: 128px;
-  --spacing-40: 160px;
+  --spacing-none: 0px;
+  --spacing-xs: 4px;
+  --spacing-sm: 6px;
+  --spacing-md: 8px;
+  --spacing-lg: 12px;
+  --spacing-xl: 16px;
+  --spacing-2xl: 20px;
+  --spacing-3xl: 24px;
+  --spacing-4xl: 32px;
+  --spacing-5xl: 40px;
+  --spacing-6xl: 48px;
+  --spacing-7xl: 64px;
+
+  /* Display font sizes */
+  --text-display-2xl: 72px;
+  --text-display-xl: 60px;
+  --text-display-lg: 48px;
+  --text-display-md: 36px;
+  --text-display-sm: 30px;
+  --text-display-xs: 24px;
+
+  /* Text font sizes */
+  --text-2xs: 10px;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-md: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+
+  /* Display line-heights */
+  --leading-display-2xl: 90px;
+  --leading-display-xl: 72px;
+  --leading-display-lg: 60px;
+  --leading-display-md: 44px;
+  --leading-display-sm: 38px;
+  --leading-display-xs: 32px;
+
+  /* Text line-heights */
+  --leading-2xs: 14px;
+  --leading-lg: 28px;
+  --leading-md: 24px;
+  --leading-sm: 20px;
+  --leading-xs: 18px;
+  --leading-2xs: 14px;
+
+  /* Paragraph spacing (vertical rhythm) */
+  --spacing-paragraph-display-2xl: 72px;
+  --spacing-paragraph-display-xl: 60px;
+  --spacing-paragraph-display-lg: 48px;
+  --spacing-paragraph-display-md: 36px;
+  --spacing-paragraph-display-sm: 30px;
+  --spacing-paragraph-display-xs: 24px;
+
+  --spacing-paragraph-text-xl: 20px;
+  --spacing-paragraph-text-lg: 18px;
+  --spacing-paragraph-text-md: 16px;
+  --spacing-paragraph-text-sm: 14px;
+  --spacing-paragraph-text-xs: 12px;
+  --spacing-paragraph-text-2xs: 12px;
 }
 
 :root {
@@ -252,20 +295,6 @@
 
   /* Shadows */
   --shadow-elevation-1: 0 4px 8px -2px rgba(16, 24, 40, 0.1), 0 2px 4px -2px rgba(16, 24, 40, 0.06);
-
-  /* Spacing (global scale) */
-  --spacing-none: 0px;
-  --spacing-xs: 4px;
-  --spacing-sm: 6px;
-  --spacing-md: 8px;
-  --spacing-lg: 12px;
-  --spacing-xl: 16px;
-  --spacing-2xl: 20px;
-  --spacing-3xl: 24px;
-  --spacing-4xl: 32px;
-  --spacing-5xl: 40px;
-  --spacing-6xl: 48px;
-  --spacing-7xl: 64px;
 
   /* Spacing aliases (used by components) */
   --space-0: var(--spacing-none); /* 0px */
