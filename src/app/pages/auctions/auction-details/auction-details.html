@@ -654,6 +654,88 @@
         </div>
       </div>
 
+      <div class="bg-white rounded-2xl shadow-md p-4 flex flex-col gap-4">
+        <p class="text-lg font-bold text-gray-800 leading-7 text-right">{{ 'auctionDetails.auctionInfo' | transloco }}</p>
+
+        <div class="flex flex-col gap-1.5 w-full">
+          <!-- Opening Price -->
+          <div class="flex gap-2 items-center justify-end w-full">
+            <div class="flex-1 flex gap-0 min-h-px min-w-px">
+              <p class="font-medium text-gray-800 leading-6 text-nowrap">{{ 'auctionDetails.openingPrice' | transloco }}</p>
+            </div>
+            <div class="flex">
+              <div class="flex gap-2 items-center p-0">
+                <p class="text-lg font-medium text-gray-800 leading-7 text-nowrap text-right">
+                  {{ auctionDetails().auctionCard.openingPrice.toLocaleString() }}
+                </p>
+                <!-- Currency Symbol -->
+                <img alt="riyal" src="images/icons/black-riyal.svg" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Entry Amount -->
+          <div class="flex gap-2 items-center w-full">
+            <div class="flex-1 flex gap-0 min-h-px min-w-px">
+              <p class="text-base font-medium text-gray-800 leading-6 text-nowrap">{{ 'auctionDetails.entryAmount' | transloco }}</p>
+            </div>
+            <div class="flex">
+              <div class="flex gap-2 items-center p-0">
+                <!-- Currency Symbol -->
+                <p class="text-lg font-medium text-gray-800 leading-7 text-nowrap">
+                  {{ auctionDetails().auctionCard.entryAmount.toLocaleString() }}
+                </p>
+                <img alt="riyal" src="images/icons/black-riyal.svg" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Highest Price -->
+          <div class="flex gap-2 items-center w-full">
+            <div class="flex-1 flex gap-0 min-h-px min-w-px">
+              <p class="font-medium text-gray-800 leading-6 text-nowrap">{{ 'auctionDetails.highestPrice' | transloco }}</p>
+            </div>
+            <div class="flex">
+              <div class="flex gap-2 items-center p-0">
+                <p class="text-lg font-medium text-gray-800 leading-7 text-nowrap">
+                  {{ auctionDetails().auctionCard.highestPrice.toLocaleString() }}
+                </p>
+                <!-- Currency Symbol -->
+                <img alt="riyal" src="images/icons/black-riyal.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deposit Section -->
+        <div class="border-t border-gray-200 flex flex-col gap-2 pt-2 w-full">
+          <div class="flex flex-col gap-0 w-full">
+            <div class="flex items-center justify-between w-full">
+              <p class="font-bold leading-6 text-gray-800 text-right w-[200px]">{{ 'auctionDetails.depositAmount' | transloco }}</p>
+              <div class="flex gap-2 items-center">
+                <p class="text-xl font-bold text-button-primary leading-[30px] text-nowrap">
+                  {{ auctionDetails().auctionCard.depositAmount.toLocaleString() }}
+                </p>
+                <!-- Currency Symbol (Green) -->
+                <img alt="riyal" src="images/icons/green-riyal.svg" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Pay Deposit Button -->
+          <button
+            class="bg-button-primary flex gap-1 h-10 items-center justify-center px-4 rounded overflow-hidden hover:bg-emerald-800 transition-colors w-full"
+          >
+            <!-- Wallet Icon -->
+            <img alt="riyal" src="images/icons/wallet.svg" />
+
+            <div class="flex items-center justify-center">
+              <p class="text-base font-medium text-white leading-6 text-nowrap">{{ 'auctionDetails.payDeposit' | transloco }}</p>
+            </div>
+          </button>
+        </div>
+      </div>
+
       <!-- Card 2: Time Remaining -->
       <div class="bg-white border border-gray-200 rounded-2xl p-4 flex flex-col gap-4">
         <!-- Header -->
