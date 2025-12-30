@@ -112,7 +112,6 @@ export class Header {
         ],
       },
     ];
-    console.log(isAuth);
     return items.filter((item) => {
       return isAuth ? item.showWhenAuthenticated : !item.showWhenAuthenticated;
     });
