@@ -69,11 +69,12 @@
       </nav>
     </div>
     <div class="flex items-center gap-1 flex-1 md:flex-none justify-end">
-      @if (isAuthenticated()) {
+      @if (!isAuthenticated()) {
       <button
-        class="flex items-center justify-center h-[72px] px-1.5 md:px-4 py-2 bg-transparent border-none rounded-sm cursor-pointer text-base font-medium leading-6 text-black transition-colors hover:bg-black/5 min-w-12 md:min-w-0"
+        class="flex items-center justify-center h-[72px] px-1.5 md:px-4 py-2 gap-3 bg-transparent border-none rounded-sm cursor-pointer text-base font-medium leading-6 text-black transition-colors hover:bg-black/5 min-w-12 md:min-w-0"
         (click)="login()"
       >
+        <img src="images/icons/login.svg" alt="Login" class="" />
         <span class="hidden md:inline">{{ 'nav.login' | transloco }}</span>
       </button>
       } @else {

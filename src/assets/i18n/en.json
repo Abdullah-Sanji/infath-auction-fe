@@ -34,7 +34,8 @@
     "myOrders": "My Orders",
     "myChats": "My Chats",
     "myAuctions": "My Auctions",
-    "home": "Home"
+    "home": "Home",
+    "auctionsCompanies": "Auctions Companies"
   },
   "wallet": {
     "subtitle": "Manage your balance and payment methods here.",

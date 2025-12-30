@@ -23,7 +23,7 @@ interface MenuItem {
   selector: 'app-header',
   imports: [RouterLink, TranslocoPipe],
   templateUrl: './header.html',
-  styleUrl: './header.scss'
+  styleUrl: './header.scss',
 })
 export class Header {
   protected authService = inject(AuthService);
@@ -37,48 +37,84 @@ export class Header {
   protected readonly menuItems = computed<MenuItem[]>(() => {
     const isAuth = this.isAuthenticated();
     const items: MenuItem[] = [
+      // LOGGED IN USER ITEMS
       {
         label: 'nav.home',
         route: ['/'],
         ariaLabel: 'nav.home',
-        showWhenAuthenticated: true, // Always show
+        showWhenAuthenticated: true,
         children: [
           {
             label: 'nav.homeSubItem1',
             route: ['/home/subitem1'],
-            ariaLabel: 'nav.homeSubItem1'
+            ariaLabel: 'nav.homeSubItem1',
           },
           {
             label: 'nav.homeSubItem2',
             route: ['/home/subitem2'],
-            ariaLabel: 'nav.homeSubItem2'
-          }
-        ]
+            ariaLabel: 'nav.homeSubItem2',
+          },
+        ],
       },
       {
         label: 'nav.myAuctions',
         route: ['/auctions'],
         ariaLabel: 'nav.myAuctions',
-        showWhenAuthenticated: false // Show when NOT authenticated
+        showWhenAuthenticated: true,
       },
       {
         label: 'nav.myChats',
         route: ['/chats'],
         ariaLabel: 'nav.myChats',
-        showWhenAuthenticated: false // Show when NOT authenticated
+        showWhenAuthenticated: true,
       },
       {
         label: 'nav.myOrders',
         route: ['/orders'],
         ariaLabel: 'nav.myOrders',
-        showWhenAuthenticated: false // Show when NOT authenticated
-      }
+        showWhenAuthenticated: true,
+      },
+      // PUBLIC USER ITEMS
+      {
+        label: 'nav.browseAuctions',
+        route: ['/'],
+        ariaLabel: 'nav.browseAuctions',
+        showWhenAuthenticated: false,
+        children: [
+          {
+            label: 'nav.homeSubItem1',
+            route: ['/home/subitem1'],
+            ariaLabel: 'nav.homeSubItem1',
+          },
+          {
+            label: 'nav.homeSubItem2',
+            route: ['/home/subitem2'],
+            ariaLabel: 'nav.homeSubItem2',
+          },
+        ],
+      },
+      {
+        label: 'nav.auctionsCompanies',
+        route: ['/'],
+        ariaLabel: 'nav.auctionsCompanies',
+        showWhenAuthenticated: false,
+        children: [
+          {
+            label: 'nav.homeSubItem1',
+            route: ['/home/subitem1'],
+            ariaLabel: 'nav.homeSubItem1',
+          },
+          {
+            label: 'nav.homeSubItem2',
+            route: ['/home/subitem2'],
+            ariaLabel: 'nav.homeSubItem2',
+          },
+        ],
+      },
     ];
-
-    return items.filter(item => {
-      // Home always shows (showWhenAuthenticated: true)
-      // Other items show when NOT authenticated (showWhenAuthenticated: false)
-      return item.showWhenAuthenticated || !isAuth;
+    console.log(isAuth);
+    return items.filter((item) => {
+      return isAuth ? item.showWhenAuthenticated : !item.showWhenAuthenticated;
     });
   });
 
@@ -156,4 +192,3 @@ export class Header {
     }
   }
 }
-
