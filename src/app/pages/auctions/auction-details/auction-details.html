@@ -481,13 +481,26 @@
         </button>
       </div>
 
-      <!-- Property Image Section (Empty for now as requested) -->
-      <div
-        class="flex flex-col justify-end gap-2.5 h-[386px] p-6 w-full rounded-lg relative bg-gray-200 my-4"
-      >
-        <div class="absolute inset-0 flex items-center justify-center text-gray-500">
-          <p class="text-lg">{{ 'auctionDetails.mapPlaceholder' | transloco }}</p>
-        </div>
+      <!-- Google Map Section -->
+      <div class="h-[386px] w-full rounded-lg overflow-hidden my-4 border border-gray-200">
+        @if (isBrowser && apiLoaded()) {
+          <google-map
+            [center]="mapCenter()"
+            [zoom]="mapZoom()"
+            [options]="mapOptions()"
+            width="100%"
+            height="100%"
+          >
+            <map-marker
+              [position]="markerPosition()"
+              [options]="markerOptions()"
+            />
+          </google-map>
+        } @else {
+          <div class="flex items-center justify-center h-full bg-gray-200">
+            <p class="text-lg text-gray-500">{{ 'auctionDetails.mapPlaceholder' | transloco }} {{apiLoaded()}}</p>
+          </div>
+        }
       </div>
 
       <!-- Seller Review Card -->
