@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/api',
+  apiUrl: 'https://8.213.27.37',
   clientUrl: 'https://localhost:4200',
   notificationDuration: 10000,
   keycloak: {

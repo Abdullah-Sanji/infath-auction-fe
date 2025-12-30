@@ -1,26 +1,25 @@
 import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
-import { MessageService } from 'primeng/api';
 import { getAccessToken } from '../utils/cookie.util';
+import { NotificationService } from '@core/services/notification.service';
 
 /**
  * HTTP Interceptor that attaches access token to all requests
  * and handles authentication errors
  */
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const router = inject(Router);
-  const messageService = inject(MessageService);
   const token = getAccessToken();
+  const notificationService = inject(NotificationService);
 
   // Clone request and add authorization header if token exists
   let authReq = req;
   if (token) {
     authReq = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
     });
   }
   // Note: If no token, request proceeds without Authorization header
@@ -32,34 +31,26 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       let errorMessage = 'An error occurred';
 
       if (error.status === 401) {
-        // Unauthorized - redirect to login
+        // Unauthorized - show message but DON'T redirect during API call
+        // Let the calling component handle the redirect
         errorMessage = 'Your session has expired. Please log in again.';
-        messageService.add({
-          severity: 'error',
-          summary: 'Authentication Failed',
-          detail: errorMessage
-        });
-        router.navigate(['/login']);
+        notificationService.error(errorMessage);
+        // Note: Removed router.navigate() to prevent redirect during API call
+        // The auth.service or component should handle navigation after error
       } else if (error.status === 400) {
         // Bad Request
         errorMessage = error.error?.message || 'Invalid request. Please check your input.';
-        messageService.add({
-          severity: 'error',
-          summary: 'Bad Request',
-          detail: errorMessage
-        });
+        notificationService.error(errorMessage);
       } else if (error.status === 500) {
         // Internal Server Error
         errorMessage = 'Server error. Please try again later.';
-        messageService.add({
-          severity: 'error',
-          summary: 'Server Error',
-          detail: errorMessage
-        });
+        notificationService.error(errorMessage);
+      }
+      else {
+        notificationService.error(errorMessage);
       }
 
       return throwError(() => error);
     })
   );
 };
-

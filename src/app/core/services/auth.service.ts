@@ -68,7 +68,7 @@ export class AuthService {
   }
 
   getProfileApi(): Observable<Result<UserProfile>> {
-    const path = `/users/api/v1/users/profile`;
+    const path = `/v1/users/api/v1/users/profile`;
     return this.api.get<UserProfile>(path);
   }
 
