@@ -1,9 +1,10 @@
-import { Component, inject, signal, computed, HostListener } from '@angular/core';
+import { Component, inject, signal, computed, HostListener, PLATFORM_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { LanguageService } from '../../../core/services/language.service';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 interface MenuSubItem {
   label: string;
@@ -29,10 +30,17 @@ export class Header {
   protected authService = inject(AuthService);
   protected languageService = inject(LanguageService);
   protected router = inject(Router);
+  private platformId = inject(PLATFORM_ID);
+  private isBrowser = isPlatformBrowser(this.platformId);
+
   protected walletBalance = signal<number>(10000);
   protected readonly isAuthenticated = this.authService.isAuthenticated;
   protected readonly userProfile = this.authService.userProfile;
   protected openDropdown = signal<string | null>(null);
+
+  // Scroll detection signals
+  private lastScrollY = signal<number>(0);
+  protected isHeaderVisible = signal<boolean>(true);
 
   protected readonly menuItems = computed<MenuItem[]>(() => {
     const isAuth = this.isAuthenticated();
@@ -189,5 +197,31 @@ export class Header {
     if (!target.closest('.menu-item-container')) {
       this.closeDropdown();
     }
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    if (!this.isBrowser) return;
+
+    const currentScrollY = window.scrollY;
+    const lastScroll = this.lastScrollY();
+
+    // Show header when at top of page
+    if (currentScrollY <= 0) {
+      this.isHeaderVisible.set(true);
+      this.lastScrollY.set(currentScrollY);
+      return;
+    }
+
+    // Hide header when scrolling down, show when scrolling up
+    if (currentScrollY > lastScroll && currentScrollY > 100) {
+      // Scrolling down and past 100px
+      this.isHeaderVisible.set(false);
+    } else if (currentScrollY < lastScroll) {
+      // Scrolling up
+      this.isHeaderVisible.set(true);
+    }
+
+    this.lastScrollY.set(currentScrollY);
   }
 }
