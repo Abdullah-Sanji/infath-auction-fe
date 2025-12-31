@@ -46,9 +46,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         errorMessage = 'Server error. Please try again later.';
         notificationService.error(errorMessage);
       }
-      else {
-        notificationService.error(errorMessage);
-      }
 
       return throwError(() => error);
     })

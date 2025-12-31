@@ -1,25 +1,50 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AuctionCard, AuctionCardData } from './auction-card';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { AuctionCard } from './auction-card';
+import { Auction } from '@pages/auctions/interfaces/auction.interface';
 
 describe('AuctionCard', () => {
   let component: AuctionCard;
   let fixture: ComponentFixture<AuctionCard>;
 
-  const mockAuction: AuctionCardData = {
-    id: 1,
+  const createMockAuction = (overrides?: Partial<Auction>): Auction => ({
+    auctionId: '1',
+    categoryId: 'cat1',
     title: 'أرض سكنية في حي طويق',
-    highestBid: 200000,
-    endDate: new Date('2025-01-05'),
-    imageUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop',
-    isLive: true,
-    isFavorited: false,
-    participantsCount: 15,
-    timeRemaining: '4 أيام 3 ساعات 40 دقيقة'
-  };
+    titleAr: 'أرض سكنية في حي طويق',
+    status: 'Live',
+    startTime: '2025-01-01T10:00:00',
+    endTime: new Date(Date.now() + 4 * 24 * 60 * 60 * 1000).toISOString(), // 4 days from now
+    timeRemaining: '',
+    categoryName: 'Residential',
+    categoryNameAr: 'سكني',
+    highestCurrentBid: 200000,
+    startingPrice: 100000,
+    totalBids: 15,
+    primaryImageUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop',
+    location: 'Riyadh',
+    locationAr: 'الرياض',
+    regionId: 'region1',
+    cityId: 'city1',
+    countryName: 'Saudi Arabia',
+    countryNameAr: 'المملكة العربية السعودية',
+    cityName: 'Riyadh',
+    cityNameAr: 'الرياض',
+    regionName: 'Riyadh Region',
+    regionNameAr: 'منطقة الرياض',
+    ...overrides
+  });
+
+  const mockAuction = createMockAuction();
 
   beforeEach(async () => {
+    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+
     await TestBed.configureTestingModule({
-      imports: [AuctionCard]
+      imports: [AuctionCard],
+      providers: [
+        { provide: Router, useValue: routerSpy }
+      ]
     })
     .compileComponents();
 
@@ -29,13 +54,19 @@ describe('AuctionCard', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    if (component) {
+      component.ngOnDestroy();
+    }
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
   it('should display auction title', () => {
     const compiled = fixture.nativeElement;
-    const titleElement = compiled.querySelector('.text-\\[15px\\].font-semibold');
+    const titleElement = compiled.querySelector('.text-xl.font-semibold');
     expect(titleElement?.textContent?.trim()).toContain('أرض سكنية في حي طويق');
   });
 
@@ -47,18 +78,18 @@ describe('AuctionCard', () => {
 
   it('should display live status tag when auction is live', () => {
     const compiled = fixture.nativeElement;
-    const liveTag = compiled.querySelector('.bg-success-700');
+    const liveTag = compiled.querySelector('.bg-bg-tag-success');
     expect(liveTag).toBeTruthy();
     expect(liveTag?.textContent?.trim()).toContain('مباشر الآن');
   });
 
   it('should not display live status tag when auction is not live', () => {
-    const nonLiveAuction = { ...mockAuction, isLive: false };
+    const nonLiveAuction = createMockAuction({ status: 'Closed' });
     fixture.componentRef.setInput('auction', nonLiveAuction);
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement;
-    const liveTag = compiled.querySelector('.bg-success-700');
+    const liveTag = compiled.querySelector('.bg-bg-tag-success');
     expect(liveTag).toBeFalsy();
   });
 
@@ -68,21 +99,83 @@ describe('AuctionCard', () => {
     expect(participantsElement?.textContent?.trim()).toBe('15');
   });
 
-  it('should display time remaining when provided', () => {
-    const compiled = fixture.nativeElement;
-    const timeElement = compiled.querySelector('.bg-neutral-50 p');
-    expect(timeElement?.textContent?.trim()).toContain('4 أيام 3 ساعات 40 دقيقة');
+  it('should calculate and display time remaining from endTime', () => {
+    const futureDate = new Date(Date.now() + 4 * 24 * 60 * 60 * 1000 + 3 * 60 * 60 * 1000 + 40 * 60 * 1000);
+    const auctionWithEndTime = createMockAuction({ endTime: futureDate.toISOString() });
+    fixture.componentRef.setInput('auction', auctionWithEndTime);
+    fixture.detectChanges();
+
+    const timeRemaining = component.timeRemaining();
+    expect(timeRemaining).toBeTruthy();
+    expect(timeRemaining).toContain('أيام');
   });
 
-  it('should not display time remaining when not provided', () => {
-    const auctionWithoutTime = { ...mockAuction, timeRemaining: undefined };
-    fixture.componentRef.setInput('auction', auctionWithoutTime);
+  it('should not display time remaining when endTime is in the past', () => {
+    const pastDate = new Date(Date.now() - 1000);
+    const expiredAuction = createMockAuction({ endTime: pastDate.toISOString() });
+    fixture.componentRef.setInput('auction', expiredAuction);
     fixture.detectChanges();
+
+    const timeRemaining = component.timeRemaining();
+    expect(timeRemaining).toBeNull();
 
     const compiled = fixture.nativeElement;
     const timeTag = compiled.querySelector('.bg-neutral-50');
     expect(timeTag).toBeFalsy();
   });
+
+  it('should not display time remaining when endTime is missing', () => {
+    const auctionWithoutEndTime = createMockAuction({ endTime: '' });
+    fixture.componentRef.setInput('auction', auctionWithoutEndTime);
+    fixture.detectChanges();
+
+    const timeRemaining = component.timeRemaining();
+    expect(timeRemaining).toBeNull();
+
+    const compiled = fixture.nativeElement;
+    const timeTag = compiled.querySelector('.bg-neutral-50');
+    expect(timeTag).toBeFalsy();
+  });
+
+  it('should format time remaining correctly for days, hours, and minutes', () => {
+    const futureDate = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000 + 5 * 60 * 60 * 1000 + 30 * 60 * 1000);
+    const auctionWithEndTime = createMockAuction({ endTime: futureDate.toISOString() });
+    fixture.componentRef.setInput('auction', auctionWithEndTime);
+    fixture.detectChanges();
+
+    const timeRemaining = component.timeRemaining();
+    expect(timeRemaining).toBeTruthy();
+    expect(timeRemaining).toContain('أيام');
+    expect(timeRemaining).toContain('ساعات');
+  });
+
+  it('should format time remaining correctly for hours and minutes only', () => {
+    const futureDate = new Date(Date.now() + 3 * 60 * 60 * 1000 + 30 * 60 * 1000);
+    const auctionWithEndTime = createMockAuction({ endTime: futureDate.toISOString() });
+    fixture.componentRef.setInput('auction', auctionWithEndTime);
+    fixture.detectChanges();
+
+    const timeRemaining = component.timeRemaining();
+    expect(timeRemaining).toBeTruthy();
+    expect(timeRemaining).toContain('ساعات');
+    expect(timeRemaining).toContain('دقائق');
+  });
+
+  it('should update time remaining every second', fakeAsync(() => {
+    const futureDate = new Date(Date.now() + 1000); // 1 second from now
+    const auctionWithEndTime = createMockAuction({ endTime: futureDate.toISOString() });
+    fixture.componentRef.setInput('auction', auctionWithEndTime);
+    fixture.detectChanges();
+
+    const initialTime = component.timeRemaining();
+    expect(initialTime).toBeTruthy();
+
+    tick(1000);
+    fixture.detectChanges();
+
+    const updatedTime = component.timeRemaining();
+    expect(updatedTime).toBeTruthy();
+  }));
 
   it('should emit onCardClick when card is clicked', () => {
     spyOn(component.onCardClick, 'emit');
@@ -119,6 +212,14 @@ describe('AuctionCard', () => {
     const compiled = fixture.nativeElement;
     const imageElement = compiled.querySelector('img[alt="أرض سكنية في حي طويق"]');
     expect(imageElement?.src).toContain('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9');
+  });
+
+  it('should clean up interval on destroy', () => {
+    if (typeof window !== 'undefined' && component['intervalId'] !== undefined) {
+      spyOn(window, 'clearInterval');
+      component.ngOnDestroy();
+      expect(window.clearInterval).toHaveBeenCalled();
+    }
   });
 
   it('should have hover effect classes', () => {

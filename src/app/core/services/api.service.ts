@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { Result } from '@shared/models/result';
+import { PaginatedResult, Result } from '@shared/models/result';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +14,12 @@ export class ApiService {
 
   get<T>(path: string): Observable<Result<T>> {
     return this.http.get<Result<T>>(`${this.apiUrl}${path}`).pipe(
+      map((res) => res)
+    );
+  }
+
+  getPaginated<T>(path: string): Observable<PaginatedResult<T>> {
+    return this.http.get<PaginatedResult<T>>(`${this.apiUrl}${path}`).pipe(
       map((res) => res)
     );
   }

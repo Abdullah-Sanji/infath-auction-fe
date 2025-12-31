@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://8.213.27.37',
+  apiUrl: 'https://qa-infath-mocks.azm-dev.com',
   clientUrl: 'https://localhost:4200',
   notificationDuration: 10000,
   keycloak: {

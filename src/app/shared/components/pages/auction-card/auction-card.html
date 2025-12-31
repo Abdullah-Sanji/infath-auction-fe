@@ -5,7 +5,7 @@
   <!-- Auction Image Section -->
   <div class="relative rounded-[13px] m-5 overflow-hidden">
     <img
-      [src]="auction().imageUrl"
+      [src]="auction().primaryImageUrl"
       [alt]="auction().title"
       class="w-full h-[200px] object-cover rounded-[13px]"
     />
@@ -13,8 +13,8 @@
     <!-- Top Tags Overlay -->
     <div class="absolute top-3 left-3 right-3 flex items-start justify-between">
       <!-- Live Status Tag -->
-      <div class="bg-bg-tag-success px-[13px] py-[2px] rounded-full" [class.opacity-0]="!auction().isLive">
-        @if (auction().isLive) {
+      <div class="bg-bg-tag-success px-[13px] py-[2px] rounded-full" [class.opacity-0]="!isLive()">
+        @if (isLive()) {
         <p class="text-white text-[13px] font-medium leading-[20px] text-nowrap">مباشر الآن</p>
         }
       </div>
@@ -44,13 +44,13 @@
       </div>
 
       <!-- Time Remaining Tag -->
-      @if (auction().timeRemaining) {
+      @if (timeRemaining()) {
       <div
         class="bg-neutral-50 border border-neutral-200 px-[10px] py-[5px] rounded-full flex items-center justify-center gap-[3px]"
       >
         <img src="images/icons/clock-black.svg" alt="Clock" class="w-paragraph-text-lg h-paragraph-text-lg" />
         <p class="text-sm font-medium leading-[20px] text-neutral-900 text-center text-nowrap">
-          {{ auction().timeRemaining }}
+          {{ timeRemaining() }}
         </p>
       </div>
       }
@@ -68,21 +68,21 @@
           <p
             class="text-sm font-regular leading-[20px] text-primary-600 text-nowrap text-right"
           >
-            {{ formatCurrency(auction().highestBid) }}
+            {{ formatCurrency(auction().highestCurrentBid) }}
           </p>
           <img src="images/icons/green-riyal.svg" alt="Currency" class="w-[11px] h-[11px]" />
         </div>
       </div>
 
       <!-- Participants Count -->
-      @if (auction().participantsCount !== undefined) {
+      @if (auction().totalBids !== undefined) {
       <div class="flex items-center justify-center gap-[3px] px-[5px] py-[3px]">
         <img src="images/icons/group-people.svg" alt="Participants" class="w-[16px] h-[16px]" />
         <div class="flex items-center gap-[7px]">
           <p
             class="text-sm font-regular leading-[20px] text-black text-nowrap text-right"
           >
-            {{ auction().participantsCount }}
+            {{ auction().totalBids }}
           </p>
         </div>
       </div>
