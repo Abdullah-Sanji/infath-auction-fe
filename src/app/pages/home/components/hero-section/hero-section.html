@@ -1,90 +1,149 @@
-  <!-- Hero Section -->
-  <section
-    class="relative w-full py-12 px-16 bg-[linear-gradient(92.49deg,#00a2a0_0.63%,#19275a_131.39%)] flex flex-col items-center justify-center gap-8 border-b border-neutral-300 h-[420px]"
-  >
-    <div class="flex flex-col items-center gap-6 max-w-[624px] w-full relative z-10">
-      <!-- Title -->
-      <h1
-        class="title font-bold text-[36px] leading-[44px] text-center text-white tracking-[-0.72px] m-0 w-full"
-        [innerHTML]="'hero.heading' | transloco"
-      ></h1>
+<!-- Hero Section with gradient background -->
+<section
+  class="relative w-full px-20 py-10 flex items-center justify-between gap-8 overflow-hidden bg-linear-to-br from-[#00a2a0] via-[#007d7b] to-[#00365d] min-h-[420px]"
+>
 
-      <!-- Search Bar -->
-      <div class="w-full max-w-[578px]">
-        <div
-          class="bg-white border border-neutral-300 rounded-2xl p-4 shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] flex items-center gap-0"
-        >
-          <!-- Filters Container -->
-          <div class="flex-1 flex items-center gap-6 min-w-0 ms-0">
-            <!-- Auction Type Filter -->
-            <div class="flex items-center min-w-0 flex-1 basis-0">
-              <lib-dropdown
-                [(value)]="selectedAuctionType"
-                [options]="auctionTypeOptions"
-                [optionLabel]="'label'"
-                [optionValue]="'value'"
-                [placeholder]="'hero.filters.auctionType' | transloco"
-                [showClear]="true"
-                [variant]="'outlined'"
-                (onChange)="onAuctionTypeChange($event)"
-                class="w-full min-w-0"
-                [showBorder]="false"
-              ></lib-dropdown>
-            </div>
+  <!-- Main Hero Content - Right Side -->
+  <div class="relative z-10 flex flex-col justify-center gap-8 text-right">
+    <!-- Hero Text Area -->
+    <div class="flex flex-col justify-center gap-2 w-full">
+      <h1 class="text-white text-5xl font-bold leading-[60px] tracking-[-0.96px] w-full">
+        منصة إنفاذ للمزادات
+      </h1>
+      <p class="text-white text-xl font-normal leading-paragraph-display-sm w-full">
+        منصة رقمية موحدة لتصفية الأصول والمزادات العامة.
+      </p>
+    </div>
 
-            <!-- Divider -->
-            <div class="w-px h-10 bg-neutral-300 shrink-0"></div>
-
-            <!-- Date Filter -->
-            <div class="flex items-center min-w-0 flex-1 basis-0">
-              <lib-datepicker
-                [(value)]="selectedDate"
-                [placeholder]="'hero.filters.date' | transloco"
-                [showIcon]="true"
-                [showClear]="true"
-                [variant]="'outlined'"
-                (onChange)="onDateChange($event)"
-                class="w-full min-w-0"
-                [showBorder]="false"
-              ></lib-datepicker>
-            </div>
-
-            <!-- Divider -->
-            <div class="w-px h-10 bg-neutral-300 shrink-0"></div>
-
-            <!-- Price Filter -->
-            <div class="flex items-center min-w-0 flex-1 basis-0">
-              <lib-dropdown
-                [(value)]="selectedPrice"
-                [options]="priceOptions"
-                [optionLabel]="'label'"
-                [optionValue]="'value'"
-                [placeholder]="'hero.filters.price' | transloco"
-                [showClear]="true"
-                [variant]="'outlined'"
-                (onChange)="onPriceChange($event)"
-                class="w-full min-w-0"
-                [showBorder]="false"
-              ></lib-dropdown>
-            </div>
+    <!-- Search Bar with Filters -->
+    <div
+      class="bg-button-primary rounded-3xl shadow-[0px_24px_48px_-12px_rgba(16,24,40,0.18)] border border-[rgba(0,0,51,0.16)] overflow-hidden"
+    >
+      <div class="flex items-center">
+        <!-- Filter Sections -->
+        <div class="flex items-center rounded-br-[23px] rounded-tr-[23px] overflow-hidden">
+          <!-- Auction Type Filter -->
+          <div class="h-16 px-16 flex items-center">
+            <lib-dropdown
+              [(value)]="selectedAuctionType"
+              [options]="auctionTypeOptions"
+              [optionLabel]="'label'"
+              [optionValue]="'value'"
+              [placeholder]="'نوع المزاد'"
+              [showClear]="true"
+              [showBorder]="false"
+              (onChange)="onAuctionTypeChange($event)"
+              class="w-full "
+            ></lib-dropdown>
           </div>
 
-          <!-- Search Button -->
+          <!-- Divider -->
+          <div class="h-16 w-px bg-[rgba(0,0,51,1)] opacity-20"></div>
+
+          <!-- Date Filter -->
+          <div class="h-16 px-16 flex items-center">
+            <lib-datepicker
+              [(value)]="selectedDate"
+              [placeholder]="'التاريخ'"
+              [showIcon]="true"
+              [showClear]="true"
+              [showBorder]="false"
+              (onChange)="onDateChange($event)"
+              class="w-full"
+            ></lib-datepicker>
+          </div>
+
+          <!-- Divider -->
+          <div class="h-16 w-px bg-[rgba(0,0,51,1)] opacity-20"></div>
+
+          <!-- Price Filter -->
+          <div class="h-16 px-16 flex items-center">
+            <lib-dropdown
+              [(value)]="selectedPrice"
+              [options]="priceOptions"
+              [optionLabel]="'label'"
+              [optionValue]="'value'"
+              [placeholder]="'السعر'"
+              [showClear]="true"
+              [showBorder]="false"
+              (onChange)="onPriceChange($event)"
+              class="w-full"
+            ></lib-dropdown>
+          </div>
+        </div>
+
+        <!-- Search Icon Button -->
+        <button
+          type="button"
+          class="h-16 px-4 flex items-center justify-center bg-[rgba(0,0,51,0.12)] rounded-bl-[23px] rounded-tl-[23px] hover:bg-[rgba(0,0,51,0.2)] transition-colors cursor-pointer border-0"
+          (click)="triggerSearch()"
+        >
+          <img src="/images/icons/search.svg" alt="Search" class="w-7 h-7 brightness-0 invert" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Assistant Card - Left Side -->
+  <div class="relative z-10 w-[500px] shrink-0 px-4">
+    <div
+      class="w-[468px] rounded-2xl p-6 flex flex-col gap-6 bg-linear-to-br from-[rgba(0,162,160,0.85)] to-[rgba(0,54,93,0.85)] backdrop-blur-sm"
+    >
+      <!-- AI Header -->
+      <div class="flex items-center gap-2 w-full">
+        <div
+          class="shrink-0 w-[52px] h-[52px] rounded-full relative overflow-hidden bg-[rgba(165,243,255,0.2)] backdrop-blur-sm flex items-center justify-center"
+        >
+          <img
+            src="/images/icons/ai-assistant.svg"
+            alt="AI Assistant"
+            class="w-full h-full object-cover opacity-90"
+          />
+        </div>
+        <div class="flex-1 flex flex-col justify-center gap-0.5 text-right">
+          <p class="text-white text-base font-bold leading-6">مساعد إنفاذ الذكي</p>
+          <p class="text-white text-base font-normal leading-6">
+            اسألني عن المزادات، الإجراءات، أو أي استفسار متعلق بالمنصة.
+          </p>
+        </div>
+      </div>
+
+      <!-- AI Input Section -->
+      <div class="flex flex-col gap-2 w-full">
+        <!-- Input Field -->
+        <div
+          class="rounded-lg border border-[rgba(165,243,255,0.2)] bg-[rgba(165,243,255,0.1)] flex items-center gap-2 px-4 py-3"
+        >
+          <input
+            type="text"
+            [(ngModel)]="aiQuestion"
+            (keydown.enter)="submitAiQuestion()"
+            placeholder="اكتب سؤالك هنا…"
+            class="flex-1 bg-transparent border-0 outline-none text-[#a5f3ff] text-base placeholder:text-[#a5f3ff] placeholder:opacity-80"
+          />
           <button
             type="button"
-            (click)="_onSearchClick()"
-            [attr.aria-label]="'hero.search' | transloco"
-            class="shrink-0 w-10 h-10 min-w-10 p-0 bg-button-primary rounded-md flex items-center justify-center hover:opacity-90 transition-opacity"
+            class="shrink-0 w-8 h-8 rounded bg-button-primary flex items-center justify-center hover:bg-[#156b43] transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105"
+            (click)="submitAiQuestion()"
+            [disabled]="!aiQuestion().trim()"
           >
-            <img src="images/icons/search.svg" alt="" class="w-6 h-6" />
+            <img src="/images/icons/send.svg" alt="Send" class="w-5 h-5" />
           </button>
+        </div>
+
+        <!-- Suggested Questions -->
+        <div class="flex flex-wrap items-center gap-2 w-full">
+          @for (question of suggestedQuestions; track question.text) {
+          <button
+            type="button"
+            class="rounded-lg border border-[rgba(165,243,255,0.3)] px-4 py-1.5 text-[#a5f3ff] text-sm font-normal leading-5 text-right hover:bg-[rgba(165,243,255,0.15)] hover:border-[rgba(165,243,255,0.5)] hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
+            (click)="selectSuggestedQuestion(question.text)"
+          >
+            {{ question.text }}
+          </button>
+          }
         </div>
       </div>
     </div>
-    <div class="absolute top-0 left-0">
-      <img src="images/icons/hero-top-line.svg" alt="" class="">
-    </div>
-    <div class="absolute bottom-0 right-0">
-      <img src="images/icons/hero-bottom-line.svg" alt="" class="">
-    </div>
-  </section>
+  </div>
+</section>

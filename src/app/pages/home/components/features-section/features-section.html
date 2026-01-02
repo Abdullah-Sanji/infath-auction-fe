@@ -1,0 +1,22 @@
+<section class="w-full bg-gray-50 px-20 py-10">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    @for (feature of features(); track feature.titleKey) {
+      <div class="flex items-start justify-end gap-2 p-4 rounded-lg">
+        <!-- Icon -->
+        <div class="flex items-start pt-0.5 shrink-0">
+          <i [class]="feature.icon" class="text-green-600 text-xl"></i>
+        </div>
+
+        <!-- Content -->
+        <div class="flex flex-col gap-1 grow text-right">
+          <h3 class="text-base font-bold text-gray-900 leading-6">
+            {{ feature.titleKey | transloco }}
+          </h3>
+          <p class="text-base font-normal text-gray-600 leading-6">
+            {{ feature.descriptionKey | transloco }}
+          </p>
+        </div>
+      </div>
+    }
+  </div>
+</section>

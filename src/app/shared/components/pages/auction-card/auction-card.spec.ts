@@ -78,25 +78,51 @@ describe('AuctionCard', () => {
 
   it('should display live status tag when auction is live', () => {
     const compiled = fixture.nativeElement;
-    const liveTag = compiled.querySelector('.bg-bg-tag-success');
+    const liveTag = compiled.querySelector('.from-\\[\\#00A2A0\\]');
     expect(liveTag).toBeTruthy();
     expect(liveTag?.textContent?.trim()).toContain('مباشر الآن');
   });
 
-  it('should not display live status tag when auction is not live', () => {
-    const nonLiveAuction = createMockAuction({ status: 'Closed' });
-    fixture.componentRef.setInput('auction', nonLiveAuction);
+  it('should display upcoming status tag when auction is upcoming', () => {
+    const upcomingAuction = createMockAuction({ status: 'Upcoming' });
+    fixture.componentRef.setInput('auction', upcomingAuction);
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement;
-    const liveTag = compiled.querySelector('.bg-bg-tag-success');
-    expect(liveTag).toBeFalsy();
+    const upcomingTag = compiled.querySelector('.from-\\[\\#00365D\\]');
+    expect(upcomingTag).toBeTruthy();
+    expect(upcomingTag?.textContent?.trim()).toContain('مزاد قادم');
+  });
+
+  it('should not display status tag when auction is closed', () => {
+    const closedAuction = createMockAuction({ status: 'Closed' });
+    fixture.componentRef.setInput('auction', closedAuction);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement;
+    const statusTags = compiled.querySelectorAll('.from-\\[\\#00A2A0\\], .from-\\[\\#00365D\\]');
+    const visibleTags = Array.from(statusTags).filter((tag: any) => 
+      !tag.classList.contains('opacity-0') && !tag.classList.contains('hidden')
+    );
+    expect(visibleTags.length).toBe(0);
+  });
+
+  it('should compute isUpcoming correctly', () => {
+    const upcomingAuction = createMockAuction({ status: 'Upcoming' });
+    fixture.componentRef.setInput('auction', upcomingAuction);
+    fixture.detectChanges();
+
+    expect(component.isUpcoming()).toBe(true);
+    expect(component.isLive()).toBe(false);
   });
 
   it('should display participants count', () => {
     const compiled = fixture.nativeElement;
-    const participantsElement = compiled.querySelector('img[alt="Participants"]')?.parentElement?.querySelector('p');
-    expect(participantsElement?.textContent?.trim()).toBe('15');
+    const participantsElements = compiled.querySelectorAll('img[alt="Participants"]');
+    expect(participantsElements.length).toBeGreaterThan(0);
+    
+    const participantCount = compiled.querySelector('img[alt="Participants"]')?.previousElementSibling;
+    expect(participantCount?.textContent?.trim()).toBe('15');
   });
 
   it('should calculate and display time remaining from endTime', () => {
@@ -120,7 +146,7 @@ describe('AuctionCard', () => {
     expect(timeRemaining).toBeNull();
 
     const compiled = fixture.nativeElement;
-    const timeTag = compiled.querySelector('.bg-neutral-50');
+    const timeTag = compiled.querySelector('.bg-\\[\\#F7FDF9\\]');
     expect(timeTag).toBeFalsy();
   });
 
@@ -133,7 +159,7 @@ describe('AuctionCard', () => {
     expect(timeRemaining).toBeNull();
 
     const compiled = fixture.nativeElement;
-    const timeTag = compiled.querySelector('.bg-neutral-50');
+    const timeTag = compiled.querySelector('.bg-\\[\\#F7FDF9\\]');
     expect(timeTag).toBeFalsy();
   });
 

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, output, signal } from '@angular/core';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { FormsModule } from '@angular/forms';
 import { Dropdown } from '@shared/components/ui/dropdown/dropdown';
 import { Datepicker } from '@shared/components/ui/datepicker/datepicker';
 
@@ -14,15 +14,24 @@ export interface AuctionTypeOption {
   value: string;
 }
 
+export interface SuggestedQuestion {
+  text: string;
+}
+
 @Component({
   selector: 'app-hero-section',
-  imports: [CommonModule, TranslocoPipe, Dropdown, Datepicker],
+  imports: [CommonModule, FormsModule, Dropdown, Datepicker],
   templateUrl: './hero-section.html',
   styleUrl: './hero-section.scss',
 })
 export class HeroSection {
   onSearchClick = output<{ price: string | null; date: Date | null; auctionType: string | null }>();
+  onAskQuestion = output<string>();
 
+  // AI Assistant state
+  aiQuestion = signal<string>('');
+
+  // Search filters state
   selectedAuctionType = signal<string | null>(null);
   selectedPrice = signal<string | null>(null);
   selectedDate = signal<Date | null>(null);
@@ -44,10 +53,36 @@ export class HeroSection {
     { label: 'العقارات', value: 'realEstate' },
   ];
 
+  // Suggested questions for AI assistant
+  suggestedQuestions: SuggestedQuestion[] = [
+    { text: 'ما هي المزادات المتاحة في الرياض؟' },
+    { text: 'كيف أشارك في مزاد عقاري؟' },
+    { text: 'ما الفرق بين المزاد المباشر والإلكتروني؟' },
+  ];
+
+  /**
+   * Handle AI question submission
+   */
+  submitAiQuestion(): void {
+    const question = this.aiQuestion().trim();
+    if (question) {
+      this.onAskQuestion.emit(question);
+      this.aiQuestion.set('');
+    }
+  }
+
+  /**
+   * Handle suggested question click
+   */
+  selectSuggestedQuestion(question: string): void {
+    this.aiQuestion.set(question);
+    this.submitAiQuestion();
+  }
+
   /**
    * Handle search button click
    */
-  _onSearchClick(): void {
+  triggerSearch(): void {
     this.onSearchClick.emit({
       price: this.selectedPrice(),
       date: this.selectedDate(),

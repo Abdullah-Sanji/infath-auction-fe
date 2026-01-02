@@ -8,13 +8,15 @@ This is a modern Angular application built with:
 - PrimeNG component library
 - Tailwind CSS for styling
 - Template-driven forms
+- Transloco for internationalization (i18n)
 
 ## Core Principles
 1. **Simplicity First**: Code should be simple, readable, and maintainable
 2. **Separation of Concerns**: Create reusable components and services
 3. **Type Safety**: No `any` types allowed - everything must be properly typed
 4. **Modern Angular**: Use latest Angular 19+ syntax and patterns
-5. **Test Coverage**: Every generated code must have corresponding test functions in .spec file
+5. **Internationalization**: No hardcoded text - use translation keys only (Transloco)
+6. **Test Coverage**: Every generated code must have corresponding test functions in .spec file
 
 ---
 
@@ -104,7 +106,89 @@ Always use Angular 19+ control flow syntax.
 }
 ```
 
-### 3. Dependency Injection - Use inject() Function
+### 3. Internationalization (i18n) - Use Translation Keys (REQUIRED)
+This application uses **Transloco** for internationalization. ALL user-facing text MUST use translation keys.
+
+**NEVER** use hardcoded text in templates or components.
+
+❌ **WRONG:**
+```html
+<h1>Welcome to Auctions</h1>
+<p-button label="Submit"></p-button>
+<p>Loading data...</p>
+<div>{{ user.name }} has joined</div>
+```
+
+```typescript
+this.error.set('Unable to load auctions. Please try again.');
+this.message = 'Success!';
+```
+
+✅ **CORRECT:**
+```html
+<h1>{{ 'home.welcome' | transloco }}</h1>
+<p-button [label]="'common.submit' | transloco"></p-button>
+<p>{{ 'common.loading' | transloco }}</p>
+<div>{{ 'user.joined' | transloco: { name: user.name } }}</div>
+```
+
+```typescript
+// In component
+private translocoService = inject(TranslocoService);
+
+// For error messages
+this.error.set(this.translocoService.translate('errors.loadAuctions'));
+
+// For dynamic messages
+this.message = this.translocoService.translate('common.success');
+```
+
+### Translation File Structure
+All translations are stored in `src/assets/i18n/`:
+- `en.json` - English translations
+- `ar.json` - Arabic translations
+
+**Translation Key Naming Convention:**
+```json
+{
+  "common": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "success": "Success",
+    "error": "Error"
+  },
+  "home": {
+    "welcome": "Welcome to Auctions",
+    "title": "Active Auctions"
+  },
+  "errors": {
+    "loadAuctions": "Unable to load auctions. Please try again.",
+    "network": "Network error. Please check your connection."
+  },
+  "user": {
+    "joined": "{{name}} has joined"
+  }
+}
+```
+
+**Key Naming Rules:**
+- Use dot notation: `section.subsection.key`
+- Use camelCase for keys: `loadAuctions`, not `load-auctions`
+- Group related keys under common sections: `common`, `errors`, `validation`
+- Use descriptive names that indicate context
+
+**When Adding New Text:**
+1. Add the translation key to BOTH `en.json` AND `ar.json`
+2. Use the `transloco` pipe in templates
+3. Use `TranslocoService.translate()` in TypeScript code
+4. Never commit hardcoded user-facing text
+
+**Reference**: See `docs/I18N_TRANSLOCO_GUIDE.md` for detailed usage.
+
+---
+
+### 4. Dependency Injection - Use inject() Function
 Use the modern `inject()` function instead of constructor injection.
 
 ❌ **WRONG:**
@@ -726,6 +810,8 @@ Before submitting any code, verify:
 - [ ] All state uses Signals (`signal()`, `computed()`)
 - [ ] Using `@if`, `@for`, `@switch` syntax (not `*ngIf`, `*ngFor`)
 - [ ] Using `inject()` function (not constructor injection)
+- [ ] **No hardcoded text - all user-facing text uses translation keys**
+- [ ] **Translation keys added to both en.json and ar.json**
 - [ ] Services have correct injection scope
 - [ ] All API calls have try/catch or error handling
 - [ ] No `any` types - all types properly defined
@@ -787,18 +873,20 @@ import { Component, signal, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { AuctionListService } from './auction-list.service';
 import { Auction } from './auction-list.interface';
 
 @Component({
   selector: 'app-auction-list',
-  imports: [TableModule, ButtonModule, CardModule],
+  imports: [TableModule, ButtonModule, CardModule, TranslocoModule],
   providers: [AuctionListService],
   templateUrl: './auction-list.html',
   styleUrl: './auction-list.scss'
 })
 export class AuctionList {
   private auctionService = inject(AuctionListService);
+  private translocoService = inject(TranslocoService);
 
   auctions = signal<Auction[]>([]);
   isLoading = signal(false);
@@ -819,7 +907,7 @@ export class AuctionList {
       this.auctions.set(response.auctions);
     } catch (error) {
       console.error('Failed to load auctions:', error);
-      this.error.set('Unable to load auctions. Please try again later.');
+      this.error.set(this.translocoService.translate('errors.loadAuctions'));
     } finally {
       this.isLoading.set(false);
     }
@@ -830,7 +918,7 @@ export class AuctionList {
 ```html
 <!-- auction-list.html -->
 <div class="container mx-auto p-4">
-  <h1 class="text-3xl font-bold mb-6">Active Auctions</h1>
+  <h1 class="text-3xl font-bold mb-6">{{ 'auctions.title' | transloco }}</h1>
 
   @if (isLoading()) {
     <p-progressSpinner></p-progressSpinner>
@@ -844,9 +932,9 @@ export class AuctionList {
     <p-table [value]="auctions()">
       <ng-template pTemplate="header">
         <tr>
-          <th>Title</th>
-          <th>Current Bid</th>
-          <th>Actions</th>
+          <th>{{ 'auctions.table.title' | transloco }}</th>
+          <th>{{ 'auctions.table.currentBid' | transloco }}</th>
+          <th>{{ 'auctions.table.actions' | transloco }}</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-auction>
@@ -857,7 +945,7 @@ export class AuctionList {
           </td>
           <td>
             <p-button
-              label="View"
+              [label]="'common.view' | transloco"
               icon="pi pi-eye"
               size="small"
             ></p-button>

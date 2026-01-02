@@ -40,6 +40,11 @@ export class AuctionCard implements OnDestroy {
     return status === 'Live' || status === 'Active';
   });
 
+  isUpcoming = computed(() => {
+    const status = this.auction().status;
+    return status === 'Upcoming' || status === 'Scheduled';
+  });
+
   // Calculate remaining time from endTime
   timeRemaining = computed(() => {
     return calculateTimeRemaining(this.auction().endTime, this.currentTime());

@@ -1,0 +1,53 @@
+<section class="bg-white flex flex-col gap-8 items-center justify-center px-20 py-10 w-full">
+  <div class="flex flex-col gap-8 items-center max-w-[1440px] w-full">
+    <!-- Icon -->
+    <div class="w-[100px] h-[100px] flex items-center justify-center">
+      <img src="images/icons/faq.svg" alt="FAQ" class="w-full h-full" />
+    </div>
+
+    <!-- Title Section -->
+    <div class="flex flex-col gap-2 items-center w-full">
+      <div class="flex flex-col isolate items-center justify-center pb-[15px] pt-0 px-0">
+        <h2 class="font-semibold text-2xl leading-8 text-[#161616] text-center z-[2] relative">
+          {{ 'faq.title' | transloco }}
+        </h2>
+        <div
+          class="bg-gradient-to-r from-[rgba(59,190,187,0.8)] to-[rgba(115,198,167,0.8)] h-4 w-[166.256px] -mt-[15px] z-[1]"
+        ></div>
+      </div>
+      <p class="font-normal text-xl leading-[30px] text-[#161616] text-center w-full">
+        {{ 'faq.subtitle' | transloco }}
+      </p>
+    </div>
+  </div>
+
+  <!-- FAQ Items -->
+  <div class="flex flex-col gap-4 items-start max-w-[1440px] w-full">
+    @for (item of faqItems(); track item.id; let i = $index) {
+    <app-accordion
+      [title]="item.questionKey | transloco"
+      [isOpen]="item.isOpen"
+      (toggle)="onToggle(i, $event)"
+      class="w-full"
+    >
+      <p class="text-base leading-6 text-[#525252] text-right">
+        {{ item.answerKey | transloco }}
+      </p>
+    </app-accordion>
+    }
+  </div>
+
+  <!-- View All Button -->
+  <button
+    type="button"
+    class="bg-button-primary flex gap-1 h-10 items-center justify-center px-4 rounded hover:bg-[#156b44] transition-colors focus:outline-none focus:ring-2 focus:ring-[#1b8354] focus:ring-offset-2"
+    (click)="onViewAll()"
+  >
+    <span class="font-medium text-base leading-6 text-white">
+      {{ 'faq.viewAll' | transloco }}
+    </span>
+    <div class="w-4 h-4 flex items-center justify-center">
+      <img src="images/icons/arrow-white.svg" alt="Arrow Right" class="w-full h-full" />
+    </div>
+  </button>
+</section>

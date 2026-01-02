@@ -251,8 +251,33 @@
     "backHome": "Back to Home"
   },
   "home": {
+    "newWeeklyAuctions": "New Weekly Auctions",
+    "mostViewedAuctions": "Most Viewed Auctions",
     "currentAuctions": "Current Auctions",
-    "upcomingAuctions": "Upcoming Auctions"
+    "upcomingAuctions": "Upcoming Auctions",
+    "stats": {
+      "executedAuctions": "Executed Electronic Auctions",
+      "registeredUsers": "Registered Users",
+      "participatingCompanies": "Companies Participating in Auctions"
+    },
+    "features": {
+      "unifiedPlatform": {
+        "title": "Unified and Reliable Platform",
+        "description": "A central digital platform for asset liquidation and public auction management under official supervision."
+      },
+      "transparency": {
+        "title": "Complete Transparency in Auctions",
+        "description": "Clear display of all auction details, prices, and schedules to ensure fair participation."
+      },
+      "financing": {
+        "title": "Accredited Financing Intermediary",
+        "description": "Providing financing solutions through accredited financial entities to facilitate auction participation."
+      },
+      "securePayment": {
+        "title": "Safe and Reliable Payment Options",
+        "description": "Providing approved electronic payment methods that ensure protection of financial transactions and ease of payment."
+      }
+    }
   },
   "auctionDetails": {
     "highestBid": "Highest Bid",
@@ -381,5 +406,32 @@
     "addedSuccess": "Added to watchlist successfully",
     "removedSuccess": "Removed from watchlist successfully",
     "toggleError": "Failed to toggle watchlist"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Brief answers to the most common questions about the Infath Auctions platform and its services.",
+    "viewAll": "View All Questions",
+    "questions": {
+      "whatIsPlatform": {
+        "question": "What is the Infath Auctions platform?",
+        "answer": "Infath Auctions is a unified digital platform for managing public auctions and asset liquidation under official government supervision."
+      },
+      "howToParticipate": {
+        "question": "How can I participate in auctions?",
+        "answer": "To participate, you need to register on the platform, verify your identity, deposit the required amount, and then you can start bidding on available auctions."
+      },
+      "paymentProcess": {
+        "question": "How are payments processed on the Infath platform?",
+        "answer": "Payments are processed through secure and approved electronic payment methods that ensure the protection of financial transactions."
+      },
+      "allElectronic": {
+        "question": "Are all auctions electronic?",
+        "answer": "Yes, all auctions on the Infath platform are conducted electronically to ensure transparency and ease of participation from anywhere."
+      },
+      "howToContact": {
+        "question": "How can I contact support if I have an inquiry?",
+        "answer": "You can contact our support team through the contact page or by using the live chat feature available on the platform."
+      }
+    }
   }
 }

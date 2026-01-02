@@ -1,0 +1,37 @@
+<section class="w-full flex items-start justify-center px-20 py-16">
+  <div class="flex w-full max-w-[1440px]">
+    @for (stat of stats(); track stat.label; let i = $index) {
+      <div
+        class="flex-1 flex flex-col gap-2 items-center justify-center p-4 min-h-0 min-w-0"
+        [class.border-s]="i > 0"
+        [class.border-neutral-200]="i > 0"
+      >
+        <!-- Icon Container -->
+        <div class="flex gap-4 items-center justify-center w-full">
+          <div
+            class="bg-primary-50 flex items-center justify-center overflow-hidden px-[3px] py-[2px] rounded-full w-12 h-12"
+          >
+            <img
+              [src]="stat.icon"
+              [alt]="stat.label | transloco"
+              class="w-6 h-6 object-contain"
+            />
+          </div>
+        </div>
+
+        <!-- Value -->
+        <p
+          class="font-bold text-5xl leading-[60px] text-neutral-900 text-center tracking-[-0.96px] w-full"
+          dir="auto"
+        >
+          {{ stat.value }}
+        </p>
+
+        <!-- Label -->
+        <p class="text-xl leading-[30px] text-neutral-900 text-center w-full" dir="auto">
+          {{ stat.label | transloco }}
+        </p>
+      </div>
+    }
+  </div>
+</section>

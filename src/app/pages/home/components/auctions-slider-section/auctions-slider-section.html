@@ -1,0 +1,82 @@
+<section class="w-full bg-white px-20 py-16">
+  <!-- Header with Title and Navigation -->
+  <div class="flex items-center justify-between gap-10 mb-5">
+    <!-- Title Section (Right Side) -->
+    <div class="flex items-center gap-4">
+      <!-- Title with Gradient Underline -->
+      <div class="flex flex-col items-end justify-center relative pb-1">
+        <h2
+          class="text-2xl font-semibold leading-8 text-neutral-900 text-nowrap text-right relative z-10"
+        >
+          {{ title() | transloco }}
+        </h2>
+        <div
+          class="absolute bottom-1 left-0 right-0 h-4 bg-gradient-to-r from-[rgba(59,190,187,0.8)] to-[rgba(115,198,167,0.8)] z-0"
+        ></div>
+      </div>
+      <!-- Back Button -->
+      <button
+        type="button"
+        class="bg-neutral-100 hover:bg-neutral-200 rounded flex items-center justify-center w-8 h-8 transition-colors rotate-180"
+        (click)="goBack()"
+        aria-label="Go back"
+      >
+        <i class="pi pi-arrow-right text-neutral-900 text-sm"></i>
+      </button>
+    </div>
+
+    <!-- Navigation Buttons (Left Side) -->
+    <div class="flex items-center gap-2">
+      <!-- Scroll Right Button -->
+      <button
+        type="button"
+        class="bg-neutral-100 hover:bg-neutral-200 rounded flex items-center justify-center w-8 h-8 transition-colors"
+        (click)="scrollRight()"
+        [disabled]="currentIndex() >= auctions().length - 4"
+        [class.opacity-50]="currentIndex() >= auctions().length - 4"
+        [class.cursor-not-allowed]="currentIndex() >= auctions().length - 4"
+        aria-label="Scroll right"
+      >
+        <i class="pi pi-chevron-right text-neutral-900 text-sm"></i>
+      </button>
+      <!-- Scroll Left Button -->
+      <button
+        type="button"
+        class="bg-neutral-100 hover:bg-neutral-200 rounded flex items-center justify-center w-8 h-8 transition-colors"
+        (click)="scrollLeft()"
+        [disabled]="currentIndex() === 0"
+        [class.opacity-50]="currentIndex() === 0"
+        [class.cursor-not-allowed]="currentIndex() === 0"
+        aria-label="Scroll left"
+      >
+        <i class="pi pi-chevron-left text-neutral-900 text-sm"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Auctions Grid -->
+  @if (isLoading()) {
+  <div class="flex items-center justify-center py-20">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+  } @if (error()) {
+  <div class="flex items-center justify-center py-20">
+    <p class="text-red-600 text-center">{{ error() }}</p>
+  </div>
+  } @if (!isLoading() && !error() && auctions().length > 0) {
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    @for (auction of auctions().slice(currentIndex(), currentIndex() + 4); track auction.auctionId)
+    {
+    <app-auction-card
+      [auction]="auction"
+      (onCardClick)="handleCardClick($event)"
+      (onFavoriteClick)="handleFavoriteClick($event)"
+    />
+    }
+  </div>
+  } @if (!isLoading() && !error() && auctions().length === 0) {
+  <div class="flex items-center justify-center py-20">
+    <p class="text-neutral-600 text-center">لا توجد مزادات جديدة هذا الأسبوع</p>
+  </div>
+  }
+</section>
