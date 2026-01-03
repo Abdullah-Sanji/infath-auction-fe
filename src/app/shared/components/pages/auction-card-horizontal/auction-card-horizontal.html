@@ -1,0 +1,103 @@
+<div
+  class="border border-neutral-100 rounded-3xl overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-300 flex flex-row h-full p-4 gap-4 shadow-md"
+  [ngClass]="{
+    'bg-bg-primary-50 border-primary-200': isSelected(),
+    'bg-white': !isSelected()
+  }"
+  (click)="handleCardClick()"
+>
+  <!-- Auction Image Section -->
+  <div class="relative rounded-2xl overflow-hidden w-[150px] shrink-0">
+    <img
+      [src]="auction().primaryImageUrl"
+      [alt]="auction().title"
+      class="w-full h-full object-cover"
+    />
+
+    <!-- Top Tags Overlay -->
+    <div class="absolute top-3 left-3 right-3 flex items-start justify-between">
+      <!-- Status Badge -->
+      <div
+        class="px-2 py-1 rounded-full"
+        [ngClass]="{
+          'bg-linear-to-r from-[#00A2A0] to-[#00365D]': isLive(),
+          'bg-linear-to-r from-[#00365D] to-[#00365D]': isUpcoming(),
+          'opacity-0': !isLive() && !isUpcoming()
+        }"
+      ></div>
+    </div>
+  </div>
+
+  <!-- Auction Details Section -->
+  <div class="flex flex-col gap-2 flex-1">
+    <!-- Auction Title and Favorite -->
+    <div class="flex items-start justify-end gap-2">
+      <div class="flex-1 flex justify-between items-center">
+        <h3 class="text-lg font-bold leading-7 text-neutral-900 text-right line-clamp-1">
+          {{ auction().title }}
+        </h3>
+        <!-- Favorite Button -->
+        <button
+          class="bg-white/90 hover:bg-white rounded-lg p-2 w-10 h-10 flex items-center justify-center transition-colors"
+          (click)="handleFavoriteClick($event)"
+          type="button"
+          aria-label="Add to favorites"
+        >
+          <img src="images/icons/heart.svg" alt="Favorite" class="w-5 h-5" />
+        </button>
+      </div>
+    </div>
+
+    <!-- Status and Time Row -->
+    <div class="flex items-center justify-end gap-1">
+      <!-- Time Remaining Tag -->
+      @if (timeRemaining()) {
+      <div class="bg-[#F7FDF9] px-2 py-0.5 rounded-full flex items-center gap-2 flex-1">
+        <img src="images/icons/clock-black.svg" alt="Clock" class="w-4 h-4" />
+        <p class="text-sm font-normal leading-5 text-neutral-900 text-right text-nowrap">
+          {{ timeRemaining() }}
+        </p>
+      </div>
+      }
+      <!-- Status Badge (Small) -->
+      @if (isLive()) {
+      <div class="px-2 py-0.5 rounded-full shrink-0 bg-linear-to-r from-[#00A2A0] to-[#00365D]">
+        <p class="text-[#A5F3FF] text-sm font-medium leading-5 text-nowrap">مباشر الآن</p>
+      </div>
+      } @else if (isUpcoming()) {
+      <div class="px-2 py-0.5 rounded-full shrink-0 bg-linear-to-r from-[#00365D] to-[#00365D]">
+        <p class="text-[#A5F3FF] text-sm font-medium leading-5 text-nowrap">مزاد قادم</p>
+      </div>
+      }
+    </div>
+
+    <!-- Divider -->
+    <div class="pt-3 pb-1">
+      <div class="h-[0.823px] bg-neutral-300 w-full"></div>
+    </div>
+
+    <!-- Bottom Info Row -->
+    <div class="flex items-center justify-between gap-6 pt-4">
+      <!-- Highest Bid Details -->
+      <div class="flex items-center gap-2 flex-1">
+        <p class="text-sm font-normal leading-5 text-neutral-500">أعلى سعر</p>
+        <div class="flex items-center gap-1">
+          <p class="text-sm font-semibold leading-5 text-primary-600 text-nowrap">
+            {{ formatCurrency(auction().highestCurrentBid) }}
+          </p>
+          <img src="images/icons/green-riyal.svg" alt="Currency" class="w-[13.421px] h-[15px]" />
+        </div>
+      </div>
+
+      <!-- Participants Count -->
+      @if (auction().totalBids !== undefined) {
+      <div class="flex items-center gap-1.5">
+        <img src="images/icons/group-people.svg" alt="Participants" class="w-4 h-4" />
+        <p class="text-sm font-normal leading-5 text-neutral-900 text-nowrap">
+          {{ auction().totalBids }}
+        </p>
+      </div>
+      }
+    </div>
+  </div>
+</div>

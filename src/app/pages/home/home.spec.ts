@@ -55,6 +55,12 @@ describe('Home', () => {
     expect(sliderSections.length).toBeGreaterThanOrEqual(2);
   });
 
+  it('should render map auctions section component', () => {
+    const compiled = fixture.nativeElement;
+    const mapAuctionsSection = compiled.querySelector('app-map-auctions-section');
+    expect(mapAuctionsSection).toBeTruthy();
+  });
+
   it('should render stats section component', () => {
     const compiled = fixture.nativeElement;
     const statsSection = compiled.querySelector('app-stats-section');

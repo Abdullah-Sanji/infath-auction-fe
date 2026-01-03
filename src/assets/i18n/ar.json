@@ -454,5 +454,21 @@
         "answer": "يمكنك التواصل مع فريق الدعم من خلال صفحة التواصل أو باستخدام خاصية الدردشة المباشرة المتوفرة في المنصة."
       }
     }
+  },
+  "mapAuctions": {
+    "auctionsCount": "مزادات",
+    "viewAllAuctions": "عرض كل المزادات"
+  },
+  "categories": {
+    "realEstate": "مزادات العقارات",
+    "vehicles": "مزادات المركبات",
+    "movables": "مزادات المنقولات",
+    "selected": "مختارة",
+    "nearestToYou": "الأقرب إليك",
+    "allCategories": "كل الفئات",
+    "residential": "سكنية",
+    "agricultural": "زراعية",
+    "commercial": "تجارية",
+    "industrial": "صناعية"
   }
 }

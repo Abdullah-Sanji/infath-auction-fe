@@ -454,5 +454,21 @@
         "answer": "You can contact our support team through the contact page or by using the live chat feature available on the platform."
       }
     }
+  },
+  "mapAuctions": {
+    "auctionsCount": "auctions",
+    "viewAllAuctions": "View All Auctions"
+  },
+  "categories": {
+    "realEstate": "Real Estate Auctions",
+    "vehicles": "Vehicle Auctions",
+    "movables": "Movables Auctions",
+    "selected": "Selected",
+    "nearestToYou": "Nearest to You",
+    "allCategories": "All Categories",
+    "residential": "Residential",
+    "agricultural": "Agricultural",
+    "commercial": "Commercial",
+    "industrial": "Industrial"
   }
 }

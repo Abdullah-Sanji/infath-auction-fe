@@ -1,0 +1,152 @@
+<div class="w-full px-20 py-0">
+  <!-- Category Selection Section -->
+  <div class="flex flex-col gap-10 items-center justify-center pt-16 pb-10 w-full">
+    <!-- Main Category Cards -->
+    <div class="bg-white flex items-center justify-end rounded-3xl shadow-xl w-full">
+      @for (category of mainCategories(); track category.id; let isLast = $last; let idx = $index) {
+        <!-- Category Button -->
+        <button
+          class="flex flex-1 gap-4 items-center justify-end px-6 py-4 rounded-2xl cursor-pointer transition-all"
+          [ngClass]="{
+            'bg-linear-to-r from-[#00A2A0] to-[#00365D]': selectedMainCategory() === category.id,
+            'bg-white hover:bg-gray-50': selectedMainCategory() !== category.id
+          }"
+          (click)="selectMainCategory(category.id)"
+          type="button"
+        >
+          <!-- Icon -->
+          <div
+            class="flex gap-0 items-center justify-center p-4 rounded-full shrink-0"
+            [ngClass]="{
+              'bg-[#A5F3FF]': selectedMainCategory() === category.id,
+              'bg-bg-primary-50': selectedMainCategory() !== category.id
+            }"
+          >
+            <img
+              [src]="'images/icons/' + category.icon"
+              [alt]="category.titleKey | transloco"
+              class="w-[35px] h-[35px]"
+            />
+          </div>
+
+          <!-- Text Content -->
+          <div class="flex-1 flex flex-col gap-1 items-end justify-center text-right">
+            <p
+              class="text-xl font-bold leading-paragraph-display-sm w-full"
+              [ngClass]="{
+                'text-[#A5F3FF]': selectedMainCategory() === category.id,
+                'text-neutral-900': selectedMainCategory() !== category.id
+              }"
+            >
+              {{ category.titleKey | transloco }}
+            </p>
+            <p
+              class="text-base font-normal leading-6 w-full"
+              [ngClass]="{
+                'text-[#A5F3FF]': selectedMainCategory() === category.id,
+                'text-primary-600': selectedMainCategory() !== category.id
+              }"
+            >
+              {{ category.subtitleKey | transloco }}
+            </p>
+          </div>
+        </button>
+
+        <!-- Divider (not after last item) -->
+        @if (!isLast) {
+          <div class="flex items-center self-stretch px-0 py-4">
+            <div class="h-full w-0 border-l border-neutral-200"></div>
+          </div>
+        }
+      }
+    </div>
+
+    <!-- Subcategory Pills -->
+    <div class="flex gap-4 items-center justify-center w-full">
+      @for (subCategory of subCategories(); track subCategory.id) {
+      <button
+        class="flex items-center justify-center min-w-[160px] px-6 py-4 rounded-full border transition-all cursor-pointer"
+        [ngClass]="{
+          'bg-bg-primary-50 border-primary-200': selectedSubCategory() === subCategory.id,
+          'bg-white border-neutral-200 hover:bg-gray-50': selectedSubCategory() !== subCategory.id
+        }"
+        (click)="selectSubCategory(subCategory.id)"
+        type="button"
+      >
+        <p
+          class="text-lg leading-7 text-center"
+          [ngClass]="{
+            'font-bold text-[#14573A]': selectedSubCategory() === subCategory.id,
+            'font-normal text-neutral-900': selectedSubCategory() !== subCategory.id
+          }"
+        >
+          {{ subCategory.label | transloco }}
+        </p>
+      </button>
+      }
+    </div>
+  </div>
+
+  <div class="flex gap-8 items-start h-[600px]">
+    <!-- Auctions Sidebar - Right Side -->
+    <div class="w-[500px] h-full overflow-y-auto flex flex-col gap-4">
+      @for (auction of auctions(); track auction.auctionId; let idx = $index) {
+      <app-auction-card-horizontal
+        [auction]="auction"
+        [isSelected]="selectedAuctionId() === auction.auctionId"
+        (onCardClick)="handleAuctionClick($event)"
+        (onFavoriteClick)="handleFavoriteClick($event)"
+      />
+      }
+    </div>
+    <!-- Map Section - Left Side -->
+    <div class="flex-1 h-full relative rounded-3xl overflow-hidden p-6 bg-gray-100">
+      <!-- Map Placeholder -->
+      <div class="absolute inset-0 bg-gray-200 flex items-center justify-center">
+        <div class="text-center">
+          <svg
+            class="w-16 h-16 mx-auto mb-2 text-gray-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+            />
+          </svg>
+          <p class="text-lg text-gray-500">Map View</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- View All Auctions Section -->
+  <div class="flex flex-col gap-8 items-start pt-8 pb-0 w-full">
+    <!-- Header with count and button -->
+    <div class="flex items-start justify-between w-full">
+      <!-- View All Button -->
+      <button
+        class="bg-button-primary flex gap-1 h-10 items-center justify-center px-4 py-0 rounded overflow-hidden hover:bg-button-primary-hover transition-colors"
+        type="button"
+        (click)="handleViewAllAuctions()"
+      >
+        <!-- Button Text -->
+        <span class="text-base font-medium leading-6 text-white whitespace-nowrap">
+          {{ 'mapAuctions.viewAllAuctions' | transloco }}
+        </span>
+        <!-- Arrow Icon -->
+        <img src="images/icons/arrow-white.svg" alt="Arrow Right" class="w-6 h-6" />
+      </button>
+      <!-- Auctions Count -->
+      <p class="text-base font-normal leading-6 text-neutral-700 whitespace-nowrap">
+        {{ auctions().length }} {{ 'mapAuctions.auctionsCount' | transloco }}
+      </p>
+    </div>
+
+    <!-- Divider -->
+    <div class="h-[0.823px] w-full bg-neutral-200"></div>
+  </div>
+</div>
