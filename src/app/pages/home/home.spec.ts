@@ -67,12 +67,40 @@ describe('Home', () => {
     expect(faqSection).toBeTruthy();
   });
 
+  it('should render app download section component', () => {
+    const compiled = fixture.nativeElement;
+    const appDownloadSection = compiled.querySelector('app-download-section');
+    expect(appDownloadSection).toBeTruthy();
+  });
+
+  it('should render CTA section component', () => {
+    const compiled = fixture.nativeElement;
+    const ctaSection = compiled.querySelector('app-cta-section');
+    expect(ctaSection).toBeTruthy();
+  });
+
+  it('should render app download section before stats section', () => {
+    const compiled = fixture.nativeElement;
+    const sections = compiled.querySelectorAll('app-download-section, app-stats-section');
+    expect(sections.length).toBe(2);
+    expect(sections[0].tagName.toLowerCase()).toBe('app-download-section');
+    expect(sections[1].tagName.toLowerCase()).toBe('app-stats-section');
+  });
+
   it('should render stats section before FAQ section', () => {
     const compiled = fixture.nativeElement;
     const sections = compiled.querySelectorAll('app-stats-section, app-faq-section');
     expect(sections.length).toBe(2);
     expect(sections[0].tagName.toLowerCase()).toBe('app-stats-section');
     expect(sections[1].tagName.toLowerCase()).toBe('app-faq-section');
+  });
+
+  it('should render FAQ section before CTA section', () => {
+    const compiled = fixture.nativeElement;
+    const sections = compiled.querySelectorAll('app-faq-section, app-cta-section');
+    expect(sections.length).toBe(2);
+    expect(sections[0].tagName.toLowerCase()).toBe('app-faq-section');
+    expect(sections[1].tagName.toLowerCase()).toBe('app-cta-section');
   });
 
   it('should have correct structure', () => {

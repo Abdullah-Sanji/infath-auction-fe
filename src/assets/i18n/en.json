@@ -277,6 +277,27 @@
         "title": "Safe and Reliable Payment Options",
         "description": "Providing approved electronic payment methods that ensure protection of financial transactions and ease of payment."
       }
+    },
+    "cta": {
+      "title": "Start with Infath Auctions Platform Today",
+      "description": "Log in securely via National Unified Access and start participating in auctions immediately.",
+      "loginButton": "Log In"
+    },
+    "appDownload": {
+      "title": "Infath App for Integrated Digital Services",
+      "description": "A comprehensive digital platform that enables you to follow auctions, assets, cases, and beneficiary services, with smart support and a safe, easy-to-use experience.",
+      "experienceTitle": "Auction experience via Infath app:",
+      "features": {
+        "browseAndParticipate": "Browse and participate in auctions.",
+        "followBidsAndAlerts": "Follow bids and alerts.",
+        "financingOptions": "Financing options via accredited entities.",
+        "smartAssistant": "Infath smart assistant for auctions."
+      },
+      "downloadOnAppStore": "Download on the App Store",
+      "downloadOnGooglePlay": "Get it on Google Play",
+      "appStoreAlt": "Download on the App Store",
+      "googlePlayAlt": "Get it on Google Play",
+      "mobileAppAlt": "Infath mobile app preview"
     }
   },
   "auctionDetails": {

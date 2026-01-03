@@ -1,0 +1,24 @@
+// Custom styles for complex gradients and background images that can't be done with Tailwind
+// All other styling is done with Tailwind utility classes in the template
+
+.cta-gradient-bg {
+  background: linear-gradient(126.616deg, rgb(0, 162, 160) 11.707%, rgb(0, 54, 93) 112.16%);
+}
+
+.cta-title-underline-gradient {
+  background: linear-gradient(90deg, rgb(59, 190, 187) 0%, rgb(115, 198, 167) 100%);
+}
+
+.cta-vector-left-bg {
+  background-image: url('/images/icons/cta-vector-left.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.cta-vector-right-bg {
+  background-image: url('/images/icons/cta-vector-right.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

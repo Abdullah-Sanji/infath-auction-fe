@@ -2,7 +2,13 @@
 <section
   class="relative w-full px-20 py-10 flex items-center justify-between gap-8 overflow-hidden bg-linear-to-br from-[#00a2a0] via-[#007d7b] to-[#00365d] min-h-[420px]"
 >
-
+    <!-- Background decorative vectors -->
+    <div
+      class="cta-vector-left-bg absolute left-[-143.96px] top-[-131.27px] w-[444.131px] h-[700px] mix-blend-overlay pointer-events-none"
+    ></div>
+    <div
+      class="cta-vector-right-bg absolute right-[0.04px] top-[-131.27px] w-[427.252px] h-[427.253px] mix-blend-overlay pointer-events-none rotate-180"
+    ></div>
   <!-- Main Hero Content - Right Side -->
   <div class="relative z-10 flex flex-col justify-center gap-8 text-right">
     <!-- Hero Text Area -->
@@ -33,7 +39,7 @@
               [showClear]="true"
               [showBorder]="false"
               (onChange)="onAuctionTypeChange($event)"
-              class="w-full "
+              class="w-full"
             ></lib-dropdown>
           </div>
 

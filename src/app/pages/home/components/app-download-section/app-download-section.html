@@ -1,0 +1,125 @@
+<section class="w-full bg-neutral-50 px-20 py-16">
+  <div class="flex items-center justify-between gap-16">
+    <!-- Right Side - Content -->
+    <div class="flex flex-col gap-6 flex-1">
+      <!-- Title with Gradient Underline -->
+      <div class="flex flex-col justify-center relative w-fit">
+        <h2
+          class="w-fit text-4xl font-semibold text-neutral-900 text-right relative z-10"
+        >
+          {{ 'home.appDownload.title' | transloco }}
+        </h2>
+        <div
+          class="absolute bottom-0 right-0 left-0 h-5 bg-linear-to-r from-[rgba(59,190,187,0.8)] to-[rgba(115,198,167,0.8)] z-0"
+        ></div>
+      </div>
+
+      <!-- Description -->
+      <p class="text-xl leading-paragraph-display-sm text-neutral-900 text-right w-full">
+        {{ 'home.appDownload.description' | transloco }}
+      </p>
+
+      <!-- Features List -->
+      <div class="flex flex-col gap-3 w-full">
+        <h3 class="text-base font-bold leading-6 text-neutral-900 text-right">
+          {{ 'home.appDownload.experienceTitle' | transloco }}
+        </h3>
+
+        <!-- Feature Item 1 -->
+        <div class="flex items-start gap-2 w-full">
+          <div class="flex items-start pt-0.5">
+            <div class="w-[22px] h-[22px] flex items-center justify-center">
+              <img src="images/icons/green-check-circle.svg" alt="Verified Badge" class="w-5 h-5" />
+            </div>
+          </div>
+          <div class="flex flex-col gap-1 flex-1">
+            <p class="text-base font-bold leading-6 text-neutral-900 text-right">
+              {{ 'home.appDownload.features.browseAndParticipate' | transloco }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature Item 2 -->
+        <div class="flex items-start gap-2 w-full">
+          <div class="flex items-start pt-0.5">
+            <div class="w-[22px] h-[22px] flex items-center justify-center">
+              <img src="images/icons/green-check-circle.svg" alt="Verified Badge" class="w-5 h-5" />
+            </div>
+          </div>
+          <div class="flex flex-col gap-1 flex-1">
+            <p class="text-base font-bold leading-6 text-neutral-900 text-right">
+              {{ 'home.appDownload.features.followBidsAndAlerts' | transloco }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature Item 3 -->
+        <div class="flex items-start gap-2 w-full">
+          <div class="flex items-start pt-0.5">
+            <div class="w-[22px] h-[22px] flex items-center justify-center">
+              <img src="images/icons/green-check-circle.svg" alt="Verified Badge" class="w-5 h-5" />
+            </div>
+          </div>
+          <div class="flex flex-col gap-1 flex-1">
+            <p class="text-base font-bold leading-6 text-neutral-900 text-right">
+              {{ 'home.appDownload.features.financingOptions' | transloco }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature Item 4 -->
+        <div class="flex items-start gap-2 w-full">
+          <div class="flex items-start pt-0.5">
+            <div class="w-[22px] h-[22px] flex items-center justify-center">
+              <img src="images/icons/green-check-circle.svg" alt="Verified Badge" class="w-5 h-5" />
+            </div>
+          </div>
+          <div class="flex flex-col gap-1 flex-1">
+            <p class="text-base font-bold leading-6 text-neutral-900 text-right">
+              {{ 'home.appDownload.features.smartAssistant' | transloco }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- App Store Buttons -->
+      <div class="flex items-center gap-2 w-full mt-6">
+        <a
+          href="https://apps.apple.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block"
+          [attr.aria-label]="'home.appDownload.downloadOnAppStore' | transloco"
+        >
+          <img
+            src="/images/icons/app-store.svg"
+            alt="{{ 'home.appDownload.appStoreAlt' | transloco }}"
+            class="h-[53.333px] w-[180px]"
+          />
+        </a>
+        <a
+          href="https://play.google.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block"
+          [attr.aria-label]="'home.appDownload.downloadOnGooglePlay' | transloco"
+        >
+          <img
+            src="/images/icons/google-play.svg"
+            alt="{{ 'home.appDownload.googlePlayAlt' | transloco }}"
+            class="h-[53.33px] w-[179.989px]"
+          />
+        </a>
+      </div>
+    </div>
+
+    <!-- Left Side - Mobile Phone Mockup -->
+    <div class="shrink-0 flex-1">
+      <img
+        src="/images/icons/infath-mobile.png"
+        alt="{{ 'home.appDownload.mobileAppAlt' | transloco }}"
+        class="w-[444px] h-auto float-end"
+      />
+    </div>
+  </div>
+</section>

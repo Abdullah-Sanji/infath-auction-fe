@@ -1,3 +1,16 @@
 // Hero Section Styles - Minimal custom CSS, using Tailwind for everything else
 
 // Only custom styles that cannot be achieved with Tailwind utility classes
+.cta-vector-left-bg {
+  background-image: url('/images/icons/cta-vector-left.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.cta-vector-right-bg {
+  background-image: url('/images/icons/cta-vector-right.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

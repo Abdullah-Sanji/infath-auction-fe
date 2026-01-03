@@ -1,0 +1,56 @@
+<section
+  class="w-full flex items-center justify-center px-4 sm:px-8 md:px-12 lg:px-20 py-10 bg-white"
+>
+  <div
+    class="cta-gradient-bg relative w-full max-w-[1440px] min-h-[200px] flex items-center justify-end gap-6 sm:gap-8 md:gap-10 px-6 sm:px-12 md:px-16 lg:px-32 py-8 sm:py-10 md:py-12 rounded-3xl overflow-hidden"
+  >
+    <!-- Background decorative vectors -->
+    <div
+      class="cta-vector-left-bg absolute left-[-143.96px] top-[-131.27px] w-[444.131px] h-[427.251px] mix-blend-overlay pointer-events-none"
+    ></div>
+    <div
+      class="cta-vector-right-bg absolute right-[0.04px] top-[-131.27px] w-[427.252px] h-[427.253px] mix-blend-overlay pointer-events-none rotate-180"
+    ></div>
+
+    <!-- Content -->
+    <div
+      class="flex flex-1 flex-col md:flex-row items-center md:items-center gap-6 md:gap-10 z-2"
+    >
+      <!-- Text Content -->
+      <div class="flex flex-col gap-2 flex-1 min-w-0">
+        <!-- Title with underline -->
+        <div
+          class="flex flex-col justify-center pb-[15px] relative isolate"
+        >
+          <h2
+            class="font-semibold text-lg sm:text-xl md:text-2xl leading-7 sm:leading-8 md:leading-[32px] text-white text-center md:text-right whitespace-normal md:whitespace-nowrap relative z-2"
+          >
+            {{ 'home.cta.title' | transloco }}
+          </h2>
+          <div
+            class="cta-title-underline-gradient w-[200px] sm:w-[240px] md:w-[280px] lg:w-[318.451px] h-4 -mt-[15px] opacity-80 relative z-1"
+          ></div>
+        </div>
+
+        <!-- Description -->
+        <p
+          class="font-normal text-sm sm:text-base md:text-lg lg:text-xl leading-6 sm:leading-7 md:leading-lg lg:leading-paragraph-display-sm text-white text-center md:text-right w-full"
+          dir="rtl"
+        >
+          {{ 'home.cta.description' | transloco }}
+        </p>
+      </div>
+
+      <!-- Login Button -->
+      <button
+        type="button"
+        class="flex items-center justify-center gap-1 h-10 min-h-5xl px-4 bg-neutral-100 rounded hover:bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-white/50 active:bg-[#d1d5db] transition-colors shrink-0 w-full sm:w-auto max-w-[200px]"
+        (click)="onLoginClick()"
+      >
+        <span class="font-medium text-base leading-6 text-black whitespace-nowrap">
+          {{ 'home.cta.loginButton' | transloco }}
+        </span>
+      </button>
+    </div>
+  </div>
+</section>
