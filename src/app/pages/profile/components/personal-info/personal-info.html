@@ -1,0 +1,187 @@
+<!-- Personal Info Form -->
+<div class="flex flex-col gap-5 w-full">
+  <!-- Header with Avatar and Buttons -->
+  <div class="flex items-center px-0 py-5 w-full border-b border-gray-100">
+    <div class="flex flex-col gap-4">
+      <!-- Avatar and Name Row -->
+      <div class="flex gap-2 items-center">
+        <!-- Avatar -->
+        <div class="relative shrink-0 size-16">
+          @if (shouldShowAvatar()) {
+          <img
+            [src]="profile()!.avatarUrl"
+            [alt]="fullName()"
+            class="absolute inset-0 rounded-full border-2 border-white object-cover"
+            (error)="onImageError()"
+          />
+          } @else {
+          <div
+            class="absolute bg-tertiary-50 border-2 border-white inset-0 rounded-full flex items-center justify-center"
+          >
+            <p class="text-xl font-medium text-black capitalize">
+              {{ userInitials() }}
+            </p>
+          </div>
+          }
+        </div>
+
+        <!-- Name -->
+        <div class="flex flex-col gap-1 py-2 rounded-2xl">
+          <div class="flex items-center justify-center">
+            <p class="text-xl font-bold text-gray-900">
+              {{ fullName() }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons Row -->
+      <div class="flex gap-4 items-start">
+        <!-- Upload Image Button -->
+        <button
+          type="button"
+          class="bg-gray-100 flex gap-1 h-8 items-center justify-center overflow-clip px-3 py-0 rounded cursor-pointer"
+          (click)="onUploadImage()"
+          [disabled]="isLoading()"
+        >
+          <span class="text-sm font-medium text-gray-900 me-2">
+            {{ 'profile.uploadImage' | transloco }}
+          </span>
+          <i class="pi pi-upload text-gray-900"></i>
+        </button>
+
+        <!-- Delete Image Button -->
+        <button
+          type="button"
+          class="flex gap-1 h-8 items-center justify-center overflow-clip px-3 py-0 rounded cursor-pointer"
+          (click)="onDeleteImage()"
+          [disabled]="!profile()?.avatarUrl || isLoading()"
+        >
+          <span class="text-sm font-medium text-red-600 me-2">
+            {{ 'profile.deleteImage' | transloco }}
+          </span>
+          <i class="pi pi-trash text-red-600"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success/Error Messages -->
+  @if (successMessage()) {
+  <p-message severity="success" [text]="successMessage()! | transloco"></p-message>
+  } @if (error()) {
+  <p-message severity="error" [text]="error()! | transloco"></p-message>
+  }
+
+  <!-- Input Fields -->
+  <div class="flex flex-col gap-4 w-full">
+    <!-- First Row: First Name and Last Name -->
+    <div class="flex gap-5 items-center w-full">
+      <!-- First Name -->
+      <div class="basis-0 flex flex-col gap-2 grow min-h-px min-w-px overflow-clip">
+        <div class="flex flex-col w-full">
+          <label class="text-sm font-normal text-gray-900">
+            {{ 'profile.firstName' | transloco }}
+          </label>
+        </div>
+        <lib-input-text
+          type="text"
+          [name]="'firstName'"
+          [ngModel]="firstName()"
+          (ngModelChange)="firstName.set($event)"
+          [placeholder]="'register.firstNamePlaceholder' | transloco"
+          [fluid]="true"
+        />
+      </div>
+
+      <!-- Last Name -->
+      <div class="basis-0 flex flex-col gap-2 grow min-h-px min-w-px overflow-clip">
+        <div class="flex flex-col w-full">
+          <label class="text-sm font-normal text-gray-900">
+            {{ 'profile.lastName' | transloco }}
+          </label>
+        </div>
+        <lib-input-text
+          type="text"
+          [name]="'lastName'"
+          [ngModel]="lastName()"
+          (ngModelChange)="lastName.set($event)"
+          [placeholder]="'register.lastNamePlaceholder' | transloco"
+          [fluid]="true"
+        />
+      </div>
+    </div>
+
+    <!-- Second Row: Email and Phone -->
+    <div class="flex gap-5 w-full">
+      <!-- Email -->
+      <div class="basis-0 flex flex-col gap-2 grow min-h-px min-w-px overflow-clip">
+        <div class="flex flex-col w-full">
+          <label class="text-sm font-normal text-gray-900">
+            {{ 'profile.email' | transloco }}
+          </label>
+        </div>
+        <lib-input-text
+          type="email"
+          [name]="'email'"
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
+          [placeholder]="'register.emailPlaceholder' | transloco"
+          autocomplete="email"
+          [fluid]="true"
+        />
+      </div>
+
+      <!-- Phone Number -->
+      <div class="basis-0 flex flex-col gap-2 grow min-h-px min-w-px overflow-clip">
+        <div class="flex flex-col w-full">
+          <label class="text-sm font-normal text-gray-900">
+            {{ 'profile.phoneNumber' | transloco }}
+          </label>
+        </div>
+        <div
+          class="bg-white border border-gray-400 flex h-10 items-center overflow-clip rounded w-full"
+        >
+          <!-- Country Code Suffix -->
+          <div class="bg-gray-100 flex h-full items-center justify-center px-4 py-0.5">
+            <span class="text-base font-normal text-gray-600">
+              {{ phoneCountryCode() }}
+            </span>
+          </div>
+          <!-- Phone Input -->
+          <lib-input-text
+            type="tel"
+            [name]="'phoneNumber'"
+            [ngModel]="phoneNumber()"
+            (ngModelChange)="phoneNumber.set($event)"
+            placeholder="0000 0000 0000"
+            autocomplete="tel"
+            [fluid]="true"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex gap-5 justify-end py-6 mt-32 w-full border-t-2 border-neutral-200">
+    <!-- Cancel Button -->
+    <lib-button
+      [label]="'profile.cancelChanges' | transloco"
+      [ariaLabel]="'profile.cancelChanges' | transloco"
+      [disabled]="!hasChanges() || isSaving()"
+      severity="secondary"
+      (onClick)="onCancelChanges()"
+    ></lib-button>
+
+    <!-- Save Button -->
+    <lib-button
+      [label]="'profile.saveChanges' | transloco"
+      [ariaLabel]="'profile.saveChanges' | transloco"
+      [disabled]="!hasChanges() || isSaving()"
+      [loading]="isSaving()"
+      severity="primary"
+      (onClick)="onSaveChanges()"
+    ></lib-button>
+  </div>
+</div>

@@ -356,7 +356,48 @@
     "email": "البريد الإلكتروني",
     "roles": "الصلاحيات",
     "noData": "—",
-    "mobile": "رقم الجوال"
+    "mobile": "رقم الجوال",
+    "logout": "تسجيل خروج",
+    "firstName": "الاسم الأول",
+    "lastName": "الاسم الأخير",
+    "phoneNumber": "رقم الجوال",
+    "welcome": "أهلا",
+    "uploadImage": "تحميل صورة",
+    "deleteImage": "حذف الصورة",
+    "saveChanges": "حفظ التغييرات",
+    "cancelChanges": "إلغاء التغييرات",
+    "stats": {
+      "myBids": "عدد مزايداتي",
+      "favorites": "المفضلة"
+    },
+    "menu": {
+      "account": "الحساب",
+      "preferences": "التفضيلات",
+      "personalInfo": "المعلومات الشخصية",
+      "personalInfoDesc": "تعديل اسم المستخدم ومعلومات الاتصال",
+      "changePassword": "تغيير كلمة المرور",
+      "changePasswordDesc": "تحديث كلمة المرور الخاصة بك",
+      "settings": "الإعدادات",
+      "settingsDesc": "تحكم بإعدادات التطبيق",
+      "regions": "المناطق",
+      "regionsDesc": "تعديل المناطق المهتم بها",
+      "auctions": "المزادات",
+      "auctionsDesc": "تعديل المزادات المهتم بها",
+      "favorites": "مزاداتي المفضلة",
+      "favoritesDesc": "المزادات في القائمة المفضلة"
+    },
+    "success": {
+      "updateSuccess": "تم تحديث الملف الشخصي بنجاح",
+      "avatarUploaded": "تم رفع الصورة بنجاح",
+      "avatarDeleted": "تم حذف الصورة بنجاح"
+    },
+    "errors": {
+      "loadFailed": "فشل في تحميل الملف الشخصي. يرجى المحاولة مرة أخرى.",
+      "updateFailed": "فشل في تحديث الملف الشخصي. يرجى المحاولة مرة أخرى.",
+      "uploadFailed": "فشل في رفع الصورة. يرجى المحاولة مرة أخرى.",
+      "deleteFailed": "فشل في حذف الصورة. يرجى المحاولة مرة أخرى.",
+      "signOutFailed": "فشل في تسجيل الخروج. يرجى المحاولة مرة أخرى."
+    }
   },
   "auctionTypes": {
     "title": "أنواع المزاد"

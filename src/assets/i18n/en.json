@@ -356,7 +356,48 @@
     "email": "Email",
     "roles": "Roles",
     "noData": "—",
-    "mobile": "Mobile Number"
+    "mobile": "Mobile Number",
+    "logout": "Log Out",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phoneNumber": "Phone Number",
+    "welcome": "Welcome",
+    "uploadImage": "Upload Image",
+    "deleteImage": "Delete Image",
+    "saveChanges": "Save Changes",
+    "cancelChanges": "Cancel Changes",
+    "stats": {
+      "myBids": "My Bids Count",
+      "favorites": "Favorites"
+    },
+    "menu": {
+      "account": "Account",
+      "preferences": "Preferences",
+      "personalInfo": "Personal Information",
+      "personalInfoDesc": "Edit username and contact information",
+      "changePassword": "Change Password",
+      "changePasswordDesc": "Update your password",
+      "settings": "Settings",
+      "settingsDesc": "Control app settings",
+      "regions": "Regions",
+      "regionsDesc": "Edit regions of interest",
+      "auctions": "Auctions",
+      "auctionsDesc": "Edit auctions of interest",
+      "favorites": "My Favorite Auctions",
+      "favoritesDesc": "Auctions in favorites list"
+    },
+    "success": {
+      "updateSuccess": "Profile updated successfully",
+      "avatarUploaded": "Avatar uploaded successfully",
+      "avatarDeleted": "Avatar deleted successfully"
+    },
+    "errors": {
+      "loadFailed": "Failed to load profile. Please try again.",
+      "updateFailed": "Failed to update profile. Please try again.",
+      "uploadFailed": "Failed to upload avatar. Please try again.",
+      "deleteFailed": "Failed to delete avatar. Please try again.",
+      "signOutFailed": "Failed to sign out. Please try again."
+    }
   },
   "auctionTypes": {
     "title": "Auction Types"

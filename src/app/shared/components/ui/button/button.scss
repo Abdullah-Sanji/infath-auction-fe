@@ -2,7 +2,7 @@
 // Add custom styles here if needed, otherwise use Tailwind classes
 
 ::ng-deep {
-  .p-button {
+  .p-button.p-button-primary {
   &:not(:disabled):hover {
       background-color: var(--color-button-primary) !important;
       opacity: 0.9;

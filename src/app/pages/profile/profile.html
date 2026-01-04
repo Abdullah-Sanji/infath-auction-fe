@@ -1,29 +1,17 @@
-<section class="profile container py-4">
-  <div class="card">
-    <div class="card-body">
-      <h2 class="card-title">{{ 'profile.title' | transloco }}</h2>
+<div class="flex gap-6 py-10 px-16 w-full min-h-screen">
+  <!-- Right Sidebar - Settings Menu -->
+  <app-profile-sidebar
+    [profile]="profile()"
+    [accountMenuItems]="accountMenuItems()"
+    [preferencesMenuItems]="preferencesMenuItems()"
+    (onMenuItemClick)="onMenuItemClick($event)"
+    (onSignOut)="onSignOut()"
+  />
 
-      <dl class="row">
-        <dt class="col-4 col-sm-3">{{ 'profile.name' | transloco }}</dt>
-        <dd class="col-8 col-sm-9">
-          {{
-            user?.fullName ??
-              (user?.firstName || user?.lastName
-                ? (user?.firstName ?? '') + ' ' + (user?.lastName ?? '')
-                : ('profile.noData' | transloco))
-          }}
-        </dd>
-
-        <dt class="col-4 col-sm-3">{{ 'profile.email' | transloco }}</dt>
-        <dd class="col-8 col-sm-9">
-          {{ user?.email ?? ('profile.noData' | transloco) }}
-        </dd>
-
-        <dt class="col-4 col-sm-3">{{ 'profile.mobile' | transloco }}</dt>
-        <dd class="col-8 col-sm-9">
-          {{ user?.phoneNumber ?? ('profile.noData' | transloco) }}
-        </dd>
-      </dl>
-    </div>
+  <!-- Left Container - Dynamic Content via Router Outlet -->
+  <div
+    class="basis-0 bg-white flex flex-col gap-5 grow h-full min-w-px overflow-clip pb-4 pt-0 px-5 rounded-3xl shadow-md shrink-0"
+  >
+    <router-outlet></router-outlet>
   </div>
-</section>
+</div>

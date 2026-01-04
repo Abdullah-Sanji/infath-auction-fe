@@ -31,8 +31,38 @@ export const routes: Routes = [
   },
   {
     path: 'profile',
-    loadComponent: () => import('./pages/profile/profile').then((m) => m.ProfileComponent),
-    canActivate: [authGuard],
+    loadComponent: () => import('./pages/profile/profile').then((m) => m.Profile),
+    children: [
+      {
+        path: '',
+        redirectTo: 'personal-info',
+        pathMatch: 'full'
+      },
+      {
+        path: 'personal-info',
+        loadComponent: () => import('./pages/profile/components/personal-info/personal-info').then((m) => m.PersonalInfo),
+      },
+      {
+        path: 'change-password',
+        loadComponent: () => import('./pages/profile/components/change-password/change-password').then((m) => m.ChangePassword),
+      },
+      {
+        path: 'settings',
+        loadComponent: () => import('./pages/profile/components/settings/settings').then((m) => m.Settings),
+      },
+      {
+        path: 'regions',
+        loadComponent: () => import('./pages/profile/components/regions/regions').then((m) => m.Regions),
+      },
+      {
+        path: 'auction-preferences',
+        loadComponent: () => import('./pages/profile/components/auction-preferences/auction-preferences').then((m) => m.AuctionPreferences),
+      },
+      {
+        path: 'favorites',
+        loadComponent: () => import('./pages/profile/components/favorites/favorites').then((m) => m.Favorites),
+      },
+    ],
   },
   {
     path: 'terms-and-conditions',

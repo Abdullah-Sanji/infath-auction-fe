@@ -1,0 +1,52 @@
+<div class="flex flex-col gap-0 items-start w-full">
+  <div class="flex flex-col gap-3 items-start w-[336px]">
+    <!-- Section Heading -->
+    <div class="flex items-center justify-center px-5 py-0 w-full">
+      <p
+        class="basis-0 font-semibold grow leading-5 min-h-px min-w-px text-gray-600 text-sm"
+      >
+        {{ menuSection().title | transloco }}
+      </p>
+    </div>
+
+    <!-- Menu Items -->
+    <div class="flex flex-col gap-0 items-start w-full">
+      @for (item of menuSection().items; track item.id) {
+        <div
+          class="flex gap-4 items-center justify-center px-5 py-6 w-full border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition-colors"
+          [class.bg-bg-primary-50]="item.active"
+          (click)="handleItemClick(item)"
+        >
+          <!-- Icon -->
+          <div
+            class="flex items-center justify-center p-2.5 rounded-full"
+            [class.bg-primary-25]="item.active"
+            [class.bg-bg-primary-50]="!item.active"
+          >
+            <i [class]="item.icon + ' text-green-700 text-xl'"></i>
+          </div>
+
+          <!-- Text Content -->
+          <div class="basis-0 flex flex-col grow min-h-px min-w-px">
+            <div class="flex h-6 items-center justify-end w-[189px]">
+              <p
+                class="basis-0 font-bold grow leading-5 min-h-px min-w-px text-gray-900 text-sm text-right"
+              >
+                {{ item.title | transloco }}
+              </p>
+            </div>
+            <p class="font-normal leading-[18px] text-gray-700 text-xs text-right w-[189px]">
+              {{ item.description | transloco }}
+            </p>
+          </div>
+
+          <!-- Arrow Icon -->
+          <div class="shrink-0 size-5">
+            <i class="pi pi-chevron-left text-gray-600"></i>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
