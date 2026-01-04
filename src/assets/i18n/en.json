@@ -380,5 +380,34 @@
     "addedSuccess": "Added to watchlist successfully",
     "removedSuccess": "Removed from watchlist successfully",
     "toggleError": "Failed to toggle watchlist"
+  },
+  "chat": {
+    "title": "Chat",
+    "loading": "Loading messages...",
+    "empty": "No messages yet",
+    "emptySubtitle": "Start the conversation by sending a message",
+    "emptyConversations": "No conversations",
+    "selectConversation": "Select a conversation to start",
+    "online": "Online",
+    "offline": "Offline",
+    "typeMessage": "Type your message here...",
+    "send": "Send",
+    "sending": "Sending...",
+    "error": "Failed to load chat data. Please try again.",
+    "sendError": "Failed to send message. Please try again.",
+    "retry": "Retry",
+    "back": "Back",
+    "now": "Now",
+    "minutesAgo": "{{value}} minutes ago",
+    "hoursAgo": "{{value}} hours ago",
+    "daysAgo": "{{value}} days ago",
+    "noSearchResults": "No search results",
+    "filters": {
+      "all": "All",
+      "unread": "Unread",
+      "today": "Today",
+      "unreadCount": "Unread ({{count}})",
+      "allChats": "All Chats"
+    }
   }
 }

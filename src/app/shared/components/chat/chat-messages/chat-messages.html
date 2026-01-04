@@ -1,0 +1,141 @@
+<div class="flex flex-col h-full bg-neutral-50 rounded-lg overflow-hidden shadow-lg">
+  @if (conversation()) {
+  <!-- Messages Container -->
+  <div id="messages-container" class="flex-1 overflow-y-auto px-5 pt-8 pb-0 flex flex-col gap-2.5">
+    @if (isLoading()) {
+    <div class="flex items-center justify-center h-full">
+      <div class="flex flex-col items-center gap-2">
+        <div
+          class="w-8 h-8 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"
+        ></div>
+        <p class="text-sm text-gray-500">{{ 'chat.loading' | transloco }}</p>
+      </div>
+    </div>
+    } @else if (messages().length === 0) {
+    <div class="flex items-center justify-center h-full">
+      <div class="flex flex-col items-center gap-2 text-center">
+        <img alt="empty chat" src="images/icons/buble-chat.svg" class="w-16 h-16 opacity-50" />
+        <p class="text-sm text-gray-500">{{ 'chat.empty' | transloco }}</p>
+        <p class="text-xs text-gray-400">{{ 'chat.emptySubtitle' | transloco }}</p>
+      </div>
+    </div>
+    } @else {
+    <!-- Date Divider -->
+    <div>
+      <div class="flex items-center gap-1.5 mb-8 w-full">
+        <img alt="empty chat" src="images/icons/buble-chat.svg" class="w-14 h-14 opacity-50" />
+
+        <div class="flex flex-col gap-1">
+          <p class="text-display font-bold">فيونست</p>
+          <p class="text-neutral-700 text-sm font-medium">+96600000000</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-1.5 w-full">
+        <div class="flex-1 h-px bg-gray-300"></div>
+        <div class="flex items-center justify-center px-3 h-8 border border-gray-300 rounded-full">
+          <span class="text-base font-normal leading-6 text-gray-900">{{
+            'chat.filters.today' | transloco
+          }}</span>
+        </div>
+        <div class="flex-1 h-px bg-gray-300"></div>
+      </div>
+
+      <!-- Message Group -->
+      <div class="flex flex-col gap-2.5 w-full">
+        @for (message of messages(); track message.id) {
+        <!-- Message Container -->
+        <div
+          class="flex flex-col w-full"
+          [class.items-start]="message.isOwnMessage"
+          [class.items-end]="!message.isOwnMessage"
+          [class.gap-1.5]="message.isOwnMessage"
+        >
+          <!-- Message Bubble -->
+          <div
+            class="px-4 py-3 max-w-[80%]"
+            [class.bg-[#14573A]]="message.isOwnMessage"
+            [class.text-white]="message.isOwnMessage"
+            [class.rounded-tl-3xl]="message.isOwnMessage"
+            [class.rounded-bl-3xl]="message.isOwnMessage"
+            [class.rounded-tr-2xl]="message.isOwnMessage"
+            [class.bg-white]="!message.isOwnMessage"
+            [class.text-gray-900]="!message.isOwnMessage"
+            [class.border]="!message.isOwnMessage"
+            [class.border-gray-300]="!message.isOwnMessage"
+            [class.rounded-tr-3xl]="!message.isOwnMessage"
+            [class.rounded-br-3xl]="!message.isOwnMessage"
+            [class.rounded-tl-2xl]="!message.isOwnMessage"
+          >
+            <p class="text-base font-normal leading-6 text-right whitespace-pre-wrap">
+              {{ message.content }}
+            </p>
+          </div>
+
+          <!-- Timestamp with checkmark (only for sent messages) -->
+          @if (message.isOwnMessage) {
+          <div class="flex items-start gap-1 w-full">
+            <span class="text-xs font-normal leading-[18px] text-gray-900 text-right">
+              {{ formatMessageTime(message.timestamp) }}
+            </span>
+            <img src="images/icons/msg-seen-check.svg" alt="seen" class="w-4 h-4" />
+          </div>
+          }
+        </div>
+        }
+      </div>
+    </div>
+    }
+  </div>
+
+  <!-- Input Area -->
+  <div class="border-t border-gray-300 px-5 pt-5 pb-5">
+    <div class="flex gap-2 items-end w-full">
+      <!-- Attachment Button -->
+      <button
+        class="flex items-center justify-center w-10 h-10 bg-white border border-gray-300 rounded-full hover:bg-gray-50 transition-colors"
+      >
+        <img src="images/icons/attachment.svg" alt="attach" class="w-4.5 h-4.5" />
+      </button>
+      <!-- Text Input with Send Button -->
+      <div
+        class="flex-1 flex items-center bg-white border border-gray-400 rounded-full h-10 overflow-hidden"
+      >
+        <!-- Input Field -->
+        <input
+          type="text"
+          [(ngModel)]="messageText"
+          [placeholder]="'chat.typeMessage' | transloco"
+          (keydown)="onKeyDown($event)"
+          class="flex-1 h-full px-4 pr-4 text-base font-normal leading-6 text-gray-900 placeholder-gray-400 bg-transparent border-0 outline-none text-right"
+        />
+
+        <!-- Send Button (inside input, no rounded corners) -->
+        <button
+          (click)="sendMessage()"
+          [disabled]="!messageText().trim() || isSending()"
+          class="flex items-center gap-1 px-4 py-0.5 h-full bg-[#166A45] hover:bg-[#14573A] disabled:opacity-50 disabled:cursor-not-allowed transition-colors shrink-0"
+        >
+          <div class="flex items-center justify-center px-2 py-0.5 h-10 w-[29px]">
+            <img src="images/icons/square-arrow-left.svg" alt="send" class="w-6 h-6 -rotate-45" />
+          </div>
+          <span class="text-base font-normal leading-6 text-white whitespace-nowrap">
+            {{ 'chat.send' | transloco }}
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+  } @else {
+  <!-- No Conversation Selected -->
+  <div class="flex items-center justify-center h-full">
+    <div class="flex flex-col items-center gap-2 text-center">
+      <img
+        alt="select conversation"
+        src="images/icons/buble-chat.svg"
+        class="w-16 h-16 opacity-50"
+      />
+      <p class="text-sm text-gray-500">{{ 'chat.selectConversation' | transloco }}</p>
+    </div>
+  </div>
+  }
+</div>

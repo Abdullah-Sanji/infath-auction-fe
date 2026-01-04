@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { AuctionDetailsService } from './services/auction-details.service';
 import { Breadcrumb, BreadcrumbItem } from '@shared/components/ui/breadcrumb/breadcrumb';
@@ -30,6 +31,8 @@ import { InputText } from '@shared/components/ui/input-text/input-text';
   styleUrl: './auction-details.scss',
 })
 export class AuctionDetails {
+  private router = inject(Router);
+
   // Gallery images (4 images for the 2x2 grid)
   galleryImages = signal<string[]>([
     'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop',
@@ -221,5 +224,17 @@ export class AuctionDetails {
   selectQuickBidAmount(amount: number): void {
     this.selectedQuickBidAmount.set(amount);
     this.bidAmount.set(amount);
+  }
+
+  navigateToChat(): void {
+    const auctionId = this.auctionDetails().id;
+    const sellerId = this.auctionDetails().sellerReview.sellerName;
+    // Navigate to chat and it will create/select conversation based on seller
+    this.router.navigate(['/chat'], {
+      queryParams: {
+        sellerId: sellerId,
+        conversationId: `conv-${auctionId}-${sellerId}`
+      }
+    });
   }
 }

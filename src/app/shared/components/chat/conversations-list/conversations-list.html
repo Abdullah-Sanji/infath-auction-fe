@@ -1,0 +1,140 @@
+<div class="w-[456px] h-full bg-white border rounded-lg border-gray-200 flex flex-col">
+  <!-- Header Section -->
+  <div class="flex flex-col gap-4 px-5 pt-5 pb-0">
+    <!-- Title Row -->
+    <div class="flex items-center justify-center gap-2.5 w-full">
+      <!-- Search Icon Button -->
+      <button
+        class="flex items-center justify-center p-1.5 bg-gray-100 rounded-2xl shrink-0 w-8 h-8"
+      >
+        <img src="images/icons/search.svg" alt="search" class="w-5 h-5" />
+      </button>
+
+      <!-- Title -->
+      <h1 class="flex-1 text-xl font-bold text-gray-900 text-right leading-[30px]">
+        {{ 'nav.myChats' | transloco }}
+      </h1>
+    </div>
+
+    <!-- Filter Chips Section -->
+    <div class="flex flex-col gap-4 px-4 py-2 rounded-2xl">
+      <div class="flex items-center justify-end gap-1.5 w-full">
+        <!-- Sort Icon Chip -->
+        <button
+          class="flex items-center justify-center gap-1 px-3 py-0 h-8 border border-gray-300 rounded-full shrink-0 hover:bg-gray-50 transition-colors"
+        >
+          <img src="images/icons/accordianArrow.svg" alt="sort" class="w-4.5 h-4.5" />
+        </button>
+
+        <!-- Today Chip -->
+        <button
+          class="flex items-center justify-center gap-1 px-3 py-0 h-8 border border-gray-300 rounded-full hover:bg-gray-50 transition-colors"
+        >
+          <span class="text-base font-normal leading-6 text-gray-900">{{
+            'chat.filters.today' | transloco
+          }}</span>
+        </button>
+
+        <!-- Unread Chip -->
+        <button
+          class="flex items-center justify-center gap-1 px-3 py-0 h-8 border border-gray-300 rounded-full hover:bg-gray-50 transition-colors"
+        >
+          <span class="text-base font-normal leading-6 text-gray-900">{{
+            'chat.filters.unreadCount' | transloco : { count: unreadCount() }
+          }}</span>
+        </button>
+
+        <!-- All Chats Chip (Selected State) -->
+        <button
+          class="flex items-center justify-center gap-1 px-3 py-0 h-8 bg-[#F3FCF6] border border-[#B8EACB] rounded-full"
+        >
+          <span class="text-base font-bold leading-6 text-button-primary">{{
+            'chat.filters.allChats' | transloco
+          }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conversations List -->
+  <div class="flex-1 overflow-y-auto">
+    @if (isLoading()) {
+    <div class="flex items-center justify-center h-full">
+      <div class="flex flex-col items-center gap-2">
+        <div
+          class="w-8 h-8 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"
+        ></div>
+        <p class="text-sm text-gray-500">{{ 'chat.loading' | transloco }}</p>
+      </div>
+    </div>
+    } @else if (filteredConversations().length === 0) {
+    <div class="flex items-center justify-center h-full">
+      <div class="flex flex-col items-center gap-2 text-center p-4">
+        <img
+          alt="empty conversations"
+          src="images/icons/buble-chat.svg"
+          class="w-16 h-16 opacity-50"
+        />
+        <p class="text-sm text-gray-500">{{ 'chat.emptyConversations' | transloco }}</p>
+      </div>
+    </div>
+    } @else { @for (conversation of filteredConversations(); track conversation.id; let index =
+    $index) {
+    <!-- Conversation Card -->
+    <button
+      (click)="onConversationClick(conversation.id)"
+      class="w-full flex flex-col gap-6 items-start px-5 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors"
+      [class.bg-gray-50]="index % 2 === 0"
+      [class.bg-white]="index % 2 !== 0"
+      [class.ring-2]="selectedConversationId() === conversation.id"
+      [class.ring-blue-500]="selectedConversationId() === conversation.id"
+    >
+      <div class="flex gap-2 items-start justify-end w-full">
+        <!-- Content Section -->
+        <div class="flex-1 flex gap-2 items-start min-w-0">
+          <!-- Unread Badge -->
+          @if (conversation.unreadCount > 0) {
+          <div
+            class="flex items-center justify-center px-2 py-0 h-5 bg-[#4D5761] rounded-full shrink-0"
+          >
+            <span class="text-[10px] font-medium leading-[14px] text-white">{{
+              conversation.unreadCount
+            }}</span>
+          </div>
+          }
+
+          <!-- Text Content -->
+          <div class="flex-1 flex flex-col gap-2 items-start min-w-0 text-gray-900">
+            <!-- First Row: Date and Name -->
+            <div class="flex gap-2 items-start w-full">
+              <p class="flex-1 text-sm font-normal leading-5 min-w-0">
+                {{ formatConversationDate(conversation.updatedAt) }}
+              </p>
+              <p class="text-base font-semibold leading-6 text-right whitespace-nowrap">
+                {{ conversation.participant.name }}
+              </p>
+            </div>
+
+            <!-- Second Row: Auction Title -->
+            @if (conversation.lastMessage) {
+            <p class="text-xs font-normal leading-[18px] text-right w-full">
+              {{ conversation.lastMessage.content }}
+            </p>
+            }
+          </div>
+        </div>
+
+        <!-- Avatar -->
+        <div class="relative shrink-0 w-12 h-12">
+          <img
+            [alt]="conversation.participant.name"
+            [src]="conversation.participant.image"
+            class="w-full h-full rounded-full object-cover border-2 border-white"
+          />
+        </div>
+      </div>
+    </button>
+    } }
+  </div>
+</div>
+

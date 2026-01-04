@@ -14,6 +14,10 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Server  // Dynamic, render on each request
   },
   {
+    path: 'chat',
+    renderMode: RenderMode.Server  // Dynamic, render on each request
+  },
+  {
     path: 'privacy-policy',
     renderMode: RenderMode.Client  // Dynamic, render on each request
   },

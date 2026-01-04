@@ -1,0 +1,18 @@
+<div class="flex h-screen w-full bg-neutral-25 px-16 py-6">
+  <!-- Right Side: Conversations List -->
+  <app-conversations-list
+    [conversations]="conversations()"
+    [selectedConversationId]="conversationId()"
+    [isLoading]="isLoadingConversations()"
+    (conversationSelected)="onConversationSelected($event)"
+  ></app-conversations-list>
+
+  <!-- Left Side: Chat Messages -->
+  <app-chat-messages
+    class="flex-2 ms-4"
+    [conversation]="selectedConversation()"
+    [messages]="messages()"
+    [isLoading]="isLoadingMessages()"
+    (messageSent)="onMessageSent($event)"
+  ></app-chat-messages>
+</div>

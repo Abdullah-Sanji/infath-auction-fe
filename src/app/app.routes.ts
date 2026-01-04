@@ -35,6 +35,10 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'chat',
+    loadComponent: () => import('./pages/chat/chat').then((m) => m.Chat),
+  },
+  {
     path: 'terms-and-conditions',
     loadComponent: () => import('./pages/terms/terms').then((m) => m.TermsAndConditionsComponent),
   },

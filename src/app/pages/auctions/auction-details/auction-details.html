@@ -579,7 +579,7 @@
         <div class="flex items-start gap-5">
           <!-- Go to Seller Page Button -->
           <button
-            class="flex items-center justify-center gap-1 h-10 max-h-10 min-h-10 px-4 rounded bg-gray-100 overflow-hidden hover:bg-gray-200 transition-colors"
+            class="flex items-center justify-center gap-1 h-10 max-h-10 min-h-10 px-4 rounded bg-gray-100 overflow-hidden hover:bg-gray-200 transition-colors cursor-pointer"
           >
             <p class="text-base font-medium leading-6 text-gray-900 whitespace-nowrap">
               {{ 'auctionDetails.goToSellerPage' | transloco }}
@@ -589,7 +589,8 @@
 
           <!-- Contact Seller Button -->
           <button
-            class="flex items-center justify-center gap-1 h-10 max-h-10 min-h-10 px-4 rounded bg-gray-100 overflow-hidden hover:bg-gray-200 transition-colors"
+            class="flex items-center justify-center gap-1 h-10 max-h-10 min-h-10 px-4 rounded bg-gray-100 overflow-hidden hover:bg-gray-200 transition-colors cursor-pointer"
+            (click)="navigateToChat()"
           >
             <p class="text-base font-medium leading-6 text-gray-900 whitespace-nowrap">
               {{ 'auctionDetails.contactSeller' | transloco }}
