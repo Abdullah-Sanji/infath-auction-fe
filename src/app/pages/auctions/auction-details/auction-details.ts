@@ -39,6 +39,7 @@ import { catchError, map, of } from 'rxjs';
 export class AuctionDetails implements OnInit {
   private platformId = inject(PLATFORM_ID);
   private httpClient = inject(HttpClient);
+  private router = inject(Router);
   isBrowser = isPlatformBrowser(this.platformId);
 
   // Google Maps API loaded state
