@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { provideRouter } from '@angular/router';
-import { provideZonelessChangeDetection } from '@angular/core';
+import { provideZonelessChangeDetection, PLATFORM_ID } from '@angular/core';
 import { Header } from './header';
 import { AuthService } from '../../../core/services/auth.service';
 import { UserProfile } from '@shared/models/auth.models';
@@ -270,6 +270,96 @@ describe('Header', () => {
     expect(headerContent).toBeTruthy();
     expect(actions).toBeTruthy();
     expect(menuGrow).toBeTruthy();
+  });
+
+  describe('Scroll behavior', () => {
+    beforeEach(() => {
+      // Mock window.scrollY
+      Object.defineProperty(window, 'scrollY', {
+        writable: true,
+        value: 0
+      });
+    });
+
+    it('should show header initially', () => {
+      expect(component.isHeaderVisible()).toBe(true);
+    });
+
+    it('should show header when at top of page (scrollY = 0)', () => {
+      Object.defineProperty(window, 'scrollY', { writable: true, value: 0 });
+      component.onWindowScroll();
+      expect(component.isHeaderVisible()).toBe(true);
+    });
+
+    it('should hide header when scrolling down past 100px', () => {
+      // Simulate scrolling down
+      Object.defineProperty(window, 'scrollY', { writable: true, value: 50 });
+      component.onWindowScroll();
+      expect(component.isHeaderVisible()).toBe(true);
+
+      Object.defineProperty(window, 'scrollY', { writable: true, value: 150 });
+      component.onWindowScroll();
+      expect(component.isHeaderVisible()).toBe(false);
+    });
+
+    it('should show header when scrolling up', () => {
+      // First scroll down to hide
+      Object.defineProperty(window, 'scrollY', { writable: true, value: 200 });
+      component.onWindowScroll();
+      expect(component.isHeaderVisible()).toBe(false);
+
+      // Then scroll up
+      Object.defineProperty(window, 'scrollY', { writable: true, value: 150 });
+      component.onWindowScroll();
+      expect(component.isHeaderVisible()).toBe(true);
+    });
+
+    it('should not hide header when scrolling down but less than 100px', () => {
+      Object.defineProperty(window, 'scrollY', { writable: true, value: 50 });
+      component.onWindowScroll();
+      expect(component.isHeaderVisible()).toBe(true);
+    });
+
+    it('should apply translate-y-full class when header is hidden', () => {
+      component.isHeaderVisible.set(false);
+      fixture.detectChanges();
+
+      const compiled = fixture.nativeElement;
+      const header = compiled.querySelector('header');
+      expect(header.classList.contains('-translate-y-full')).toBe(true);
+    });
+
+    it('should not apply translate-y-full class when header is visible', () => {
+      component.isHeaderVisible.set(true);
+      fixture.detectChanges();
+
+      const compiled = fixture.nativeElement;
+      const header = compiled.querySelector('header');
+      expect(header.classList.contains('-translate-y-full')).toBe(false);
+    });
+
+    it('should not execute scroll logic on server platform', () => {
+      // Create component with server platform ID
+      const serverPlatformId = 'server';
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        imports: [Header],
+        providers: [
+          provideZonelessChangeDetection(),
+          provideRouter([]),
+          AuthService,
+          { provide: PLATFORM_ID, useValue: serverPlatformId }
+        ]
+      });
+
+      const serverFixture = TestBed.createComponent(Header);
+      const serverComponent = serverFixture.componentInstance;
+      
+      // Should not throw error and should not change visibility
+      const initialVisibility = serverComponent.isHeaderVisible();
+      serverComponent.onWindowScroll();
+      expect(serverComponent.isHeaderVisible()).toBe(initialVisibility);
+    });
   });
 });
 

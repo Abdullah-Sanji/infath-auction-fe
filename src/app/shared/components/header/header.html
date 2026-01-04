@@ -1,5 +1,6 @@
 <header
-  class="bg-white px-4 md:px-16 py-0 flex flex-col items-center justify-center relative w-full"
+  class="bg-white px-4 md:px-16 py-0 flex flex-col items-center justify-center w-full sticky top-0 z-50 transition-transform duration-500 ease-in-out"
+  [class.-translate-y-full]="!isHeaderVisible()"
 >
   <div
     class="flex items-center justify-between w-full min-h-[72px] relative flex-wrap md:flex-nowrap gap-2 md:gap-0 py-2 md:py-0"
@@ -69,11 +70,12 @@
       </nav>
     </div>
     <div class="flex items-center gap-1 flex-1 md:flex-none justify-end">
-      @if (isAuthenticated()) {
+      @if (!isAuthenticated()) {
       <button
-        class="flex items-center justify-center h-[72px] px-1.5 md:px-4 py-2 bg-transparent border-none rounded-sm cursor-pointer text-base font-medium leading-6 text-black transition-colors hover:bg-black/5 min-w-12 md:min-w-0"
+        class="flex items-center justify-center h-[72px] px-1.5 md:px-4 py-2 gap-3 bg-transparent border-none rounded-sm cursor-pointer text-base font-medium leading-6 text-black transition-colors hover:bg-black/5 min-w-12 md:min-w-0"
         (click)="login()"
       >
+        <img src="images/icons/login.svg" alt="Login" class="" />
         <span class="hidden md:inline">{{ 'nav.login' | transloco }}</span>
       </button>
       } @else {

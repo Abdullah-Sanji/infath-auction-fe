@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/api',
+  apiUrl: 'https://qa-infath-mocks.azm-dev.com',
   clientUrl: 'https://localhost:4200',
   notificationDuration: 10000,
   keycloak: {
@@ -19,5 +19,8 @@ export const environment = {
   },
   gtm: {
     id: 'GTM-XXXXXXX' // Replace with your GTM container ID for development
+  },
+  googleMaps: {
+    apiKey: 'YOUR_GOOGLE_MAPS_API_KEY' // Replace with your Google Maps API key
   }
 };

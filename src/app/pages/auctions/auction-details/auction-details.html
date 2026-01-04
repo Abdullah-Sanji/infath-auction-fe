@@ -7,7 +7,7 @@
     <div class="h-[386px] relative rounded-br-xl rounded-tr-xl shrink-0 w-2/3">
       <img
         alt="Auction property main image"
-        class="absolute inset-0 max-w-none object-center object-cover pointer-events-none rounded-br-xl rounded-tr-xl w-full h-full"
+        class="absolute inset-0 object-center object-cover pointer-events-none rounded-br-xl rounded-tr-xl w-full h-full"
         [src]="mainImage()"
       />
     </div>
@@ -481,13 +481,26 @@
         </button>
       </div>
 
-      <!-- Property Image Section (Empty for now as requested) -->
-      <div
-        class="flex flex-col justify-end gap-2.5 h-[386px] p-6 w-full rounded-lg relative bg-gray-200 my-4"
-      >
-        <div class="absolute inset-0 flex items-center justify-center text-gray-500">
-          <p class="text-lg">{{ 'auctionDetails.mapPlaceholder' | transloco }}</p>
-        </div>
+      <!-- Google Map Section -->
+      <div class="h-[386px] w-full rounded-lg overflow-hidden my-4 border border-gray-200">
+        @if (isBrowser && apiLoaded()) {
+          <google-map
+            [center]="mapCenter()"
+            [zoom]="mapZoom()"
+            [options]="mapOptions()"
+            width="100%"
+            height="100%"
+          >
+            <map-marker
+              [position]="markerPosition()"
+              [options]="markerOptions()"
+            />
+          </google-map>
+        } @else {
+          <div class="flex items-center justify-center h-full bg-gray-200">
+            <p class="text-lg text-gray-500">{{ 'auctionDetails.mapPlaceholder' | transloco }} {{apiLoaded()}}</p>
+          </div>
+        }
       </div>
 
       <!-- Seller Review Card -->
@@ -625,7 +638,7 @@
             <p
               class="text-base font-medium leading-6 text-center whitespace-nowrap text-neutral-800"
             >
-              {{ amount.toLocaleString('ar-SA') }} {{ 'auctionDetails.currency' | transloco }}
+              {{ amount.toLocaleString() }} {{ 'auctionDetails.currency' | transloco }}
             </p>
           </button>
           }
@@ -652,6 +665,88 @@
             <img alt="wallet" src="images/icons/bid-white.svg" class="w-5 h-5" />
             <span class="font-medium ml-1">{{ 'auctionDetails.bid' | transloco }}</span>
           </lib-button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-md p-4 flex flex-col gap-4">
+        <p class="text-lg font-bold text-gray-800 leading-7 text-right">{{ 'auctionDetails.auctionInfo' | transloco }}</p>
+
+        <div class="flex flex-col gap-1.5 w-full">
+          <!-- Opening Price -->
+          <div class="flex gap-2 items-center justify-end w-full">
+            <div class="flex-1 flex gap-0 min-h-px min-w-px">
+              <p class="font-medium text-gray-800 leading-6 text-nowrap">{{ 'auctionDetails.openingPrice' | transloco }}</p>
+            </div>
+            <div class="flex">
+              <div class="flex gap-2 items-center p-0">
+                <p class="text-lg font-medium text-gray-800 leading-7 text-nowrap text-right">
+                  {{ auctionDetails().auctionCard.openingPrice.toLocaleString() }}
+                </p>
+                <!-- Currency Symbol -->
+                <img alt="riyal" src="images/icons/black-riyal.svg" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Entry Amount -->
+          <div class="flex gap-2 items-center w-full">
+            <div class="flex-1 flex gap-0 min-h-px min-w-px">
+              <p class="text-base font-medium text-gray-800 leading-6 text-nowrap">{{ 'auctionDetails.entryAmount' | transloco }}</p>
+            </div>
+            <div class="flex">
+              <div class="flex gap-2 items-center p-0">
+                <!-- Currency Symbol -->
+                <p class="text-lg font-medium text-gray-800 leading-7 text-nowrap">
+                  {{ auctionDetails().auctionCard.entryAmount.toLocaleString() }}
+                </p>
+                <img alt="riyal" src="images/icons/black-riyal.svg" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Highest Price -->
+          <div class="flex gap-2 items-center w-full">
+            <div class="flex-1 flex gap-0 min-h-px min-w-px">
+              <p class="font-medium text-gray-800 leading-6 text-nowrap">{{ 'auctionDetails.highestPrice' | transloco }}</p>
+            </div>
+            <div class="flex">
+              <div class="flex gap-2 items-center p-0">
+                <p class="text-lg font-medium text-gray-800 leading-7 text-nowrap">
+                  {{ auctionDetails().auctionCard.highestPrice.toLocaleString() }}
+                </p>
+                <!-- Currency Symbol -->
+                <img alt="riyal" src="images/icons/black-riyal.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deposit Section -->
+        <div class="border-t border-gray-200 flex flex-col gap-2 pt-2 w-full">
+          <div class="flex flex-col gap-0 w-full">
+            <div class="flex items-center justify-between w-full">
+              <p class="font-bold leading-6 text-gray-800 text-right w-[200px]">{{ 'auctionDetails.depositAmount' | transloco }}</p>
+              <div class="flex gap-2 items-center">
+                <p class="text-xl font-bold text-button-primary leading-[30px] text-nowrap">
+                  {{ auctionDetails().auctionCard.depositAmount.toLocaleString() }}
+                </p>
+                <!-- Currency Symbol (Green) -->
+                <img alt="riyal" src="images/icons/green-riyal.svg" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Pay Deposit Button -->
+          <button
+            class="bg-button-primary flex gap-1 h-10 items-center justify-center px-4 rounded overflow-hidden hover:bg-emerald-800 transition-colors w-full"
+          >
+            <!-- Wallet Icon -->
+            <img alt="riyal" src="images/icons/wallet.svg" />
+
+            <div class="flex items-center justify-center">
+              <p class="text-base font-medium text-white leading-6 text-nowrap">{{ 'auctionDetails.payDeposit' | transloco }}</p>
+            </div>
+          </button>
         </div>
       </div>
 
@@ -735,7 +830,7 @@
           <div class="flex">
             <div class="flex gap-2 p-0">
               <p class="font-bold leading-6 text-button-primary text-nowrap">
-                {{ auctionDetails().auctionCard.currentHighestBid.toLocaleString('ar-SA') }}
+                {{ auctionDetails().auctionCard.currentHighestBid.toLocaleString() }}
               </p>
               <!-- Currency Symbol (Green) -->
               <img alt="riyal" class="w-4 h-4" src="images/icons/green-riyal.svg" />
@@ -776,8 +871,8 @@
           <div class="flex-1 flex flex-row items-center">
             <div class="flex-1 flex flex-col gap-0 h-full min-h-px min-w-px">
               <div class="flex gap-2 items-center">
-                <p class="text-xl font-bold text-gray-800 leading-[30px] text-nowrap">
-                  {{ bid.amount.toLocaleString('ar-SA') }}
+                <p class="text-xl font-bold text-gray-800 leading-paragraph-display-sm text-nowrap">
+                  {{ bid.amount.toLocaleString() }}
                 </p>
                 <!-- Currency Symbol -->
                 <img alt="riyal" class="w-5 h-5" src="images/icons/black-riyal.svg" />
@@ -806,8 +901,8 @@
           <div class="flex-1 flex flex-row items-center">
             <div class="flex-1 flex flex-col gap-0 h-full min-h-px min-w-px">
               <div class="flex gap-2 items-center">
-                <p class="text-xl font-bold text-gray-800 leading-[30px] text-nowrap">
-                  {{ bid.amount.toLocaleString('ar-SA') }}
+                <p class="text-xl font-bold text-gray-800 leading-paragraph-display-sm text-nowrap">
+                  {{ bid.amount.toLocaleString() }}
                 </p>
                 <!-- Currency Symbol -->
                 <img alt="riyal" class="w-5 h-5" src="images/icons/black-riyal.svg" />

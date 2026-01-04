@@ -1,0 +1,92 @@
+<div
+  class="bg-white border border-neutral-300 rounded-[20px] overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-300 flex flex-col h-full"
+  (click)="handleCardClick()"
+>
+  <!-- Auction Image Section -->
+  <div class="relative rounded-[13px] m-5 overflow-hidden">
+    <img
+      [src]="auction().primaryImageUrl"
+      [alt]="auction().title"
+      class="w-full h-[200px] object-cover rounded-[13px]"
+    />
+
+    <!-- Top Tags Overlay -->
+    <div class="absolute top-3 left-3 right-3 flex items-start justify-between">
+      <!-- Live Status Tag -->
+      <div class="bg-bg-tag-success px-[13px] py-[2px] rounded-full" [class.opacity-0]="!isLive()">
+        @if (isLive()) {
+        <p class="text-white text-[13px] font-medium leading-[20px] text-nowrap">مباشر الآن</p>
+        }
+      </div>
+
+      <!-- Menu Button -->
+      <button
+        class="bg-neutral-100 hover:bg-neutral-200 rounded-[3px] p-2 w-[33px] h-[33px] flex items-center justify-center transition-colors"
+        (click)="handleFavoriteClick($event)"
+        type="button"
+        aria-label="Add to favorites"
+      >
+        <img src="images/icons/heart.svg" alt="Favorite" class="w-6 h-6" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Auction Details Section -->
+  <div class="flex flex-col gap-[10px] px-5 pb-5 grow">
+    <!-- Auction Title -->
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center">
+        <p
+          class="text-xl font-semibold leading-[23px] text-neutral-900 text-right line-clamp-1"
+        >
+          {{ auction().title }}
+        </p>
+      </div>
+
+      <!-- Time Remaining Tag -->
+      @if (timeRemaining()) {
+      <div
+        class="bg-neutral-50 border border-neutral-200 px-[10px] py-[5px] rounded-full flex items-center justify-center gap-[3px]"
+      >
+        <img src="images/icons/clock-black.svg" alt="Clock" class="w-paragraph-text-lg h-paragraph-text-lg" />
+        <p class="text-sm font-medium leading-[20px] text-neutral-900 text-center text-nowrap">
+          {{ timeRemaining() }}
+        </p>
+      </div>
+      }
+    </div>
+
+    <!-- Divider -->
+    <div class="h-px bg-neutral-300 w-full"></div>
+
+    <!-- Bottom Info Row -->
+    <div class="flex items-center justify-between gap-[3px] px-[5px] py-[3px]">
+      <!-- Highest Bid Details -->
+      <div class="flex items-center gap-[5px] grow">
+        <p class="text-sm font-regular leading-[20px] text-neutral-500 text-right">أعلى سعر</p>
+        <div class="flex items-center gap-[7px]">
+          <p
+            class="text-sm font-regular leading-[20px] text-primary-600 text-nowrap text-right"
+          >
+            {{ formatCurrency(auction().highestCurrentBid) }}
+          </p>
+          <img src="images/icons/green-riyal.svg" alt="Currency" class="w-[11px] h-[11px]" />
+        </div>
+      </div>
+
+      <!-- Participants Count -->
+      @if (auction().totalBids !== undefined) {
+      <div class="flex items-center justify-center gap-[3px] px-[5px] py-[3px]">
+        <img src="images/icons/group-people.svg" alt="Participants" class="w-[16px] h-[16px]" />
+        <div class="flex items-center gap-[7px]">
+          <p
+            class="text-sm font-regular leading-[20px] text-black text-nowrap text-right"
+          >
+            {{ auction().totalBids }}
+          </p>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>

@@ -1,2 +1,9 @@
 // Header component styles - using Tailwind classes in template
 // Minimal SCSS file for any PrimeNG theme overrides if needed
+
+// Smooth scroll hide/show animation
+header {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}

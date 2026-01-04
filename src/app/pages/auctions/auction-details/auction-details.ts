@@ -1,8 +1,10 @@
-import { Component, signal, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, signal, inject, PLATFORM_ID, OnInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { GoogleMap, MapMarker } from '@angular/google-maps';
+import { HttpClient } from '@angular/common/http';
 import { AuctionDetailsService } from './services/auction-details.service';
 import { Breadcrumb, BreadcrumbItem } from '@shared/components/ui/breadcrumb/breadcrumb';
 import { Button } from '@shared/components/ui/button/button';
@@ -15,6 +17,8 @@ import {
   BidHistoryItem
 } from './interfaces/auction-details.interface';
 import { InputText } from '@shared/components/ui/input-text/input-text';
+import { environment } from '@environments/environment';
+import { catchError, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-auction-details',
@@ -24,15 +28,55 @@ import { InputText } from '@shared/components/ui/input-text/input-text';
     Breadcrumb,
     Button,
     TranslocoPipe,
-    InputText
+    InputText,
+    GoogleMap,
+    MapMarker
   ],
   providers: [AuctionDetailsService],
   templateUrl: './auction-details.html',
   styleUrl: './auction-details.scss',
 })
-export class AuctionDetails {
-  private router = inject(Router);
+export class AuctionDetails implements OnInit {
+  private platformId = inject(PLATFORM_ID);
+  private httpClient = inject(HttpClient);
+  isBrowser = isPlatformBrowser(this.platformId);
 
+  // Google Maps API loaded state
+  apiLoaded = signal(false);
+
+  // Google Maps configuration
+  mapCenter = signal<google.maps.LatLngLiteral>({ lat: 24.7136, lng: 46.6753 }); // Riyadh coordinates
+  mapZoom = signal(15);
+  mapOptions = signal<google.maps.MapOptions>({
+    mapTypeId: 'roadmap',
+    zoomControl: true,
+    scrollwheel: true,
+    disableDoubleClickZoom: false,
+    maxZoom: 20,
+    minZoom: 8,
+  });
+  markerPosition = signal<google.maps.LatLngLiteral>({ lat: 24.7136, lng: 46.6753 });
+  markerOptions = signal<google.maps.MarkerOptions>({
+    draggable: false,
+  });
+
+  ngOnInit(): void {
+    if (this.isBrowser) {
+      // Load Google Maps API dynamically
+      this.httpClient
+        .jsonp(
+          `https://maps.googleapis.com/maps/api/js?key=${environment.googleMaps.apiKey}`,
+          'callback'
+        )
+        .pipe(
+          map(() => true),
+          catchError(() => of(false))
+        )
+        .subscribe((loaded) => {
+          this.apiLoaded.set(loaded);
+        });
+    }
+  }
   // Gallery images (4 images for the 2x2 grid)
   galleryImages = signal<string[]>([
     'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop',
@@ -162,13 +206,13 @@ export class AuctionDetails {
       },
       status: 'live',
       bidHistory: [
-        { amount: 987654321, timeAgo: 'منذ ٥ دقائق', isHighest: true },
-        { amount: 555666777, timeAgo: 'منذ ١٠ دقائق', isHighest: false },
-        { amount: 123456789, timeAgo: 'منذ ١٥ دقيقة', isHighest: false },
-        { amount: 333222111, timeAgo: 'منذ ٢٠ دقيقة', isHighest: false },
-        { amount: 444555666, timeAgo: 'منذ ٢٥ دقيقة', isHighest: false },
-        { amount: 777888999, timeAgo: 'منذ ٣٠ دقيقة', isHighest: false },
-        { amount: 246135790, timeAgo: 'منذ ٣٥ دقيقة', isHighest: false }
+        { amount: 987654321, timeAgo: 'منذ 5 دقائق', isHighest: true },
+        { amount: 555666777, timeAgo: 'منذ 10 دقائق', isHighest: false },
+        { amount: 123456789, timeAgo: 'منذ 15 دقيقة', isHighest: false },
+        { amount: 333222111, timeAgo: 'منذ 20 دقيقة', isHighest: false },
+        { amount: 444555666, timeAgo: 'منذ 25 دقيقة', isHighest: false },
+        { amount: 777888999, timeAgo: 'منذ 30 دقيقة', isHighest: false },
+        { amount: 246135790, timeAgo: 'منذ 35 دقيقة', isHighest: false }
       ]
     }
   });

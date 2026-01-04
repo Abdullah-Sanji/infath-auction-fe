@@ -43,6 +43,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/terms/terms').then((m) => m.TermsAndConditionsComponent),
   },
   {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login').then((m) => m.LoginComponent),
+  },
+  {
     path: '**',
     redirectTo: 'home',
   },

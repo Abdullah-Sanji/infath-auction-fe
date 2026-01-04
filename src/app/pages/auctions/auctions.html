@@ -1,29 +1,45 @@
-<div class="auctions-container">
-  <h1>Active Auctions</h1>
-  <p>Browse through our current auctions and place your bids</p>
+<div class="auctions-list flex flex-col gap-8">
+  <div class="bg-neutral-50 py-6 px-16">
+    <app-breadcrumb [items]="breadcrumbItems()" />
+  </div>
+  <div class="px-16">
+    <p class="text-2xl font-bold mb-6">مزادات العقارات</p>
+    <app-auctions-filter [data]="auctionsFilterData()" (onFilterChange)="onFilterChange($event)" />
+  </div>
 
-  <div class="auctions-grid">
-    @for (auction of auctions(); track auction.id) {
-      <div class="auction-card">
-        <div class="auction-image">
-          <img [src]="auction.imageUrl" [alt]="auction.title" />
-        </div>
-        <div class="auction-content">
-          <h3>{{ auction.title }}</h3>
-          <p class="description">{{ auction.description }}</p>
-          <div class="auction-details">
-            <div class="bid-info">
-              <span class="label">Current Bid:</span>
-              <span class="price">\${{ auction.currentBid }}</span>
-            </div>
-            <div class="end-date">
-              <span class="label">Ends:</span>
-              <span class="date">{{ auction.endDate.toLocaleDateString() }}</span>
-            </div>
-          </div>
-          <button class="bid-button">Place Bid</button>
-        </div>
+  <!-- Auction Listing -->
+  <div class="px-16 pb-8">
+    @if (isLoading()) {
+      <div class="flex justify-center items-center py-16">
+        <p-progressSpinner></p-progressSpinner>
+      </div>
+    }
+
+    @if (!isLoading() && !error()) {
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        @for (auction of auctions(); track auction.auctionId) {
+          <app-auction-card
+            [auction]="auction"
+            (onCardClick)="onAuctionClick($event)"
+            (onFavoriteClick)="onFavoriteClick($event)"
+          />
+        }
       </div>
     }
   </div>
+
+  <!-- Paginator -->
+  @if (!isLoading() && totalRecords() > 0) {
+    <div class="flex justify-center px-16 pb-16">
+      <lib-paginator
+        [totalRecords]="totalRecords()"
+        [rows]="rows()"
+        [first]="first()"
+        [showFirstLastIcon]="false"
+        [size]="'small'"
+        [rtl]="false"
+        (onPageChange)="onPageChange($event)"
+      />
+    </div>
+  }
 </div>

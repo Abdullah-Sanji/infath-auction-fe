@@ -19,5 +19,8 @@ export const environment = {
   },
   gtm: {
     id: 'GTM-XXXXXXX' // Replace with your GTM container ID for production
+  },
+  googleMaps: {
+    apiKey: 'YOUR_GOOGLE_MAPS_API_KEY' // Replace with your Google Maps API key
   }
 };

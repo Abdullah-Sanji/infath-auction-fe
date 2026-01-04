@@ -34,7 +34,8 @@
     "myOrders": "طلباتي",
     "myChats": "محادثاتي",
     "myAuctions": "مزاداتي",
-    "home": "الرئيسية"
+    "home": "الرئيسية",
+    "auctionsCompanies": "شركات المزادات"
   },
   "wallet": {
     "subtitle": "قم بإدارة رصيدك وطرق الدفع هنا.",

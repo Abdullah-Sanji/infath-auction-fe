@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -11,6 +11,7 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { provideTransloco } from '@jsverse/transloco';
 import { TranslocoHttpLoader } from './core/services/transloco-loader';
+import { AuthService } from '@core/services/auth.service';
 
 export const CustomAura = definePreset(Aura, {
   semantic: {
@@ -61,6 +62,10 @@ export const appConfig: ApplicationConfig = {
         }
       },
       loader: TranslocoHttpLoader
+    }),
+    provideAppInitializer(() => {
+      const authService = inject(AuthService);
+      return authService.init();
     }),
     MessageService
   ]

@@ -1,71 +1,140 @@
-import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-interface Auction {
-  id: number;
-  title: string;
-  description: string;
-  currentBid: number;
-  endDate: Date;
-  imageUrl: string;
-}
+import { Component, signal, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Breadcrumb, BreadcrumbItem } from '@shared/components/ui/breadcrumb/breadcrumb';
+import {
+  AuctionsFilter,
+  AuctionsFilterData,
+} from '@shared/components/pages/auctions-filter/auctions-filter';
+import { AuctionCard } from '@shared/components/pages/auction-card/auction-card';
+import { Paginator, PageState } from '@shared/components/ui/paginator/paginator';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { MessageModule } from 'primeng/message';
+import { AuctionsService } from './services/auctions';
+import { firstValueFrom } from 'rxjs';
+import { Auction } from './interfaces/auction.interface';
 
 @Component({
   selector: 'app-auctions',
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    Breadcrumb,
+    AuctionsFilter,
+    AuctionCard,
+    Paginator,
+    ProgressSpinnerModule,
+    MessageModule,
+  ],
   templateUrl: './auctions.html',
-  styleUrl: './auctions.scss'
+  styleUrl: './auctions.scss',
+  providers: [AuctionsService],
 })
 export class Auctions {
-  protected readonly auctions = signal<Auction[]>([
-    {
-      id: 1,
-      title: 'Vintage Watch Collection',
-      description: 'A stunning collection of vintage watches from the 1960s',
-      currentBid: 1250,
-      endDate: new Date(2025, 10, 30),
-      imageUrl: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=400&h=300&fit=crop'
-    },
-    {
-      id: 2,
-      title: 'Modern Art Painting',
-      description: 'Abstract expressionist painting by emerging artist',
-      currentBid: 850,
-      endDate: new Date(2025, 10, 28),
-      imageUrl: 'https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=400&h=300&fit=crop'
-    },
-    {
-      id: 3,
-      title: 'Antique Furniture Set',
-      description: 'Victorian-era mahogany dining set in excellent condition',
-      currentBid: 3200,
-      endDate: new Date(2025, 11, 1),
-      imageUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop'
-    },
-    {
-      id: 4,
-      title: 'Rare Book Collection',
-      description: 'First edition novels from renowned authors',
-      currentBid: 680,
-      endDate: new Date(2025, 10, 29),
-      imageUrl: 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400&h=300&fit=crop'
-    },
-    {
-      id: 5,
-      title: 'Classic Camera Equipment',
-      description: 'Professional photography gear from the golden age',
-      currentBid: 1450,
-      endDate: new Date(2025, 11, 2),
-      imageUrl: 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&h=300&fit=crop'
-    },
-    {
-      id: 6,
-      title: 'Designer Handbag',
-      description: 'Limited edition luxury handbag with authenticity certificate',
-      currentBid: 2100,
-      endDate: new Date(2025, 10, 27),
-      imageUrl: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&h=300&fit=crop'
-    }
-  ]);
-}
+  private readonly auctionsService = inject(AuctionsService);
+  private readonly platformId = inject(PLATFORM_ID);
 
+  // Pagination state
+  first = signal<number>(0);
+  rows = signal<number>(20);
+  pageIndex = signal<number>(1);
+  totalRecords = signal<number>(0);
+  isLoading = signal<boolean>(false);
+  error = signal<string | null>(null);
+
+  breadcrumbItems = signal<BreadcrumbItem[]>([
+    { label: 'الصفحة الرئيسية', route: ['/'], translationKey: 'nav.home' },
+    { label: 'مزادات العقارات' },
+  ]);
+
+  async ngOnInit(): Promise<void> {
+    await this.getAuctions();
+  }
+
+  async getAuctions(): Promise<void> {
+    this.isLoading.set(true);
+
+    try {
+      const result = await firstValueFrom(
+        this.auctionsService.getAuctions(this.pageIndex(), this.rows())
+      );
+
+      if (result.isSuccess && result.data) {
+        this.auctions.set(result.data.items);
+        this.totalRecords.set(result.data.totalCount);
+        this.first.set((result.data.pageIndex - 1) * result.data.pageSize);
+      } else {
+        this.error.set(result.errorMessage || 'Failed to load auctions');
+        this.auctions.set([]);
+      }
+    } catch (error) {
+      console.error('Failed to load auctions:', error);
+      this.auctions.set([]);
+    } finally {
+      this.isLoading.set(false);
+    }
+  }
+
+  auctionsFilterData = signal<AuctionsFilterData[] | null>([
+    {
+      id: 'all-auctions',
+      title: 'جميع المزادات',
+      icon: 'images/icons/bid-green-filled.svg',
+      numberOfItems: 50,
+    },
+    {
+      id: 'residential-auctions',
+      title: 'السكنية',
+      icon: 'images/icons/residential.svg',
+      numberOfItems: 50,
+    },
+    {
+      id: 'agricultural-auctions',
+      title: 'الزراعية',
+      icon: 'images/icons/agricultural.svg',
+      numberOfItems: 50,
+    },
+    {
+      id: 'commercial-auctions',
+      title: 'التجارية',
+      icon: 'images/icons/commercial.svg',
+      numberOfItems: 50,
+    },
+    {
+      id: 'industrial-auctions',
+      title: 'الصناعية',
+      icon: 'images/icons/industrial.svg',
+      numberOfItems: 50,
+    },
+  ]);
+
+  // All auctions data
+  auctions = signal<Auction[]>([]);
+
+  onFilterChange(item: AuctionsFilterData): void {
+    console.log('Filter changed:', item);
+  }
+
+  onAuctionClick(auction: Auction): void {
+    console.log('Auction clicked:', auction);
+    // Navigate to auction details page
+    // this.router.navigate(['/auctions', auction.auctionId]);
+  }
+
+  onFavoriteClick(auction: Auction): void {
+    console.log('Favorite clicked:', auction);
+  }
+
+  async onPageChange(event: PageState): Promise<void> {
+    // Update pagination state
+    this.pageIndex.set(event.page + 1); // API uses 1-based indexing
+    this.first.set(event.first);
+    this.rows.set(event.rows);
+
+    // Fetch new page data
+    await this.getAuctions();
+
+    // Scroll to top of auction list (only in browser)
+    if (isPlatformBrowser(this.platformId)) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+}

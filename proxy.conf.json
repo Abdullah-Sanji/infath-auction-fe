@@ -1,0 +1,9 @@
+{
+  "/v1/*": {
+    "target": "http://8.213.27.37",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
+

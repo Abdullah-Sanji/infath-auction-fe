@@ -1,9 +1,10 @@
-import { Component, inject, signal, computed, HostListener } from '@angular/core';
+import { Component, inject, signal, computed, HostListener, PLATFORM_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { LanguageService } from '../../../core/services/language.service';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 interface MenuSubItem {
   label: string;
@@ -23,62 +24,104 @@ interface MenuItem {
   selector: 'app-header',
   imports: [RouterLink, TranslocoPipe],
   templateUrl: './header.html',
-  styleUrl: './header.scss'
+  styleUrl: './header.scss',
 })
 export class Header {
   protected authService = inject(AuthService);
   protected languageService = inject(LanguageService);
   protected router = inject(Router);
+  private platformId = inject(PLATFORM_ID);
+  private isBrowser = isPlatformBrowser(this.platformId);
+
   protected walletBalance = signal<number>(10000);
   protected readonly isAuthenticated = this.authService.isAuthenticated;
   protected readonly userProfile = this.authService.userProfile;
   protected openDropdown = signal<string | null>(null);
 
+  // Scroll detection signals
+  private lastScrollY = signal<number>(0);
+  protected isHeaderVisible = signal<boolean>(true);
+
   protected readonly menuItems = computed<MenuItem[]>(() => {
     const isAuth = this.isAuthenticated();
     const items: MenuItem[] = [
+      // LOGGED IN USER ITEMS
       {
         label: 'nav.home',
         route: ['/'],
         ariaLabel: 'nav.home',
-        showWhenAuthenticated: true, // Always show
+        showWhenAuthenticated: true,
         children: [
           {
             label: 'nav.homeSubItem1',
             route: ['/home/subitem1'],
-            ariaLabel: 'nav.homeSubItem1'
+            ariaLabel: 'nav.homeSubItem1',
           },
           {
             label: 'nav.homeSubItem2',
             route: ['/home/subitem2'],
-            ariaLabel: 'nav.homeSubItem2'
-          }
-        ]
+            ariaLabel: 'nav.homeSubItem2',
+          },
+        ],
       },
       {
         label: 'nav.myAuctions',
         route: ['/auctions'],
         ariaLabel: 'nav.myAuctions',
-        showWhenAuthenticated: false // Show when NOT authenticated
+        showWhenAuthenticated: true,
       },
       {
         label: 'nav.myChats',
         route: ['/chats'],
         ariaLabel: 'nav.myChats',
-        showWhenAuthenticated: false // Show when NOT authenticated
+        showWhenAuthenticated: true,
       },
       {
         label: 'nav.myOrders',
         route: ['/orders'],
         ariaLabel: 'nav.myOrders',
-        showWhenAuthenticated: false // Show when NOT authenticated
-      }
+        showWhenAuthenticated: true,
+      },
+      // PUBLIC USER ITEMS
+      {
+        label: 'nav.browseAuctions',
+        route: ['/'],
+        ariaLabel: 'nav.browseAuctions',
+        showWhenAuthenticated: false,
+        children: [
+          {
+            label: 'nav.homeSubItem1',
+            route: ['/home/subitem1'],
+            ariaLabel: 'nav.homeSubItem1',
+          },
+          {
+            label: 'nav.homeSubItem2',
+            route: ['/home/subitem2'],
+            ariaLabel: 'nav.homeSubItem2',
+          },
+        ],
+      },
+      {
+        label: 'nav.auctionsCompanies',
+        route: ['/'],
+        ariaLabel: 'nav.auctionsCompanies',
+        showWhenAuthenticated: false,
+        children: [
+          {
+            label: 'nav.homeSubItem1',
+            route: ['/home/subitem1'],
+            ariaLabel: 'nav.homeSubItem1',
+          },
+          {
+            label: 'nav.homeSubItem2',
+            route: ['/home/subitem2'],
+            ariaLabel: 'nav.homeSubItem2',
+          },
+        ],
+      },
     ];
-
-    return items.filter(item => {
-      // Home always shows (showWhenAuthenticated: true)
-      // Other items show when NOT authenticated (showWhenAuthenticated: false)
-      return item.showWhenAuthenticated || !isAuth;
+    return items.filter((item) => {
+      return isAuth ? item.showWhenAuthenticated : !item.showWhenAuthenticated;
     });
   });
 
@@ -155,5 +198,30 @@ export class Header {
       this.closeDropdown();
     }
   }
-}
 
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    if (!this.isBrowser) return;
+
+    const currentScrollY = window.scrollY;
+    const lastScroll = this.lastScrollY();
+
+    // Show header when at top of page
+    if (currentScrollY <= 0) {
+      this.isHeaderVisible.set(true);
+      this.lastScrollY.set(currentScrollY);
+      return;
+    }
+
+    // Hide header when scrolling down, show when scrolling up
+    if (currentScrollY > lastScroll && currentScrollY > 100) {
+      // Scrolling down and past 100px
+      this.isHeaderVisible.set(false);
+    } else if (currentScrollY < lastScroll) {
+      // Scrolling up
+      this.isHeaderVisible.set(true);
+    }
+
+    this.lastScrollY.set(currentScrollY);
+  }
+}
